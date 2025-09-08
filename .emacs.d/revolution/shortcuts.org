@@ -1,0 +1,39 @@
+## Last update Thu Jun  5 21:34:26 2025 @author Glider
+# ======================================================================
+# @license Copyright 2016-2025 Pierre Schebath
+# ---------------------
+# 
+# @brief This file has been written by Pierre Etienne Charles Schebath Cazoulat.
+# 
+# This source code, its related data and algorithms are Pierre Schebath
+# Proprietary Information and shall be protected in strict confidence by
+# the party who receives it.  It shall not be disclosed nor copied nor
+# duplicated in whole or in part to any third party without Pierre Schebath
+# written prior permission.
+# ======================================================================
+# shortcuts.org for revolution in ~/.emacs.d/revolution/
+# @description: shortcuts
+# 
+# Started on  Wed Jun  4 11:17:30 2025 @author Glider
+# Last update Wed Jun  4 11:17:30 2025 @author Glider
+# ======================================================================
+#+END_COMMENT
+
+#+NAME: Shortcuts
+#+BEGIN_SRC emacs-lisp
+
+  (global-unset-key (kbd "C-_"))
+  (global-unset-key (kbd "C-x u"))
+  (global-set-key [(control z)] 'undo)
+
+  ;;******     Insert an header      ******;;
+  (global-set-key (kbd "C-c h") 'std-file-header)
+
+  ;;******  Affiche le mode majeur   ******;;
+  (global-set-key (kbd "C-c m") 'show-major-mode)
+
+  ;;******  Affiche dans la fenetre principale les flux RSS   ******;;
+  (global-set-key (kbd "C-c n") #'my/open-elfeed-fullscreen)
+  (global-set-key (kbd "C-c w") 'elfeed)
+
+#+END_SRC

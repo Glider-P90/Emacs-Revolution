@@ -1,0 +1,66 @@
+#+BEGIN_COMMENT
+# ======================================================================
+# @license Copyright 2016-2025 Pierre Schebath
+# ---------------------
+# 
+# @brief This file has been written by Pierre Etienne Charles Schebath Cazoulat.
+# 
+# This source code, its related data and algorithms are Pierre Schebath
+# Proprietary Information and shall be protected in strict confidence by
+# the party who receives it.  It shall not be disclosed nor copied nor
+# duplicated in whole or in part to any third party without Pierre Schebath
+# written prior permission.
+# ======================================================================
+# globals.org for revolution in ~/.emacs.d/revolution/
+# @description: major mode manager
+# 
+# Started on  Wed Jun  4 23:45:47 2025 @author Glider
+# Last update Wed Jun  4 23:49:24 2025 @author Glider
+# ======================================================================
+#+END_COMMENT
+
+#+NAME: std_modes_alist()
+#+BEGIN_SRC emacs-lisp
+(defvar std-modes-alist
+  '(("c-mode"                (begin . "/**") (mid . " * ") (end . "**/"))
+    ("c++-mode"              (begin . "/**") (mid . " * ") (end . " */"))
+    ("css-mode"              (begin . "/**") (mid . " * ") (end . " */"))
+    ("scss-mode"             (begin . "/**") (mid . " * ") (end . " */"))
+    ("text-mode"             (begin . "/**") (mid . " * ") (end . " */"))
+    ("javascript-mode"       (begin . "/**") (mid . " * ") (end . " */"))
+    ("java-mode"             (begin . "/**") (mid . " * ") (end . "**/"))
+    ("js-mode"               (begin . "/**") (mid . " * ") (end . "**/"))
+    ("js2-mode"              (begin . "/**") (mid . " * ") (end . "**/"))
+    ("js3-mode"              (begin . "/**") (mid . " * ") (end . "**/"))
+    ("typescript-mode"       (begin . "/**") (mid . " * ") (end . " */"))
+    ("go-mode"               (begin . "/*")  (mid . " * ") (end . " */"))
+    ("scala-mode"            (begin . "/*")  (mid . " * ") (end . " */"))
+    ("kotlin-mode"           (begin . "/*")  (mid . " * ") (end . " */"))
+    ("swift-mode"            (begin . "/*")  (mid . " * ") (end . " */"))
+    ("csharp-mode"           (begin . "/*")  (mid . " * ") (end . " */"))
+    ("rust-mode"             (begin . "///") (mid . "/// ") (end . "///"))
+    ("json-mode"             (begin . "//")  (mid . "// ") (end . "//"))
+    ("mhtml-mode"            (begin . "<!--") (mid . "## ") (end . "-->"))
+    ("xml-mode"              (begin . "<!--") (mid . "## ") (end . "-->"))
+    ("sgml-mode"             (begin . "<!--") (mid . "## ") (end . "-->"))
+    ("web-mode"              (begin . "<!--") (mid . "## ") (end . "-->"))
+    ("html-mode"             (begin . "<!--") (mid . "## ") (end . "-->"))
+    ("vue-mode"              (begin . "<!--") (mid . "## ") (end . "-->"))
+    ("php-mode"              (begin . "<?php\n/**") (mid . " ** ") (end . " */\n?>"))
+    ("emacs-lisp-mode"       (begin . ";;; package --- Summary\n;;; Commentary:") (mid . ";; ") (end . ";;; Code:"))
+    ("lisp-mode"             (begin . ";;; package --- Summary\n;;; Commentary:") (mid . ";; ") (end . ";;; Code:"))
+    ("clojure-mode"          (begin . ";;")  (mid . ";; ") (end . ";;"))
+    ("python-mode"           (begin . "##*") (mid . "## ") (end . "##"))
+    ("makefile-gmake-mode"   (begin . "##*") (mid . "## ") (end . "## "))
+    ("yaml-mode"             (begin . "##") (mid . "## ") (end . "##"))
+    ("dockerfile-mode"       (begin . "##") (mid . "## ") (end . "##"))
+    ("r-mode"                (begin . "##") (mid . "## ") (end . "##"))
+    ("sh-mode"               (begin . "#!/bin/bash") (mid . "## ") (end . "## "))
+    ("perl-mode"             (begin . "#!/usr/local/bin/perl -w") (mid . "## ") (end . "##"))
+    ("ruby-mode"             (begin . "=begin") (mid . "## ") (end . "=end"))
+    ("powershell-mode"       (begin . "<#") (mid . "## ") (end . "#>"))
+    ("latex-mode"            (begin . "%%") (mid . "%% ") (end . "%%"))
+    ("org-mode"              (begin . "#+BEGIN_COMMENT") (mid . "## ") (end . "#+END_COMMENT"))))
+#+END_SRC
+
+#+CALL: std_modes_alist()

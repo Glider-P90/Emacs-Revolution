@@ -1,0 +1,138 @@
+#+TITLE: Cookingpot
+#+AUTHOR: Pierre Etienne Charles Cazoulat Schebath akka Glider
+#+TODO: TODO IN-PROGRESS WAITING ANOMALY | DONE CANCELLED FIXED
+
+* Project Cookingpot
+
+** Présentation
+
+Cookingpot est une plateforme innovante conçue pour simplifier la mise en place
+rapide d’un environnement de développement web, adaptée aussi bien aux développeurs
+expérimentés qu’aux débutants. Pensée pour offrir un maximum de liberté,
+
+Cookingpot s'appuie sur un backend développé en PHP, sans dépendance à un système
+de gestion de contenu classique. Contrairement aux solutions populaire,
+Cookingpot ne repose sur aucun moteur préexistant, mais une compilation modulaire
+de fichiers aux formats pHTML et php.
+
+Pour les développeurs, Cookingpot génère une arborescence claire et intuitive,
+accompagnée d’une API REST ultralégère, favorisant une intégration rapide et efficace.
+Côté utilisateur, une interface graphique ergonomique permet de concevoir et
+de gérer son site avec fluidité, sans connaissances techniques poussées.
+
+Enfin, Cookingpot intègre une bibliothèque de composants modulaires
+que nous appelons widgets paramétrables, véritable boîte à outils
+pour construire des pages dynamiques, personnalisables et évolutives.
+
+
+** Information
+
+*** Requis
+
+- Système d’exploitation : Linux
+- Environnement serveur : PHP
+
+
+*** Structure
+
+| /project/        | Racine du projet, identifiée par son nom propre. |
+|                  |                                                  |
+| /project/wwww/   | Contient une arborescence classique              |
+|                  | pour js, css, fonts et img.                      |
+|                  |                                                  |
+| /www/index.php   | Le fichier index.php constitue le point          |
+|                  | d'entrée principal du projet.                    |
+|                  |                                                  |
+| /www/page.phtml  | Conteneur principal à partir duquel toutes       |
+|                  | les pages du site sont exécutées,                |
+|                  | à la manière d’un index.php                      |
+|                  |                                                  |
+| /www/compiled/   | répertoire dédié aux pages générées et           |
+|                  | optimisées par Cookingpot.                       |
+|                  |                                                  |
+| /www/.htaccess   | fichier utilisé pour sécuriser l'accès aux       |
+|                  | ressources du projet.                            |
+|                  |                                                  |
+| /www/.cookingpot | fichier de configuration contenant               |
+|                  | les paramètres de création du site.              |
+|                  |                                                  |
+| /php/pages/      | Espace dédié au développeur.                     |
+|                  |                                                  |
+| /php/handlers/   | Contient l'API REST de Cookingpot.               |
+|                  |                                                  |
+| /php/status/     | répertoire dédié aux pages d’erreur par défaut   |
+|                  | (codes 404, 200, 300, etc.).                     |
+|                  |                                                  |
+| /php/vendor/     | répertoire destiné aux développeurs souhaitant   |
+|                  | intégrer des dépendances via Composer.           |
+|                  |                                                  |
+| /bin/            | répertoire réservé aux scripts,                  |
+|                  | permettant d’interfacer divers systèmes          |
+|                  | externes avec le site web.                       |
+|                  |                                                  |
+| /log/            | répertoire contenant les journaux (logs)         |
+|                  | du système, permettant de suivre et d’analyser   |
+|                  | les événements et erreurs du site.               |
+|                  | Un mode verbose de 0 à 3.                        |
+|                  | 0: Information           (Dev: INF)              |
+|                  | 1: Warning               (Dev: WAR)              |
+|                  | 2: Erreur non bloquante  (Dev: ENB)              |
+|                  | 3: Erreur Critique       (Dev: ECK)              |
+|                  |                                                  |
+
+
+* Objectif
+
+- Version 1.0:
+  + TODO Refonte:
+    - IN-PROGRESS faire UML pour decrire le fonctionnement de cookingpot de la V1.0.
+    - TODO Page de creation d'un siteweb.
+      * TODO Gros Titre Cookingpot.
+      * TODO Preambule (Bienvenue, concept, etape a suivre, warning).
+      * TODO un label "Nom de votre siteweb" + button "Ceer".
+    - IN-PROGRESS Finir la refonte du code.
+  + TODO Gestionnaire de logs
+    - TODO Reprendre tous les fichiers et remplacer syslog et class Debug en une seule fonctione global qui enregistre le log est fait exit si une erreur critique.
+    - DONE Recuperation des logs et affichage.
+    - DONE refonte de l'arborescence et des DEFINE.
+    - IN-PROGRESS [LOG] Filtrer et organiser l'ordre d'affichage.
+    - TODO [LOG] retirer les couleurs du fichier css et ajouter une coloration par javascript.
+    - ANOMALY [LOG] le panneau disparait tout de suite hors du survol, le faire tenir 1,5 sec.
+  + TODO Gestionnaire de Widgets
+    1) IN-PROGRESS Refonte de l'import/export des widgets contenue dans chaque page.
+    2) TODO Affichage de la bibliotheque de widget sous le nom 'Ajouter'.
+       - TODO click sur un widget:
+         + TODO un panneau de controle doit afficher:
+         + TODO La Description du widget.
+         + TODO Un formulaire pour renseigner les parametre requis ou optionnel.
+         + TODO Un bouton Annuler & Valider.
+       - TODO L'envoie du formulaire sous forme de requete.
+       - TODO Reception de la requete et integration du widget.
+    3) TODO Affichage des widgets utilisees sous le nom 'Installé'.
+       - TODO click sur widget.
+         + TODO click sur widget affiche le formulaire preremplis
+         + TODO La Description du widget.
+         + TODO Un bouton Annuler, Supprimer & Valider.
+       - TODO L'envoie du formulaire sous forme de requete.
+       - TODO Reception de la requete et modification du widget ou supression.
+  + TODO Gestionnaire de l'entete head
+    - un champ et un bouton valider pour chaque possibilite de balise.
+  + TODO Gestionnaire Git
+    
+    - TODO Affiche un panneau contenant:
+      1. un champ de texte suivis d'un bouton (commit + push).
+      2. deux colonnes,la liste des branches et leurs commit.
+      3. un bouton pour checkout branche/commit, desactive tant qu'aucune selection n'est faite
+- Version 2.0
+  + TODO Compte Utilisateur:
+    - Page de Login.
+    - BDD MySQL.
+    - Dashboard Utilisateur:
+      * Si aucun siteweb reprendre la page d'acceuil de la version 1.0
+      * Si un ou plusieurs siteweb, les afficher en mode slider 3D en page centrale.
+      * une colone a gauche liste les siteweb en dessous s'affiche la liste
+        des widgets utilisees pour le site selectionne (le premier par defaut).
+      * une colone a droite indiquant l'abonnement et les messages de lugtech envers l'utilisateur.
+- Version 3.0
+
+

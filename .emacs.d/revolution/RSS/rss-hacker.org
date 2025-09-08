@@ -1,0 +1,257 @@
+
+
+* Actualités Tech
+
+
+  :FEEDSTATUS:
+(("https://www.journalduhacker.net/s/vj0cnp" t "9ffc0352d5b3d89aaed50423ebddc062de779425")
+ ("https://www.journalduhacker.net/s/gbtfi1" t "317171c9eb007603cd92cc6cba886669dbd35708")
+ ("https://www.journalduhacker.net/s/uxwp2n" t "06af5d2dd9198ca1623c23e2a7cf0d84443afcd1")
+ ("https://www.journalduhacker.net/s/v5jh2j" t "4007a8d3d35cec3e23314d10a571fb048b626d5c")
+ ("https://www.journalduhacker.net/s/yfxklv" t "304f6683f153abecfae47ff26ac88eae13f88253")
+ ("https://www.journalduhacker.net/s/mnin2u" t "732b5e2dbf359206252dcd480f463ca044e0cbe2")
+ ("https://www.journalduhacker.net/s/fkwwav" t "9f077efae725b3dd379579680dca0f1e00547b86")
+ ("https://www.journalduhacker.net/s/leuz3a" t "86f85af26147669fee6f16dfd9e4a31c74214314")
+ ("https://www.journalduhacker.net/s/8ppxjl" t "e949b50606df15947bd275f1193c3b1186f60539")
+ ("https://www.journalduhacker.net/s/guqqrv" t "cebbc94fe293d748f9b21d78018dfd40293294ad")
+ ("https://www.journalduhacker.net/s/t4jmst" t "6ac09ad94555d0ed21cfc93ccf721024c62beec2")
+ ("https://www.journalduhacker.net/s/2lelbb" t "cba1c66cf500781028fd95b9f4494ba1cadcc366")
+ ("https://www.journalduhacker.net/s/s5kukj" t "9aeaa545b076bf0e2263f556c926496b089d5be4")
+ ("https://www.journalduhacker.net/s/wqpwbd" t "9a72cf1c7000075527f458e1f6489c949db0a75e")
+ ("https://www.journalduhacker.net/s/skcuok" t "71fe1151e260872a8b3a5d9394efd7c77089a65d")
+ ("https://www.journalduhacker.net/s/wicuff" t "70de4ea7e2159060e8d0c8d71fce42e86f454d57")
+ ("https://www.journalduhacker.net/s/fraxao" t "26bf9b1dcecfd0c8a6d0b8992016be86c08de7a3")
+ ("https://www.journalduhacker.net/s/miz5yj" t "4e0af60622ec1a15ee9c4dbe953d61a267fd997f")
+ ("https://www.journalduhacker.net/s/fb2ryv" t "5dcd57db29fe188363b497589d68789a1c08f5cc")
+ ("https://www.journalduhacker.net/s/go0rut" t "0949b2f9251a8303b500a36d315f90b503821a50")
+ ("https://www.journalduhacker.net/s/yht65g" t "4be9997f8678b20fb51399b3d0e0424466b2ccdc")
+ ("https://www.journalduhacker.net/s/0i2uym" t "438be839ec101ed5ffb52b956c8428a793518437")
+ ("https://www.journalduhacker.net/s/varvyd" t "0476f6762a09e6639c54567a3f3ee405fe4115ce")
+ ("https://www.journalduhacker.net/s/hxl7m3" t "cadc5e3d97d036c781d639e3d763dba363c48708")
+ ("https://www.journalduhacker.net/s/wqobng" t "ac727d591ed18e63c1509b2ce20c3dbae9d499ef"))
+  :END:
+** Projets Libres! - Gouvernance du libre dans les projets et les entreprises
+  [2025-05-20 Tue 22:12]
+  
+          
+            <p><a href="https://www.journalduhacker.net/s/wqobng/projets_libres_gouvernance_du_libre_dans">Comments</a></p>
+        
+  [[https://www.projets-libres.org/gouvernance-libre-projets-organisations/]]
+
+
+** Minimum vital pour survivre sur un sujet Kubernetes
+  [2025-05-21 Wed 08:15]
+  
+          
+            <p><a href="https://www.journalduhacker.net/s/hxl7m3/minimum_vital_pour_survivre_sur_un_sujet">Comments</a></p>
+        
+  [[https://www.teotimepacreau.fr/blog/minimum-vital-pour-survivre-kubernetes/]]
+
+
+** Installation Centreon sous Debian 12
+  [2025-05-21 Wed 13:37]
+  
+          
+            <p><a href="https://www.journalduhacker.net/s/varvyd/installation_centreon_sous_debian_12">Comments</a></p>
+        
+  [[https://www.aukfood.fr/installer-un-serveur-centreon-24-10-sous-debian12/]]
+
+
+** De l’alerte au ticket sans lever le petit doigt
+  [2025-05-21 Wed 13:35]
+  
+          
+            <p><a href="https://www.journalduhacker.net/s/0i2uym/de_l_alerte_au_ticket_sans_lever_le_petit">Comments</a></p>
+        
+  [[https://www.aukfood.fr/de-alerte-au-ticket-sans-lever-le-petit-doigt/]]
+
+
+** Ubuntu 24 desktop : intégration avec un AD (ou LDAP)
+  [2025-05-21 Wed 18:55]
+  
+          
+            <p><a href="https://www.journalduhacker.net/s/yht65g/ubuntu_24_desktop_int_gration_avec_un_ad_ou">Comments</a></p>
+        
+  [[https://www.fredix.xyz/2025/05/ubuntu-ad/]]
+
+
+** Ma configuration Tmux: raccourcis clavier et gestion des sessions
+  [2025-05-21 Wed 22:20]
+  
+          
+            <p><a href="https://www.journalduhacker.net/s/go0rut/ma_configuration_tmux_raccourcis">Comments</a></p>
+        
+  [[https://xieme-art.org/post/ma-configuration-tmux-raccourcis-clavier-et-gestion-des-sessions/]]
+
+
+** Lumière sur l’April
+  [2025-05-21 Wed 22:45]
+  
+          
+            <p><a href="https://www.journalduhacker.net/s/fb2ryv/lumi_re_sur_l_april">Comments</a></p>
+        
+  [[https://www.gaminglinux.fr/lumiere-sur-lapril/]]
+
+
+** o3 d'OpenAI découvre une vulnérabilité zero-day dans Linux (et c'est une première mondiale)
+  [2025-05-23 Fri 15:55]
+  
+          
+            <p><a href="https://www.journalduhacker.net/s/miz5yj/o3_dopenai_d_couvre_une_vuln_rabilit_zero">Comments</a></p>
+        
+  [[https://korben.info/ia-o3-vulnerabilite-zero-day-linux-premiere.html]]
+
+
+** En cas d'abus, brisez la glace
+  [2025-05-23 Fri 20:09]
+  
+          
+            <p><a href="https://www.journalduhacker.net/s/fraxao/en_cas_dabus_brisez_la_glace">Comments</a></p>
+        
+  [[https://www.bortzmeyer.org/abus-support-aws.html]]
+
+
+** L'actu de la semaine (23/05/2025)
+  [2025-05-24 Sat 05:51]
+  
+          
+            <p><a href="https://www.journalduhacker.net/s/wicuff/lactu_de_la_semaine_23_05_2025">Comments</a></p>
+        
+  [[https://www.camilleroux.com/lactu-de-la-semaine-23-05-2025/]]
+
+
+** Packageless, la distribution sans paquets
+  [2025-05-26 Mon 15:15]
+  
+          <p>Livrer des paquets est une étape incontournable de l’informatique moderne.
+Attention, pas de faute de goût, il faut bien choisir le bon genre de paquets à la bonne situation. Un peu comme un Qwertee.</p>
+            <p><a href="https://www.journalduhacker.net/s/skcuok/packageless_la_distribution_sans">Comments</a></p>
+        
+  [[https://blog.garambrogne.net/packageless.html]]
+
+
+** Amenons PeerTube dans nos poches !
+  [2025-05-27 Tue 12:15]
+  
+          
+            <p><a href="https://www.journalduhacker.net/s/wqpwbd/amenons_peertube_dans_nos_poches">Comments</a></p>
+        
+  [[https://joinpeertube.org/news/crowdfunding-app-launch]]
+
+
+** Alma Linux 10 est là, avec plein de nouveautés
+  [2025-05-27 Tue 21:36]
+  
+          
+            <p><a href="https://www.journalduhacker.net/s/s5kukj/alma_linux_10_est_l_avec_plein_de_nouveaut_s">Comments</a></p>
+        
+  [[https://www.linuxtricks.fr/news/10-logiciels-libres/567-alma-linux-10-est-la-avec-plein-de-nouveautes/]]
+
+
+** Proxmox Backup Server : Stockage ZFS
+  [2025-05-28 Wed 12:00]
+  
+          
+            <p><a href="https://www.journalduhacker.net/s/2lelbb/proxmox_backup_server_stockage_zfs">Comments</a></p>
+        
+  [[https://memo-linux.com/proxmox-backup-server-stockage-zfs/]]
+
+
+** Luanti, l’alternative libre à Minecraft
+  [2025-05-28 Wed 20:27]
+  
+          
+            <p><a href="https://www.journalduhacker.net/s/t4jmst/luanti_l_alternative_libre_minecraft">Comments</a></p>
+        
+  [[https://www.gaminglinux.fr/luanti-lalternative-libre-a-minecraft/]]
+
+
+** Les joies (ou pas) de l'auto-hébergement
+  [2025-05-29 Thu 06:37]
+  
+          
+            <p><a href="https://www.journalduhacker.net/s/guqqrv/les_joies_ou_pas_de_lauto_h_bergement">Comments</a></p>
+        
+  [[https://hostux.network/2025/04/08/les-joies-ou-pas-de-lauto-hebergement/]]
+
+
+** Montage Pironman 5 avec Raspberry Pi 5 et NVME
+  [2025-05-29 Thu 14:37]
+  
+          
+            <p><a href="https://www.journalduhacker.net/s/8ppxjl/montage_pironman_5_avec_raspberry_pi_5_et">Comments</a></p>
+        
+  [[https://www.aukfood.fr/pironman-5-raspberry-pi-mini-pc/]]
+
+
+** L'actu de la semaine (30/05/2025)
+  [2025-05-30 Fri 10:08]
+  
+          
+            <p><a href="https://www.journalduhacker.net/s/leuz3a/lactu_de_la_semaine_30_05_2025">Comments</a></p>
+        
+  [[https://www.camilleroux.com/lactu-de-la-semaine-30-05-2025/]]
+
+
+** Dagu - L'orchestrateur de workflows qui va faire oublier vos crontabs pourries
+  [2025-06-01 Sun 06:32]
+  
+          
+            <p><a href="https://www.journalduhacker.net/s/fkwwav/dagu_lorchestrateur_de_workflows_qui_va">Comments</a></p>
+        
+  [[https://korben.info/dagu-workflow-orchestrator-cron-alternative.html]]
+
+
+** Google lance discrètement une appli pour utiliser l’IA en local sur mobile
+  [2025-06-02 Mon 01:08]
+  
+          
+            <p><a href="https://www.journalduhacker.net/s/mnin2u/google_lance_discr_tement_une_appli_pour">Comments</a></p>
+        
+  [[https://ai-explorer.io/google-lance-appli-utiliser-ia-local-mobile/]]
+
+
+** OpenRE devlog 2 : Harmonisation de la profondeur
+  [2025-06-02 Mon 06:36]
+  
+          
+            <p><a href="https://www.journalduhacker.net/s/yfxklv/openre_devlog_2_harmonisation_de_la">Comments</a></p>
+        
+  [[https://j-ponzo.github.io/projects/open_re_poc_devlog_2/]]
+
+
+** Le protocole TLS expliqué simplement : Sécuriser vos connexions internet
+  [2025-06-02 Mon 13:48]
+  
+          
+            <p><a href="https://www.journalduhacker.net/s/v5jh2j/le_protocole_tls_expliqu_simplement_s">Comments</a></p>
+        
+  [[https://blog.idriss-code.fr/le-protocole-tls-explique-simplement-securiser-vos-connexions-internet/]]
+
+
+** L’IA façonne notre avenir : bilan et tendances 2025
+  [2025-06-02 Mon 11:37]
+  
+          
+            <p><a href="https://www.journalduhacker.net/s/uxwp2n/l_ia_fa_onne_notre_avenir_bilan_et">Comments</a></p>
+        
+  [[https://ai-explorer.io/lia-faconne-notre-avenir-bilan-et-tendances-2025-le-journal-de-la-voix-du-futur-2/]]
+
+
+** IPDEX, ou comment devenir Sherlock Holmes de la cybermenace
+  [2025-06-02 Mon 11:32]
+  
+          
+            <p><a href="https://www.journalduhacker.net/s/gbtfi1/ipdex_ou_comment_devenir_sherlock_holmes">Comments</a></p>
+        
+  [[https://www.aukfood.fr/ipdex-ou-comment-devenir-sherlock-holmes-de-la-cybermenace/]]
+
+
+** Ne jetez pas vos "vieux" ordinateurs sous Windows 10
+  [2025-06-02 Mon 22:22]
+  
+          <p>October is coming !</p>
+            <p><a href="https://www.journalduhacker.net/s/vj0cnp/ne_jetez_pas_vos_vieux_ordinateurs_sous">Comments</a></p>
+        
+  [[https://restez-curieux.ovh/2025/06/02/ne-jetez-pas-vos-vieux-ordinateurs-sous-windows-10/]]
+

@@ -1,0 +1,48 @@
+#+BEGIN_COMMENT
+# ======================================================================
+# @license Copyright 2016-2025 Pierre Schebath
+# ---------------------
+# 
+# @brief This file has been written by Pierre Etienne Charles Schebath Cazoulat.
+# 
+# This source code, its related data and algorithms are Pierre Schebath
+# Proprietary Information and shall be protected in strict confidence by
+# the party who receives it.  It shall not be disclosed nor copied nor
+# duplicated in whole or in part to any third party without Pierre Schebath
+# written prior permission.
+# ======================================================================
+# std_comment.org for revolution in /home/glider/.emacs.d/revolution/headers/
+# @description: header
+# 
+# Started on  Wed Jun  4 23:44:31 2025 @author Glider
+# Last update Wed Jun  4 23:44:40 2025 @author Glider
+# ======================================================================
+#+END_COMMENT
+
+#+NAME: std_comment()
+#+BEGIN_SRC emacs-lisp
+(defvar header-part        "======================================================================")
+(defvar header-copyright   "@license Copyright 2016-")
+(defvar header-made-by     "Pierre Schebath")
+(defvar header-separator   "---------------------")
+(defvar header-licence0    "@brief This file has been written by Pierre Etienne Charles Schebath Cazoulat.")
+(defvar header-licence1    "This source code, its related data and algorithms are Pierre Schebath")
+(defvar header-licence2    "Proprietary Information and shall be protected in strict confidence by")
+(defvar header-licence3    "the party who receives it.  It shall not be disclosed nor copied nor")
+(defvar header-licence4    "duplicated in whole or in part to any third party without Pierre Schebath")
+(defvar header-licence5    "written prior permission.")
+(defvar header-desc        "@description: ")
+(defvar header-login       "Login   ")
+(defvar header-login-beg   "<")
+(defvar header-login-mid   "@")
+(defvar header-login-end   ">")
+(defvar header-started     "Started on  ")
+(defvar header-last        "Last update ")
+(defvar header-for         " for ")
+(defvar header-in          " in ")
+(defvar domaine-name       "pierre.schebath@lilo.org")
+(defvar user-nickname      "@author Glider")
+(defvar header-comment     "")
+#+END_SRC
+
+#+CALL: std_comment()

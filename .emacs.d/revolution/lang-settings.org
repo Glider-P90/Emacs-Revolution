@@ -1,0 +1,83 @@
+#+BEGIN_COMMENT
+# ======================================================================
+# @license Copyright 2016-2025 Pierre Schebath
+# ---------------------
+# 
+# @brief This file has been written by Pierre Etienne Charles Schebath Cazoulat.
+# 
+# This source code, its related data and algorithms are Pierre Schebath
+# Proprietary Information and shall be protected in strict confidence by
+# the party who receives it.  It shall not be disclosed nor copied nor
+# duplicated in whole or in part to any third party without Pierre Schebath
+# written prior permission.
+# ======================================================================
+# lang-settings.org for revolution in ~/.emacs.d/revolution/
+# @description: choice the langage from major-mode to load specifics configuration
+# 
+# Started on  Wed Jun  4 11:35:28 2025 @author Glider
+## Last update Thu Jun  5 22:14:00 2025 @author Glider
+# ======================================================================
+#+END_COMMENT
+
+
+#+NAME: lang_settings()
+#+BEGIN_SRC emacs-lisp
+
+(add-to-list 'load-path "~/.emacs.d/revolution/lang-settings/")
+
+(defvar my-mode-associations
+  '(("\\.jsx?\\'"       . "web-mode")
+    ("\\.tsx?\\'"       . "web-mode")
+    ("\\.[agj]sp\\'"    . "web-mode")
+    ("\\.as[cp]x\\'"    . "web-mode")
+    ("\\.erb\\'"        . "web-mode")
+    ("\\.mustache\\'"   . "web-mode")
+    ("\\.djhtml\\'"     . "html-mode")
+    ("\\.html?\\'"      . "html-mode")
+    ("\\.phtml\\'"      . "html-mode")
+    ("\\.php\\'"        . "php-mode")
+    ("\\.js\\'"         . "js2-mode")
+    ("\\.json\\'"       . "js2-mode")
+    ("\\.yaml\\'"       . "yaml-mode")
+    ("\\.yml\\'"        . "yaml-mode")
+    ("\\.conf\\'"       . "conf-mode")
+    ("\\.cfg\\'"        . "conf-mode")
+    ("\\.env\\'"        . "conf-mode")
+    ("\\.gitignore\\'"  . "conf-mode")
+    ("\\.htaccess\\'"   . "conf-mode")
+    ("\\.c\\'"          . "c-mode")
+    ("\\.h\\'"          . "c-mode")
+    ("\\.cpp\\'"        . "c++-mode")
+    ("\\.cc\\'"         . "c++-mode")
+    ("\\.cxx\\'"        . "c++-mode")
+    ("\\.hpp\\'"        . "c++-mode")
+    ("\\.el\\'"         . "emacs-lisp-mode")
+    ("\\.lisp\\'"       . "emacs-lisp-mode")
+    ("\\.scm\\'"        . "scheme-mode")
+    ("\\.css\\'"        . "css-mode")
+    ("\\.org\\'"        . "org-mode")
+    ("\\.xml\\'"        . "xml-mode")))
+
+(defun my-register-auto-modes ()
+  "Ajoute les associations une seule fois à `auto-mode-alist`."
+  (dolist (entry my-mode-associations)
+    (let ((pattern (car entry))
+          (mode    (cdr entry)))
+      (add-to-list 'auto-mode-alist (cons pattern (intern mode))))))
+
+(defun my-load-lang-settings ()
+  "Charge dynamiquement le fichier de configuration associé à un mode si le pattern correspond."
+  (when buffer-file-name
+    (dolist (entry my-mode-associations)
+      (let ((pattern (car entry))
+            (mode    (cdr entry)))
+        (when (string-match pattern buffer-file-name)
+	  (unless (boundp 'lisp-mode-loaded)
+	    (load-file (concat "~/.emacs.d/revolution/lang-settings/" mode ".el"))))))))
+
+(my-register-auto-modes)
+(add-hook 'find-file-hook #'my-load-lang-settings)
+
+#+END_SRC
+
+#+CALL: lang_settings()
