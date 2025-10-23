@@ -16,18 +16,14 @@
 ;; @description: 
 ;; 
 ;; Started on  Tue Jun  3 03:46:37 2025 @author Glider
-;; Last update Tue Jun  3 03:57:48 2025 @author Glider
+;; Last update Thu Oct 23 23:13:40 2025 @author Glider
 ;; ======================================================================
 ;;; Code:
 
-;; Utilise use-package pour charger yaml-mode
-;;(use-package yaml-mode)
+(defvar user-home (getenv "HOME") "Chemin du répertoire home de l'utilisateur.")
+(defvar user-name (user-login-name) "Nom de l'utilisateur courant.")
 
-(require 'yaml-mode)
-(add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
-(add-hook 'yaml-mode-hook
-	  '(lambda ()
-             (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
+(load-file (concat user-home (concat user-name "yaml-mode/yaml-mode.el")))
 
 (provide 'yaml-mode)
 ;;; yaml-mode.el ends here
