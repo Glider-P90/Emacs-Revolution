@@ -17,7 +17,7 @@
 ;; @description: org-mode
 ;; 
 ;; Started on  Tue Jan 30 03:12:24 2024 @author Glider
-;; Last update Thu Oct 23 22:40:50 2025 @author Glider
+;; Last update Wed Oct 15 06:55:41 2025 @author Glider
 ;; ======================================================================
 ;;; Code:
 
@@ -58,38 +58,24 @@
 
 (global-set-key (kbd "C-c o") 'emacs-revolution-open-org-manual)
 
-(defvar mode-found nil
-  "The variable mode-found permet de signaler un changement de mode.")
-
-(defvar mode-src nil
-  "The variable mode-src permet de reprendre le mode d'origine.")
 
 (defun update-major-mode ()
-  "Set major mode according to the lang block above point."
-  (let ((begin-key "^#\\+BEGIN_SRC[ \t]+")
-        (end-key "^#\\+END_SRC")
-        mode)
-    (save-excursion
-      (catch 'found
-        (while (> (point) (point-min))
-          (forward-line -1)
-          (let ((line (thing-at-point 'line t)))
-            (cond
-             ((string-match begin-key line)
-              (setq mode (car (split-string (substring line (match-end 0)) "[ \t\n]+")))
-              (if (eq mode-found t)
-                  (message "already in %s" mode)
-                (progn
-                  (message "switching to %s" mode)
-		  (setq mode-src major-mode)
-                  (funcall (intern (concat mode "-mode")))
-                  (setq mode-found t)))
-              (throw 'found t))
-             ((string-match end-key line)
-              (message "outside block")
-              (funcall (intern (symbol-name mode-src)))
-              (setq mode-found nil)
-              (throw 'found nil)))))))))
+  "Set major mode according to the #+BEGIN_SRC block above point."
+  (save-excursion
+    (catch 'found
+      (while (> (point) (point-min))
+        (forward-line -1)
+        (cond
+         ((looking-at "^#\\+END_SRC")
+          (org-mode)
+          (message "Major mode reverted to org-mode")
+          (throw 'found nil))
+         ((looking-at "^#\\+BEGIN_SRC")
+          (let ((new_mode (string-trim (string-remove-prefix  " :lexical no" (string-remove-prefix "#+BEGIN_SRC " (thing-at-point 'line t))))))
+            (funcall (intern (concat new_mode "-mode")))
+            (message "Major mode found [%s]" new_mode))
+          (throw 'found t)))
+	))))
 
 (add-hook 'post-command-hook #'update-major-mode)
 

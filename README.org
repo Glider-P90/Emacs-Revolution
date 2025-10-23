@@ -6,13 +6,18 @@
 
 
 ** Objectif
-+ [ ] Langages compatibles:
++ [-] Langages compatibles:
   * [ ] c-mode
     1) [ ] auto-completion
     2) [ ] syntaxe
     3) [ ] documentation
     4) [ ] Compilation
   * [ ] c++-mode
+    1) [ ] auto-completion
+    2) [ ] syntaxe
+    3) [ ] documentation
+    4) [ ] Compilation
+  * [ ] glsl-mode
     1) [ ] auto-completion
     2) [ ] syntaxe
     3) [ ] documentation
@@ -132,14 +137,14 @@
     2) [ ] syntaxe
     3) [ ] documentation
     4) [ ] Compilation    
-  * [ ] emacs-lisp-mode
+  * [-] emacs-lisp-mode
     1) [ ] auto-completion
-    2) [ ] syntaxe
+    2) [X] syntaxe
     3) [ ] documentation
     4) [ ] Compilation    
-  * [ ] lisp-mode
+  * [-] lisp-mode
     1) [ ] auto-completion
-    2) [ ] syntaxe
+    2) [X] syntaxe
     3) [ ] documentation
     4) [ ] Compilation    
   * [ ] clojure-mode
@@ -197,13 +202,15 @@
     2) [ ] syntaxe
     3) [ ] documentation
     4) [ ] Compilation   
-  * [ ] org-mode
+  * [-] org-mode
     1) [ ] auto-completion
-    2) [ ] syntaxe
-    3) [ ] documentation
-    4) [ ] Compilation    
+    2) [X] syntaxe
+    3) [X] documentation
+    4) [X] Compilation    
 
-+ *Docsgen*, /Documentation de votre code/ :
++ [X] Switch mode on line.
+
++ [ ] *Docsgen*, /Documentation de votre code/ :
   * [ ] La documentation est générée de manière interactive ou
      à l’aide d’un raccourci clavier. Une fois créée,
      elle est automatiquement enregistrée sous le nom du projet,

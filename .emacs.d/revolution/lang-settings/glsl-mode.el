@@ -1,4 +1,9 @@
-;;
+;;; glsl-mode.el --- -*- lexical-binding: t; -*-
+;;; package --- Summary
+;;; Commentary:
+;;; FILE_NAME_EXT --- -*- lexical-binding: t; -*-
+;;; package --- Summary
+;;; Commentary:
 ;; ======================================================================
 ;; @license Copyright 2016-2025 Pierre Schebath
 ;; ---------------------
@@ -11,21 +16,16 @@
 ;; duplicated in whole or in part to any third party without Pierre Schebath
 ;; written prior permission.
 ;; ======================================================================
-;; init-revolution-mode.el for revolution in ~/.emacs.d/revolution/
-;; @description: init of revolution's project
+;; glsl-mode.el for revolution in ~/.emacs.d/revolution/lang-settings/
+;; @description: glsl config file.
 ;; 
-;; Started on  Wed Jun  4 11:18:08 2025 @author Glider
-;; Last update Fri Oct  3 09:53:51 2025 @author Glider
+;; Started on  Fri Oct  3 08:22:00 2025 @author Glider
+;; Last update Fri Oct  3 08:22:30 2025 @author Glider
 ;; ======================================================================
 ;;; Code:
 
-(message "Init Revolution mode...")
-(org-babel-load-file "~/.emacs.d/revolution/globals.org")
-(org-babel-load-file "~/.emacs.d/revolution/lib-revolution.org")
-(org-babel-load-file "~/.emacs.d/revolution/lang-settings.org")
-(org-babel-load-file "~/.emacs.d/revolution/elfeed-init.org")
-(org-babel-load-file "~/.emacs.d/revolution/shortcuts.org")
-(message "Revolution load \"%s\" done." major-mode)
+(use-package 'glsl-mode)
 
-(provide 'init-revolution-mode)
-;;; init-revolution-mode.el ends here
+
+(provide 'glsl-mode)
+;;; glsl-mode.el ends here

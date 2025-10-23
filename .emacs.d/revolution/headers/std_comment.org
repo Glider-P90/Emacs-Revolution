@@ -15,7 +15,7 @@
 # @description: header
 # 
 # Started on  Wed Jun  4 23:44:31 2025 @author Glider
-# Last update Wed Jun  4 23:44:40 2025 @author Glider
+## Last update Fri Oct  3 10:00:39 2025 @author Glider
 # ======================================================================
 #+END_COMMENT
 
@@ -44,5 +44,3 @@
 (defvar user-nickname      "@author Glider")
 (defvar header-comment     "")
 #+END_SRC
-
-#+CALL: std_comment()

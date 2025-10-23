@@ -15,12 +15,12 @@
 # @description: major mode manager
 # 
 # Started on  Wed Jun  4 23:45:47 2025 @author Glider
-# Last update Wed Jun  4 23:49:24 2025 @author Glider
+## Last update Wed Oct 15 08:07:41 2025 @author Glider
 # ======================================================================
 #+END_COMMENT
 
 #+NAME: std_modes_alist()
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :lexical t
 (defvar std-modes-alist
   '(("c-mode"                (begin . "/**") (mid . " * ") (end . "**/"))
     ("c++-mode"              (begin . "/**") (mid . " * ") (end . " */"))
@@ -47,8 +47,8 @@
     ("html-mode"             (begin . "<!--") (mid . "## ") (end . "-->"))
     ("vue-mode"              (begin . "<!--") (mid . "## ") (end . "-->"))
     ("php-mode"              (begin . "<?php\n/**") (mid . " ** ") (end . " */\n?>"))
-    ("emacs-lisp-mode"       (begin . ";;; package --- Summary\n;;; Commentary:") (mid . ";; ") (end . ";;; Code:"))
-    ("lisp-mode"             (begin . ";;; package --- Summary\n;;; Commentary:") (mid . ";; ") (end . ";;; Code:"))
+    ("emacs-lisp-mode"       (begin . ";;; FILE_NAME_EXT --- -*- lexical-binding: t; -*-\n;;; package --- Summary\n;;; Commentary:") (mid . ";; ") (end . ";;; Code:\n\n\n(provide 'FILE_NAME)\n;;; FILE_NAME_EXT ends here"))
+    ("lisp-mode"             (begin . ";;; FILE_NAME_EXT --- -*- lexical-binding: t; -*-\n;;; package --- Summary\n;;; Commentary:") (mid . ";; ") (end . ";;; Code:\n\n\n(provide 'FILE_NAME)\n;;; FILE_NAME_EXT ends here"))
     ("clojure-mode"          (begin . ";;")  (mid . ";; ") (end . ";;"))
     ("python-mode"           (begin . "##*") (mid . "## ") (end . "##"))
     ("makefile-gmake-mode"   (begin . "##*") (mid . "## ") (end . "## "))
@@ -62,5 +62,3 @@
     ("latex-mode"            (begin . "%%") (mid . "%% ") (end . "%%"))
     ("org-mode"              (begin . "#+BEGIN_COMMENT") (mid . "## ") (end . "#+END_COMMENT"))))
 #+END_SRC
-
-#+CALL: std_modes_alist()

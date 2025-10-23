@@ -1,0 +1,30 @@
+#+BEGIN_COMMENT
+## ======================================================================
+## @license Copyright 2016-2025 Pierre Schebath
+## ---------------------
+## 
+## @brief This file has been written by Pierre Etienne Charles Schebath Cazoulat.
+## 
+## This source code, its related data and algorithms are Pierre Schebath
+## Proprietary Information and shall be protected in strict confidence by
+## the party who receives it.  It shall not be disclosed nor copied nor
+## duplicated in whole or in part to any third party without Pierre Schebath
+## written prior permission.
+## ======================================================================
+## core.org for revolution in ~/.emacs.d/revolution/
+## @description: 
+## 
+## Started on  Wed Jun  4 01:45:31 2025 @author Glider
+## Last update Wed Oct 15 08:07:16 2025 @author Glider
+## ======================================================================
+#+END_COMMENT
+
+
+#+NAME: elfeed_init()
+#+BEGIN_SRC emacs-lisp :lexical t
+
+  (use-package elfeed :ensure t)
+  (use-package elfeed-protocol :ensure t)
+
+
+#+END_SRC

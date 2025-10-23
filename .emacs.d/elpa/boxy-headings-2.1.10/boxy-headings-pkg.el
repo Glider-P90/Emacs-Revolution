@@ -1,2 +1,0 @@
-;; Generated package description from boxy-headings.el  -*- no-byte-compile: t -*-
-(define-package "boxy-headings" "2.1.10" "View org files in a boxy diagram" '((emacs "26.1") (boxy "2.0") (org "9.4")) :commit "d9ff199273bd96011fe5bfe20cafab57dc189930" :authors '(("Amy Grinn" . "grinn.amy@gmail.com")) :maintainer '("Amy Grinn" . "grinn.amy@gmail.com") :keywords '("tools") :url "https://gitlab.com/grinn.amy/boxy-headings")
