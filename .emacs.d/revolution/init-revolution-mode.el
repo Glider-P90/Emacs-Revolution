@@ -15,11 +15,12 @@
 ;; @description: init of revolution's project
 ;; 
 ;; Started on  Wed Jun  4 11:18:08 2025 @author Glider
-;; Last update Fri Oct  3 09:53:51 2025 @author Glider
+;; Last update Thu Oct 23 23:32:44 2025 @author Glider
 ;; ======================================================================
 ;;; Code:
 
 (message "Init Revolution mode...")
+(ac-config-default)
 (org-babel-load-file "~/.emacs.d/revolution/globals.org")
 (org-babel-load-file "~/.emacs.d/revolution/lib-revolution.org")
 (org-babel-load-file "~/.emacs.d/revolution/lang-settings.org")

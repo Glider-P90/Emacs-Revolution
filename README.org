@@ -202,8 +202,8 @@
     2) [ ] syntaxe
     3) [ ] documentation
     4) [ ] Compilation   
-  * [-] org-mode
-    1) [ ] auto-completion
+  * [X] org-mode
+    1) [X] auto-completion
     2) [X] syntaxe
     3) [X] documentation
     4) [X] Compilation    

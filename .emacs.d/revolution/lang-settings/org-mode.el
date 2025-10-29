@@ -17,7 +17,7 @@
 ;; @description: org-mode
 ;; 
 ;; Started on  Tue Jan 30 03:12:24 2024 @author Glider
-;; Last update Thu Oct 23 22:40:50 2025 @author Glider
+;; Last update Wed Oct 29 08:19:07 2025 @author Glider
 ;; ======================================================================
 ;;; Code:
 
@@ -26,7 +26,7 @@
 (use-package company-org-block
   :ensure t
   :custom
-  (company-org-block-edit-style 'inline)
+  (company-org-block-edit-style 'auto)
   :hook ((org-mode . (lambda ()
                        (setq-local company-backends '(company-org-block))
                        (company-mode +1)))))
@@ -86,7 +86,7 @@
                   (setq mode-found t)))
               (throw 'found t))
              ((string-match end-key line)
-              (message "outside block")
+              (message "In org-mode")
               (funcall (intern (symbol-name mode-src)))
               (setq mode-found nil)
               (throw 'found nil)))))))))
