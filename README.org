@@ -138,15 +138,13 @@
     3) [ ] documentation
     4) [ ] Compilation    
   * [-] emacs-lisp-mode
-    1) [ ] auto-completion
+    1) [X] auto-completion
     2) [X] syntaxe
-    3) [ ] documentation
-    4) [ ] Compilation    
+    3) [X] documentation
   * [-] lisp-mode
-    1) [ ] auto-completion
+    1) [X] auto-completion
     2) [X] syntaxe
-    3) [ ] documentation
-    4) [ ] Compilation    
+    3) [X] documentation
   * [ ] clojure-mode
     1) [ ] auto-completion
     2) [ ] syntaxe
