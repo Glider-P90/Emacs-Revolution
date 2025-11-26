@@ -15,7 +15,7 @@
 # @description: major mode manager
 # 
 # Started on  Wed Jun  4 23:45:47 2025 @author Glider
-## Last update Wed Oct 15 08:07:41 2025 @author Glider
+## Last update Fri Oct 31 10:39:52 2025 @author Glider
 # ======================================================================
 #+END_COMMENT
 
@@ -53,6 +53,7 @@
     ("python-mode"           (begin . "##*") (mid . "## ") (end . "##"))
     ("makefile-gmake-mode"   (begin . "##*") (mid . "## ") (end . "## "))
     ("yaml-mode"             (begin . "##") (mid . "## ") (end . "##"))
+    ("fundamental-mode"      (begin . "##") (mid . "## ") (end . "##"))
     ("dockerfile-mode"       (begin . "##") (mid . "## ") (end . "##"))
     ("r-mode"                (begin . "##") (mid . "## ") (end . "##"))
     ("sh-mode"               (begin . "#!/bin/bash") (mid . "## ") (end . "## "))

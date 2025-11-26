@@ -30,6 +30,7 @@
     ("python-mode"           (begin . "##*") (mid . "## ") (end . "##"))
     ("makefile-gmake-mode"   (begin . "##*") (mid . "## ") (end . "## "))
     ("yaml-mode"             (begin . "##") (mid . "## ") (end . "##"))
+    ("fundamental-mode"      (begin . "##") (mid . "## ") (end . "##"))
     ("dockerfile-mode"       (begin . "##") (mid . "## ") (end . "##"))
     ("r-mode"                (begin . "##") (mid . "## ") (end . "##"))
     ("sh-mode"               (begin . "#!/bin/bash") (mid . "## ") (end . "## "))

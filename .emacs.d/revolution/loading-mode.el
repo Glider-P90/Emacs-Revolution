@@ -1,0 +1,82 @@
+;;; loading-mode.el --- -*- lexical-binding: t; -*-
+;;; Commentary:
+;;; loading-mode for Emacs revolution
+;;; code:
+
+(defun Xstd-get (position)
+  "Function std-get get string from array by POSITION."
+  (let* ((filename (buffer-file-name))
+         (mode-fn (assoc-default filename auto-mode-alist #'string-match))
+         (mode-name (and mode-fn (symbol-name mode-fn)))
+         (std-entry (assoc mode-name std-modes-alist)))
+    (message "Debug std-entry: [%s]" mode-fn)
+    (if std-entry
+      	(cdr (assoc position (cdr std-entry)))
+      nil)))
+
+(defun std-get (position)
+  "Return the entry for POSITION based on the current major-mode rules."
+  (let* ((filename (buffer-file-name))
+         (mode-fn (assoc-default filename auto-mode-alist #'string-match))
+         (mode-name (if (and mode-fn (symbolp mode-fn))
+                        (symbol-name mode-fn)
+                      "sh-mode"))
+         (std-entry (assoc mode-name std-modes-alist)))
+    (funcall (intern mode-name))
+    (when std-entry
+      (cdr (assoc position (cdr std-entry))))))
+
+
+(defun update-std-header ()
+  "Function updates-std-header update time & owner to header."
+  (interactive)
+  (when (not (equal (buffer-name) "std_comment.el"))
+    (save-excursion
+      (when (buffer-modified-p)
+      	(let ((limit (point-max)))
+          (goto-char (point-min))
+          (when (re-search-forward (regexp-quote header-last) limit t)
+            (let ((beg (line-beginning-position))
+                  (end (line-end-position)))
+              (delete-region beg end)
+              (goto-char beg)
+              (insert (concat (std-get 'mid) header-last (current-time-string) " " user-nickname))
+              (message "Last modification header field updated."))))
+      	nil))))
+
+(defun std-file-header ()
+  "Function std-file-header insert a header, according to mode."
+  (interactive)
+  (goto-char (point-min))
+  (let ((projname (read-from-minibuffer "Type project name (RETURN to quit): "))
+        (projdescription (read-from-minibuffer "Type short file description (RETURN to quit): "))
+        (location default-directory))
+    (insert (concat
+             (string-replace "FILE_NAME_EXT" (buffer-name) (std-get 'begin)) "\n"
+             (std-get 'mid) header-part "\n"
+             (std-get 'mid) header-copyright
+             (format-time-string "%Y " (current-time)) header-made-by "\n"
+             (std-get 'mid) header-separator "\n"
+             (std-get 'mid) "\n"
+             (std-get 'mid) header-licence0 "\n"
+             (std-get 'mid) "\n"
+             (std-get 'mid) header-licence1 "\n"
+             (std-get 'mid) header-licence2 "\n"
+             (std-get 'mid) header-licence3 "\n"
+             (std-get 'mid) header-licence4 "\n"
+             (std-get 'mid) header-licence5 "\n"
+             (std-get 'mid) header-part "\n"
+             (std-get 'mid) (buffer-name) header-for projname header-in location "\n"
+             (std-get 'mid) header-desc projdescription ".\n"
+             (std-get 'mid) "\n"
+             (std-get 'mid) header-started (current-time-string) " " user-nickname "\n"
+             (std-get 'mid) header-last (current-time-string) " " user-nickname "\n"
+             (std-get 'mid) header-part "\n"
+             (string-replace "FILE_NAME" (file-name-base (buffer-name)) (string-replace "FILE_NAME_EXT" (buffer-name) (std-get 'end)))
+             ))
+    ))
+
+    (setq write-file-functions (cons 'update-std-header write-file-functions))
+
+(provide 'loading-mode)
+  ;;; loading-mode.el ends here

@@ -1,36 +1,7 @@
-#+BEGIN_COMMENT
-# ======================================================================
-# @license Copyright 2016-2025 Pierre Schebath
-# ---------------------
-# 
-# @brief This file has been written by Pierre Etienne Charles Schebath Cazoulat.
-# 
-# This source code, its related data and algorithms are Pierre Schebath
-# Proprietary Information and shall be protected in strict confidence by
-# the party who receives it.  It shall not be disclosed nor copied nor
-# duplicated in whole or in part to any third party without Pierre Schebath
-# written prior permission.
-# ======================================================================
-# lang-settings.org for revolution in ~/.emacs.d/revolution/
-# @description: choice the langage from major-mode to load specifics configuration
-# 
-# Started on  Wed Jun  4 11:35:28 2025 @author Glider
-## Last update Wed Nov 26 09:45:48 2025 @author Glider
-# ======================================================================
-#+END_COMMENT
-
-#+NAME: BOF_lang_settings()
-#+BEGIN_SRC emacs-lisp :lexical t
-
-    ;;; lang-settings.el --- -*- lexical-binding: t; -*-
-    ;;; Commentary:
-    ;;; Set config following the major mode
-    ;;; code:
-
-#+END_SRC
-
-#+NAME: lang_settings()
-#+BEGIN_SRC emacs-lisp :lexical t
+;;; lang-settings.el --- -*- lexical-binding: t; -*-
+;;; Commentary:
+;;; Set config following the major mode
+;;; code:
 
 (defvar mode-associations
   '(("\\.jsx?\\'"       . web-mode)
@@ -105,12 +76,5 @@
 
 (lang-settings-init)
 
-#+END_SRC
-
-#+NAME: EOF_lang_settings()
-#+BEGIN_SRC emacs-lisp :lexical t
-
 (provide 'lang-settings)
   ;;; lang-settings.el ends here
-
-#+END_SRC

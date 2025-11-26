@@ -17,7 +17,7 @@
 ;; @description: org-mode
 ;; 
 ;; Started on  Tue Jan 30 03:12:24 2024 @author Glider
-;; Last update Wed Oct 29 08:19:07 2025 @author Glider
+;; Last update Fri Oct 31 10:56:42 2025 @author Glider
 ;; ======================================================================
 ;;; Code:
 
@@ -77,16 +77,14 @@
             (cond
              ((string-match begin-key line)
               (setq mode (car (split-string (substring line (match-end 0)) "[ \t\n]+")))
-              (if (eq mode-found t)
-                  (message "already in %s" mode)
-                (progn
-                  (message "switching to %s" mode)
-		  (setq mode-src major-mode)
-                  (funcall (intern (concat mode "-mode")))
-                  (setq mode-found t)))
+              (if (not (eq mode-found t))
+                  (progn
+                    (message "switching to %s" mode)
+		    (setq mode-src major-mode)
+                    (funcall (intern (concat mode "-mode")))
+                    (setq mode-found t)))
               (throw 'found t))
              ((string-match end-key line)
-              (message "In org-mode")
               (funcall (intern (symbol-name mode-src)))
               (setq mode-found nil)
               (throw 'found nil)))))))))
