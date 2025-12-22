@@ -15,18 +15,17 @@
 ;; @description: init of revolution's project
 ;; 
 ;; Started on  Wed Jun  4 11:18:08 2025 @author Glider
-;; Last update Fri Nov 21 07:51:46 2025 @author Glider
+;; Last update Mon Dec 22 15:07:07 2025 @author Glider
 ;; ======================================================================
 ;;; Code:
 
 (message "Init Revolution mode...")
 (ac-config-default)
 (org-babel-load-file "~/.emacs.d/revolution/globals.org")
-(org-babel-load-file "~/.emacs.d/revolution/headers/std_comment.org")
 (org-babel-load-file "~/.emacs.d/revolution/lib-revolution.org")
-(org-babel-load-file "~/.emacs.d/revolution/loading-mode.org")
 (org-babel-load-file "~/.emacs.d/revolution/lang-settings.org")
-(org-babel-load-file "~/.emacs.d/revolution/elfeed-init.org")
+(org-babel-load-file "~/.emacs.d/revolution/headers/std_comment.org")
+(org-babel-load-file "~/.emacs.d/revolution/header.org")
 (org-babel-load-file "~/.emacs.d/revolution/shortcuts.org")
 (message "Revolution load \"%s\" done." major-mode)
 

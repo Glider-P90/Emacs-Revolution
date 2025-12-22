@@ -12,7 +12,10 @@ et bien plus pour un développement fluide et accessible.
 
 
 ** Objectif
-+ [-] Langages compatibles:
++ [X] Chargement du mode adéquate
+  1) [X] Switch vers le mode elisp on-line pour les fichiers org lors de l'ecriture de ce langage.
++ [ ] Tous les fichiers elisp doivent être généré depuis org à partir de init-revolution-mode.el.
++ [-] Compatibilités des langages:
   * [ ] c-mode
     1) [ ] auto-completion
     2) [ ] syntaxe
@@ -143,11 +146,11 @@ et bien plus pour un développement fluide et accessible.
     2) [ ] syntaxe
     3) [ ] documentation
     4) [ ] Compilation    
-  * [-] emacs-lisp-mode
+  * [X] emacs-lisp-mode
     1) [X] auto-completion
     2) [X] syntaxe
     3) [X] documentation
-  * [-] lisp-mode
+  * [X] lisp-mode
     1) [X] auto-completion
     2) [X] syntaxe
     3) [X] documentation
@@ -170,7 +173,10 @@ et bien plus pour un développement fluide et accessible.
     1) [ ] auto-completion
     2) [ ] syntaxe
     3) [ ] documentation
-    4) [ ] Compilation    
+    4) [ ] Compilation
+    5) TODO
+    6) FIXED
+       1) [X] Lors de l'ourverture du fichier il y a une erreur de major mode.       
   * [ ] dockerfile-mode
     1) [ ] auto-completion
     2) [ ] syntaxe
@@ -206,14 +212,11 @@ et bien plus pour un développement fluide et accessible.
     2) [ ] syntaxe
     3) [ ] documentation
     4) [ ] Compilation   
-  * [X] org-mode
-    1) [X] auto-completion
-    2) [X] syntaxe
-    3) [X] documentation
-    4) [X] Compilation    
-
-+ [X] Switch mode on line.
-
+  * [ ] org-mode !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    1) [ ] auto-completion
+    2) [ ] syntaxe
+    3) [ ] documentation
+    4) [ ] Compilation    
 + [ ] *Docsgen*, /Documentation de votre code/ :
   * [ ] La documentation est générée de manière interactive ou
      à l’aide d’un raccourci clavier. Une fois créée,
@@ -224,3 +227,24 @@ et bien plus pour un développement fluide et accessible.
   * [ ] Utiliser one.el ou emacs-ssg pour emuler un server web
     diffusant la documention org en page web,
     accessible depuis un racourcis(+interactive) clavier.
++ [ ] Neotree verifier son installation.
++ [ ] Flux RSS
+  1) [ ] barre d'affichage en haut de la fenetre.
+  2) [ ] shortkey pour switcher afficher/cacher
+  3) [ ] shortkey pour afficher un formulaire pour ajouter un flux RSS.
++ [ ] Divers
+ * [ ] Simplifier la création de nouveaux headers, peut-être proposer d'injecter l'URL de la boite pour laquelle le projet est développé.
+ * [ ] elisp-demos
+ * [ ] bug-hunter
+ * [ ] flycheck-package
+ * [ ] which-key
+ * [ ] elfeed
+ * [ ] calfw-org
+ * [ ] multiple-cursors
+ * [ ] company-mode verifier les endroit inutiles ou il est appelé.
+ * [ ] company-org-block n'est ce pas dans org-mode.el ou il doit etre instancier.
+ * [ ] auto-complete
+ * [ ] flycheck-posframe
+ * [ ] el-fly-indent-mode
+ * [ ] boxy-headings
+ * [ ] posframe

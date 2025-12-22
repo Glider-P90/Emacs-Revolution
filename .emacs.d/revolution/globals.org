@@ -15,12 +15,45 @@
 # @description: major mode manager
 # 
 # Started on  Wed Jun  4 23:45:47 2025 @author Glider
-## Last update Fri Oct 31 10:39:52 2025 @author Glider
+## Last update Mon Dec 22 13:57:59 2025 @author Glider
 # ======================================================================
 #+END_COMMENT
 
+#+NAME: BOF_globals()
+#+BEGIN_SRC emacs-lisp :lexical t
+
+  ;;; globals.el --- -*- lexical-binding: t; -*-
+  ;;; Commentary:
+  ;;; Set config following the major mode
+  ;;; code:
+
+  (defgroup emacs-revolution nil
+    "Emacs-Revolution."
+    :group 'tools)
+  
+#+END_SRC
+
+#+NAME:lang_settings_globals()
+#+BEGIN_SRC emacs-lisp :lexical t
+
+  (defcustom lang-settings-dir (expand-file-name "revolution/lang-settings/" user-emacs-directory)
+    "Dossier contenant les fichiers de configuration par langage."
+    :type 'directory
+    :group 'emacs-revolution)
+
+  (defcustom er-src-mode major-mode
+    "Major mode source for Emacs-Revolution."
+    :type 'symbol
+    :group 'emacs-revolution)
+
+    (unless er-src-mode
+      (setq er-src-mode major-mode))
+    
+#+END_SRC
+
 #+NAME: std_modes_alist()
 #+BEGIN_SRC emacs-lisp :lexical t
+  
 (defvar std-modes-alist
   '(("c-mode"                (begin . "/**") (mid . " * ") (end . "**/"))
     ("c++-mode"              (begin . "/**") (mid . " * ") (end . " */"))
@@ -62,4 +95,13 @@
     ("powershell-mode"       (begin . "<#") (mid . "## ") (end . "#>"))
     ("latex-mode"            (begin . "%%") (mid . "%% ") (end . "%%"))
     ("org-mode"              (begin . "#+BEGIN_COMMENT") (mid . "## ") (end . "#+END_COMMENT"))))
+
+#+END_SRC
+
+#+NAME: EOF_globals()
+#+BEGIN_SRC emacs-lisp :lexical t
+
+(provide 'globals)
+  ;;; globals.el ends here
+
 #+END_SRC

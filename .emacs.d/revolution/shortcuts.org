@@ -1,4 +1,4 @@
-## Last update Thu Jun  5 21:34:26 2025 @author Glider
+## Last update Mon Dec 22 05:59:28 2025 @author Glider
 # ======================================================================
 # @license Copyright 2016-2025 Pierre Schebath
 # ---------------------
@@ -35,5 +35,9 @@
   ;;******  Affiche dans la fenetre principale les flux RSS   ******;;
   (global-set-key (kbd "C-c n") #'my/open-elfeed-fullscreen)
   (global-set-key (kbd "C-c w") 'elfeed)
+
+  ;;******  Affiche le mode majeur   ******;;
+  (global-set-key (kbd "C-c )") 'check-parens)
+
 
 #+END_SRC

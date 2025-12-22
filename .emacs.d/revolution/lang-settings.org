@@ -15,7 +15,7 @@
 # @description: choice the langage from major-mode to load specifics configuration
 # 
 # Started on  Wed Jun  4 11:35:28 2025 @author Glider
-## Last update Wed Nov 26 09:45:48 2025 @author Glider
+## Last update Mon Dec 22 15:10:27 2025 @author Glider
 # ======================================================================
 #+END_COMMENT
 
@@ -35,7 +35,7 @@
 (defvar mode-associations
   '(("\\.jsx?\\'"       . web-mode)
     ("\\.tsx?\\'"       . web-mode)
-    ("\\.[agj]sp\\'"    . web-mode)
+    ("\\.[agj]sp\\'"    . web-mode)      
     ("\\.as[cp]x\\'"    . web-mode)
     ("\\.erb\\'"        . web-mode)
     ("\\.mustache\\'"   . web-mode)
@@ -67,27 +67,29 @@
     ("\\.xml\\'"        . nxml-mode)))
 
 (defun register-auto-modes ()
-  "Ajoute les associations une seule fois à `auto-mode-alist`."
+  "Ajoute les associations à `auto-mode-alist` et charge le mode si nécessaire."
   (dolist (entry mode-associations)
-    (let ((pattern (car entry))
-          (mode    (cdr entry)))
+    (let* ((pattern (car entry))
+           (mode    (cdr entry))
+           (file-mode (concat lang-settings-dir (symbol-name mode) ".el")))
+      (when (and buffer-file-name
+                 (string-match-p pattern buffer-file-name))
+        (when (file-exists-p file-mode)
+          (load-file file-mode)
+          (funcall mode)))
       (add-to-list 'auto-mode-alist (cons pattern mode)))))
-
-(defvar lang-settings-dir
-  (expand-file-name "revolution/lang-settings/" user-emacs-directory)
-  "Dossier contenant les fichiers de configuration par langage.")
 
 (defun load-lang-settings ()
   "Charge dynamiquement le fichier de configuration associé au major mode courant."
-  (when buffer-file-name
-    (let* ((mode-symbol major-mode)
-           (mode-name (symbol-name mode-symbol))
-           (file-mode (concat lang-settings-dir (concat mode-name ".el"))))
-      (if (file-exists-p file-mode)
-          (progn
-            (load-file file-mode))
-	))))
-
+  (if (not (eq er-src-mode major-mode))
+      (when buffer-file-name
+      	(let* ((er-src-mode major-mode)
+               (er-src-mode-name (symbol-name er-src-mode))
+               (file-mode (concat lang-settings-dir (concat er-src-mode-name ".el"))))
+      	  (if (file-exists-p file-mode)
+              (progn
+      		(load-file file-mode))
+      	    )))))
 
 (defun lang-settings-init ()
   "Initialise les réglages de langage pour Emacs Revolution."
@@ -98,10 +100,7 @@
       (add-hook 'after-init-hook 'global-company-mode)))
   (company-mode)
   (register-auto-modes)
-  (load-lang-settings)
-  (add-hook 'after-change-major-mode-hook 'load-lang-settings)
-  (add-hook 'after-init-hook #'load-lang-settings)
-  )
+  (add-hook 'after-change-major-mode-hook 'load-lang-settings))
 
 (lang-settings-init)
 

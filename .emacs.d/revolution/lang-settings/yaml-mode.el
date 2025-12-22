@@ -16,14 +16,11 @@
 ;; @description: 
 ;; 
 ;; Started on  Tue Jun  3 03:46:37 2025 @author Glider
-;; Last update Thu Oct 23 23:13:40 2025 @author Glider
+;; Last update Mon Dec 22 15:30:47 2025 @author Glider
 ;; ======================================================================
 ;;; Code:
 
-(defvar user-home (getenv "HOME") "Chemin du répertoire home de l'utilisateur.")
-(defvar user-name (user-login-name) "Nom de l'utilisateur courant.")
-
-(load-file (concat user-home (concat user-name "yaml-mode/yaml-mode.el")))
+(use-package yaml-mode :ensure t)
 
 (provide 'yaml-mode)
 ;;; yaml-mode.el ends here
