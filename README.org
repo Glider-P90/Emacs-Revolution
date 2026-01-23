@@ -6,10 +6,10 @@
 
 
 * Description
-   Emacs-Revolution est une distribution modernisée d’Emacs,					\
-   composée de paquets Lisp et d’outils complémentaires, offrant l'auto-complétion,		\
-   détection d’erreurs, documentation, compilation, enregistrement voal, assistance IA		\
-   etre bien plus pour un développement fluide et accessible.					\
+   Emacs-Revolution est une distribution modernisée d’Emacs,
+   composée de paquets Lisp et d’outils complémentaires, offrant l'auto-complétion,
+   détection d’erreurs, documentation, compilation, enregistrement voal, assistance IA
+   etre bien plus pour un développement fluide et accessible.
 
 * Objectif
 ** DONE Chargement du mode adéquate
@@ -249,16 +249,16 @@
    + [ ] org-sidebar
      
 * Copyright
-   Copyright © 2025 Pierre Schebath (alias Glider)						\
-												\
-   Cette œuvre est sous licence Creative Commons Attribution -					\
-   Pas d’Utilisation Commerciale 4.0 International (CC BY-NC 4.0).				\
-												\
-   Vous êtes libre de :										\
-    - Partager — copier et redistribuer le matériel sur tout support ou sous tout format	\
-    - Adapter — remixer, transformer et créer à partir du matériel				\
-												\
-   À condition que l'utilisation ne soit pas commerciale.					\
+   Copyright © 2025 Pierre Schebath (alias Glider)
+
+   Cette œuvre est sous licence Creative Commons Attribution -
+   Pas d’Utilisation Commerciale 4.0 International (CC BY-NC 4.0).
+
+   Vous êtes libre de :
+    - Partager — copier et redistribuer le matériel sur tout support ou sous tout format
+    - Adapter — remixer, transformer et créer à partir du matériel
+
+   À condition que l'utilisation ne soit pas commerciale.
 
 * Contact
    Email: contact@lugtech.fr
