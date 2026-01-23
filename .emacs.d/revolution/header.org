@@ -1,31 +1,31 @@
 #+BEGIN_COMMENT
-# ======================================================================
-# @license Copyright 2016-2025 Pierre Schebath
-# ---------------------
-# 
-# @brief This file has been written by Pierre Etienne Charles Schebath Cazoulat.
-# 
-# This source code, its related data and algorithms are Pierre Schebath
-# Proprietary Information and shall be protected in strict confidence by
-# the party who receives it.  It shall not be disclosed nor copied nor
-# duplicated in whole or in part to any third party without Pierre Schebath
-# written prior permission.
-# ======================================================================
-# header.org for  in ~/.emacs.d/revolution/
-# @description: revolution
-# 
-# Started on  Wed Jun  4 23:42:40 2025 @author Glider
-
-# ======================================================================
+## ======================================================================
+## @license Copyright 2016-2025 Pierre Schebath
+## ---------------------
+## 
+## @brief This file has been written by Pierre Etienne Charles Schebath Cazoulat.
+## 
+## This source code, its related data and algorithms are Pierre Schebath
+## Proprietary Information and shall be protected in strict confidence by
+## the party who receives it.  It shall not be disclosed nor copied nor
+## duplicated in whole or in part to any third party without Pierre Schebath
+## written prior permission.
+## ======================================================================
+## header.org for  in ~/.emacs.d/revolution/
+## @description: revolution
+## 
+## Started on  Wed Jun  4 23:42:40 2025 @author Glider
+## Started on  Wed Jun  4 23:45:47 2025 @author Glider
+## ======================================================================
 #+END_COMMENT
 
 #+NAME: BOF_header()
 #+BEGIN_SRC emacs-lisp :lexical t
 
-    ;;; header.el --- -*- lexical-binding: t; -*-
-    ;;; Commentary:
-    ;;; header for Emacs revolution
-    ;;; code:
+  ;;; header.el --- -*- lexical-binding: t; -*-
+  ;;; Commentary:
+  ;;; header for Emacs revolution
+  ;;; code:
 
 #+END_SRC
 

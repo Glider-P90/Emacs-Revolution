@@ -16,7 +16,7 @@
 ;; @description: 
 ;; 
 ;; Started on  Mon Jun  2 14:50:20 2025 @author Glider
-;; Last update Fri Oct 24 00:14:05 2025 @author Glider
+;; Last update Sun Jan 18 08:27:47 2026 @author Glider
 ;; ======================================================================
 ;;; Code:
 
@@ -25,22 +25,7 @@
 (setq shortcut-compilation "C-c c")  ; Compilation
 (setq shortcut-search "C-c s")       ; Search function/Macro/keywords
 
-(use-package company
-  :ensure t
-  :config
-  (progn
-    (add-hook 'after-init-hook 'global-company-mode)))
-
 (setq tab-always-indent 'complete)
-
-(use-package auto-complete
-  :ensure t
-  :init
-  (ac-config-default)
-  :config
-  (setq ac-auto-start 2
-        ac-ignore-case nil)
-  (global-auto-complete-mode t))
 
 (use-package flycheck
     :ensure t
@@ -50,6 +35,19 @@
 
 ;; Raccourci debugger
 (global-set-key (kbd shortcut-debug) 'bug-hunter-file)
+
+(require 'cape)
+(require 'corfu)
+
+;; Emacs Lisp mode completions
+(add-hook 'emacs-lisp-mode-hook
+          (lambda ()
+            ;; Completion at point: prioritize elisp symbols
+            (add-hook 'completion-at-point-functions #'cape-elisp-block 10 t)
+            (add-hook 'completion-at-point-functions #'cape-dabbrev 90 t)
+	    
+            ;; Optional: enable corfu locally
+            (corfu-mode 1)))
 
 (provide 'emacs-lisp-mode)
 ;;; emacs-lisp-mode.el ends here

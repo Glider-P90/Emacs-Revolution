@@ -1,0 +1,71 @@
+#+BEGIN_COMMENT
+## ======================================================================
+## @license Copyright 2016-2025 Pierre Schebath
+## ---------------------
+## 
+## @brief This file has been written by Pierre Etienne Charles Schebath Cazoulat.
+## 
+## This source code, its related data and algorithms are Pierre Schebath
+## Proprietary Information and shall be protected in strict confidence by
+## the party who receives it.  It shall not be disclosed nor copied nor
+## duplicated in whole or in part to any third party without Pierre Schebath
+## written prior permission.
+## ======================================================================
+## revolution-settings.org for revolution in ~/.emacs.d/revolution/
+## @description: Revolution-Settings tools & configurations
+## 
+## Started on  Wed Jun  4 23:45:47 2025 @author Glider
+## Last update Fri Jan 23 07:55:17 2026 @author Glider
+## ======================================================================
+#+END_COMMENT
+
+#+NAME: BOF_revolution-settings()
+#+BEGIN_SRC emacs-lisp :lexical t
+
+  ;;; revolution-settings.el --- -*- lexical-binding: t; -*-
+  ;;; Commentary:
+  ;;; 
+  ;;; code:
+  
+#+END_SRC
+ 
+#+NAME: Revolution-Settings()
+#+BEGIN_SRC emacs-lisp :lexical t
+
+    ;; ===============================
+    ;; Revolution-Settingsile: project interaction library for Emacs
+    ;; ===============================
+
+    ;; Optional: ag is nice alternative to using grep with Projectile
+    (use-package ag
+      :ensure t)
+
+    ;; Optional: which-key will show you options for partially completed keybindings
+    ;; It's extremely useful for packages with many keybindings like Projectile.
+    (use-package which-key
+      :ensure t
+      :config
+      (which-key-mode +1))
+
+  (use-package neotree
+    :bind ([f8] . neotree-toggle)
+    :config (setq neo-default-system-application "open"))
+    
+    (use-package projectile
+      :ensure t
+      :init
+      (setq projectile-project-search-path '("~/Projects/" ))
+      :config
+      (define-key projectile-mode-map (kbd "C-c C-p") 'projectile-command-map)
+      (global-set-key (kbd "C-c p") 'projectile-command-map)
+      (projectile-mode +1))
+
+#+END_SRC
+
+#+NAME: EOF_project()
+#+BEGIN_SRC emacs-lisp :lexical t
+
+(provide 'project)
+  ;;; project.el ends here
+
+#+END_SRC

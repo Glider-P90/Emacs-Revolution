@@ -1,0 +1,284 @@
+#+BEGIN_COMMENT
+## ======================================================================
+## @license Copyright 2016-2025 Pierre Schebath
+## ---------------------
+## 
+## @brief This file has been written by Pierre Etienne Charles Schebath Cazoulat.
+## 
+## This source code, its related data and algorithms are Pierre Schebath
+## Proprietary Information and shall be protected in strict confidence by
+## the party who receives it.  It shall not be disclosed nor copied nor
+## duplicated in whole or in part to any third party without Pierre Schebath
+## written prior permission.
+## ======================================================================
+## globals.org for revolution in ~/.emacs.d/revolution/
+## @description: major mode manager
+## 
+## Started on  Wed Jun  4 23:45:47 2025 @author Glider
+## Last update Fri Jan 23 08:09:11 2026 @author Glider
+## ======================================================================
+#+END_COMMENT
+
+* IHM
+** Header File
+#+NAME: BOF_ihm()
+#+BEGIN_SRC emacs-lisp :lexical t
+
+    ;;; ihm.el --- -*- lexical-binding: t; -*-
+    ;;; Commentary:
+    ;;; 
+    ;;; code:
+
+#+END_SRC
+
+** Vertico
+  Système de complétion minimaliste pour le minibuffer.
+#+NAME: Vertico()
+#+BEGIN_SRC emacs-lisp :lexical t
+  
+;; ===============================
+;; Enable Vertico.
+;; ===============================
+(use-package vertico
+   :custom
+  ;; (vertico-scroll-margin 0) ;; Different scroll margin
+  (vertico-count 20)		 ;; Show more candidates
+  (vertico-resize t) ;; Grow and shrink the Vertico minibuffer
+  (vertico-cycle t)  ;; Enable cycling for `vertico-next/previous'
+  :init
+  (vertico-mode))
+
+#+END_SRC
+
+** Savehist
+  History Between Sessions
+#+NAME: savehist
+#+BEGIN_SRC emacs-lisp :lexical t
+
+  ;; ===============================
+  ;; savehist: History Between Session
+  ;; ===============================
+  (use-package savehist
+    :init
+    (savehist-mode))
+
+#+END_SRC
+
+** Corfu
+  Completion Framework
+#+NAME: corfu
+#+BEGIN_SRC emacs-lisp :lexical t
+
+;; ===============================
+;; Corfu: Completion Framework
+;; ===============================
+(use-package corfu
+  :ensure t
+  :custom
+  (corfu-cycle t)                  ;; Cycle through candidates
+  (corfu-quit-at-boundary nil)     ;; Don't quit at buffer boundary
+  (corfu-quit-no-match 'separator) ;; Keep popup when no match
+  (corfu-preview-current nil)      ;; Disable preview
+  (corfu-preselect 'prompt)        ;; Preselect prompt
+  (corfu-auto t)                   ;; Enable auto completion
+  (corfu-auto-delay 0.3)           ;; Delay before auto popup
+  (corfu-auto-prefix 3)            ;; Trigger after 3 chars
+  (corfu-auto-trigger ".")         ;; Trigger on dot
+  (corfu-separator ?\s)
+  :init
+  (global-corfu-mode)
+  (corfu-popupinfo-mode) ;; Inline documentation popup
+  (corfu-history-mode)	 ;; Keep session history (optionnel)
+  (define-key corfu-map (kbd "SPC")
+              (lambda ()
+                (interactive)
+                (if current-prefix-arg
+  		  (progn
+                      (corfu-quit)
+                      (insert " "))
+  		(if (and (= (char-before) corfu-separator)
+  			 (or
+  			  (not (char-after))
+  			  (= (char-after) ?\s)
+  			  (= (char-after) ?\n)))
+                      (progn
+                        (corfu-insert)
+                        (insert " "))
+  		  (corfu-insert-separator))))))
+
+#+END_SRC
+
+** Dabbrev
+  Abbreviation Completion
+#+NAME: Dabbrev
+#+BEGIN_SRC emacs-lisp :lexical t
+
+;; ======================================================================
+;; Dabbrev: Dynamic Abbreviation
+;; ======================================================================
+(use-package dabbrev
+  :bind (("M-/" . dabbrev-completion)
+         ("C-M-/" . dabbrev-expand))
+  :config
+  ;; Ignore certain buffers/modes
+  (add-to-list 'dabbrev-ignored-buffer-regexps "\\` ")
+  (dolist (mode '(authinfo-mode doc-view-mode pdf-view-mode tags-table-mode))
+    (add-to-list 'dabbrev-ignored-buffer-modes mode))
+  ;; Disable ispell completion
+  (setq text-mode-ispell-word-completion nil)
+  ;; Filter M-x commands (hide irrelevant)
+  (setq read-extended-command-predicate #'command-completion-default-include-p))
+
+#+END_SRC
+
+** Cape
+  Completion At Point Extensions
+#+NAME: cape
+#+BEGIN_SRC emacs-lisp :lexical t
+
+;; ===============================
+;; CAPE: Completion At Point Extensions
+;; ===============================
+(use-package cape
+  :ensure t
+  :bind ("C-c p" . cape-prefix-map)
+  :init
+  (add-hook 'completion-at-point-functions #'cape-dabbrev)
+  (add-hook 'completion-at-point-functions #'cape-file)
+  (add-hook 'completion-at-point-functions #'cape-elisp-block)
+  (setq cape-file-expand 'absolute))
+
+#+END_SRC
+
+** Orderless
+  Order of Completion List
+#+NAME: orderless
+#+BEGIN_SRC emacs-lisp :lexical t
+
+;; ===============================
+;; ORDERLESS: Order of Completion List 
+;; ===============================
+(use-package orderless
+  :ensure t
+  :custom
+  (completion-styles '(basic orderless partial-completion))
+  (completion-pcm-leading-wildcard t)
+  (completion-category-overrides
+   '((file (orderless-matching-styles '(basic orderless))))
+   (symbol (orderless-matching-styles '(orderless-initialism)))
+   (variable (orderless-matching-styles '(orderless-literal))))
+  (completion-pcm-leading-wildcard t))
+
+#+END_SRC
+
+** marginalia
+  Rich annotations using the Marginalia package
+#+NAME: marginalia
+#+BEGIN_SRC emacs-lisp :lexical t
+
+;; ===============================
+;; Enable rich annotations using the Marginalia package
+;; ===============================
+(use-package marginalia
+  ;; Bind `marginalia-cycle' locally in the minibuffer.  To make the binding
+  ;; available in the *Completions* buffer, add it to the
+  ;; `completion-list-mode-map'.
+  :bind (:map minibuffer-local-map
+              ("M-A" . marginalia-cycle))
+  ;; The :init section is always executed.
+  :init
+  ;; Marginalia must be activated in the :init section of use-package such that
+  ;; the mode gets enabled right away. Note that this forces loading the
+  ;; package.
+  (marginalia-mode))
+
+#+END_SRC
+
+** Eglot
+  LSP Client
+#+NAME: eglot
+#+BEGIN_SRC emacs-lisp :lexical t
+
+;; ===============================
+;; Eglot: LSP Client
+;; ===============================
+;; (use-package eglot
+;;   :ensure t
+;;   :init
+;;   ;; Enable Eglot automatically for multiple major modes
+;;   (dolist (hook '(python-mode-hook
+;;                   c-mode-hook
+;;                   c++-mode-hook
+;;                   js-mode-hook
+;;                   typescript-mode-hook
+;;                   java-mode-hook
+;;                   ruby-mode-hook
+;;                   go-mode-hook
+;;                   rust-mode-hook
+;;                   emacs-lisp-mode-hook
+;;                   sh-mode-hook
+;;                   html-mode-hook
+;;                   css-mode-hook
+;;                   json-mode-hook
+;;                   php-mode-hook
+;;                   dart-mode-hook))
+;;     (add-hook hook 'eglot-ensure))
+;;   :config
+;;   (setq eglot-autoshutdown t)
+;;   (setq eglot-send-changes-idle-time 0.3))
+
+#+END_SRC
+
+** Dape mode
+  Debuger Linked to LSP Server
+#+NAME: dape-mode
+#+BEGIN_SRC emacs-lisp :lexical t
+
+;; ==============================
+;;  Debuger: Linked LSP
+;; ==============================
+;; (use-package dap-mode)
+
+#+END_SRC
+
+** Treesite
+  Parsing Syntaxique: Highlighting / Indentation / Folding
+#+NAME: treesite-auto
+#+BEGIN_SRC emacs-lisp :lexical t
+
+;; ========n======================
+;; Parsing Syntaxique: Highlighting / Indentation / Folding
+;; ===============================
+;; (use-package treesit-auto
+;;  :custom
+;;  (treesit-auto-install 'prompt)
+;;  :config
+;;  (treesit-auto-add-to-auto-mode-alist 'all)
+;;  (global-treesit-auto-mode))
+
+#+END_SRC
+
+** Emacs
+  General Setup
+#+NAME: emacs
+#+BEGIN_SRC emacs-lisp :lexical t
+
+;; ===============================
+;; Emacs General Setup
+;; ===============================
+(use-package emacs
+  :custom
+  (tab-always-indent 'complete)
+  (context-menu-mode t)
+  (enable-recursive-minibuffers t))
+
+#+END_SRC
+
+** End Of File
+#+NAME: EOF_ihm()
+#+BEGIN_SRC emacs-lisp :lexical t
+
+(provide 'ihm)
+;;; ihm.el ends here
+
+#+END_SRC

@@ -1,4 +1,4 @@
-;; Last update Wed Jun  4 23:49:24 2025 @author Glider
+;; Last update Sun Jan 18 09:28:47 2026 @author Glider
 ;;; Commentary:
 ;; ======================================================================
 ;; @license Copyright 2016-2024 Pierre Schebath
@@ -31,7 +31,10 @@
 ;;; Ajoute les dépôts
 (setq package-archives
       '(("melpa" . "https://melpa.org/packages/")
-        ("gnu"   . "https://elpa.gnu.org/packages/")))
+        ("gnu"   . "https://elpa.gnu.org/packages/")
+	("nongnu" . "https://elpa.nongnu.org/nongnu/")
+	("org" . "https://orgmode.org/elpa/")))
+
 ;; Initialise le gestionnaire de packages
 (package-initialize)
 
@@ -46,8 +49,15 @@
 (defun revolution-load-org-config()
   "Load revolution configuration."
   (message "Emacs Start revolution")
-  (add-to-list 'load-path "~/.emacs.d/revolution/")
-  (require 'init-revolution-mode)
+  (org-babel-load-file "~/.emacs.d/revolution/globals.org")
+  (org-babel-load-file "~/.emacs.d/revolution/lib-revolution.org")
+  (org-babel-load-file "~/.emacs.d/revolution/revolution-settings.org")
+  (org-babel-load-file "~/.emacs.d/revolution/ihm.org")
+  (org-babel-load-file "~/.emacs.d/revolution/lang-settings.org")
+  (org-babel-load-file "~/.emacs.d/revolution/headers/std_comment.org")
+  (org-babel-load-file "~/.emacs.d/revolution/header.org")
+  (org-babel-load-file "~/.emacs.d/revolution/shortcuts.org")
+  (message "Revolution loaded on \"%s\" done." major-mode)
   )
 
 (add-hook 'window-setup-hook 'revolution-load-org-config)
@@ -59,14 +69,26 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(elfeed-feeds
-   '("https://linuxfr.org/news.atom" "https://www.journalduhacker.net/rss"))
+   '("https://linuxfr.org/news.atom"
+     "https://www.journalduhacker.net/rss"))
  '(org-agenda-files
-   '("~/.emacs.d/revolution/globals.org" "/home/glider/.emacs.d/revolution/planning/todo.org" "/home/glider/.emacs.d/revolution/planning/projets.org" "/home/glider/.emacs.d/revolution/planning/rdv.org"))
+   '("~/Projects/Emacs-Revolution/README.org"
+     "/home/glider/.emacs.d/revolution/planning/todo.org"
+     "/home/glider/.emacs.d/revolution/planning/projets.org"
+     "/home/glider/.emacs.d/revolution/planning/rdv.org"))
  '(package-selected-packages
-   '(multiple-cursors boxy-headings elfeed-score elfeed-org neotree elfeed quelpa-use-package quelpa org-ac company-mode calfw-org company-org-block flycheck-posframe posframe company which-key -package flycheck-package elisp-demos bug-hunter auto-complete el-fly-indent-mode)))
+   '(-package ag boxy-headings bug-hunter calfw-org cape corfu dap-mode
+	      el-fly-indent-mode elfeed elfeed-org elfeed-protocol
+	      elfeed-score elisp-demos flycheck flycheck-package
+	      flycheck-posframe ivy log4e lsp-mode lsp-ui marginalia
+	      multiple-cursors neotree orderless posframe projectile
+	      quelpa quelpa-use-package treesit-auto vertico which-key)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(elisp-shorthand-font-lock-face ((t (:inherit font-lock-keyword-face :foreground "green"))))
+ '(font-lock-builtin-face ((t (:foreground "deepskyblue"))))
+ '(font-lock-string-face ((t (:foreground "brightmagenta"))))
+ '(popup-scroll-bar-foreground-face ((t (:background "blue")))))

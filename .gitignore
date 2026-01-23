@@ -14,7 +14,7 @@
 ## Pierre Schebath
 ## 
 ## Started on  Fri Jun 26 21:01:38 2020 @author glider
-Last update Thu Apr 18 19:50:43 2024 @author Glider
+Last update Fri Jan 23 08:40:17 2026 @author Glider
 ## ======================================================================
 ##
 
@@ -29,3 +29,5 @@ www/.cookingpot
 .dir-locals-2.el
 .dir-locals.el
 .project
+planning/
+RSS/

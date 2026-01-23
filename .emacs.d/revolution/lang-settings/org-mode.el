@@ -17,19 +17,9 @@
 ;; @description: org-mode
 ;; 
 ;; Started on  Tue Jan 30 03:12:24 2024 @author Glider
-;; Last update Fri Oct 31 10:56:42 2025 @author Glider
+;; Last update Fri Jan 23 06:38:49 2026 @author Glider
 ;; ======================================================================
 ;;; Code:
-
-(message "Org-mode setting...")
-
-(use-package company-org-block
-  :ensure t
-  :custom
-  (company-org-block-edit-style 'auto)
-  :hook ((org-mode . (lambda ()
-                       (setq-local company-backends '(company-org-block))
-                       (company-mode +1)))))
 
 (setq org-src-fontify-natively t)
 (setq org-src-tab-acts-natively t)
@@ -51,45 +41,51 @@
 
 (emacs-revolution-check-org)
 
-(defun emacs-revolution-open-org-manual ()
+(defun org-manual ()
   "Ouvre la documentation officielle Org dans Info."
   (interactive)
   (info "(org)"))
 
-(global-set-key (kbd "C-c o") 'emacs-revolution-open-org-manual)
+(global-set-key (kbd "C-c o") 'org-manual)
 
 (defvar mode-found nil
   "The variable mode-found permet de signaler un changement de mode.")
 
-(defvar mode-src nil
+(defvar mode-src (symbol-name major-mode)
   "The variable mode-src permet de reprendre le mode d'origine.")
 
 (defun update-major-mode ()
   "Set major mode according to the lang block above point."
   (let ((begin-key "^#\\+BEGIN_SRC[ \t]+")
-        (end-key "^#\\+END_SRC")
-        mode)
+        (end-key "^#\\+END_SRC"))
     (save-excursion
       (catch 'found
         (while (> (point) (point-min))
           (forward-line -1)
           (let ((line (thing-at-point 'line t)))
-            (cond
-             ((string-match begin-key line)
-              (setq mode (car (split-string (substring line (match-end 0)) "[ \t\n]+")))
-              (if (not (eq mode-found t))
-                  (progn
-                    (message "switching to %s" mode)
-		    (setq mode-src major-mode)
-                    (funcall (intern (concat mode "-mode")))
-                    (setq mode-found t)))
-              (throw 'found t))
-             ((string-match end-key line)
-              (funcall (intern (symbol-name mode-src)))
-              (setq mode-found nil)
-              (throw 'found nil)))))))))
+	    (cond ((string-match begin-key line)
+		   (setq mode-found (car (split-string (substring line (match-end 0)) "[ \t\n]+")))
+		   (if (and (not (eq mode-found nil)) (not (string= (symbol-name major-mode) (concat mode-found "-mode"))))
+		       (progn (funcall (intern (concat mode-found "-mode")))))
+		   (throw 'found t))
+		  ((string-match end-key line)
+		   (if (not (string= (symbol-name major-mode) mode-src))
+		       (progn (funcall (intern mode-src))
+			      (let ((file (concat lang-settings-dir mode-src ".el")))
+				(if (file-exists-p file)
+				    (load-file file)
+				  (message "⚠️ Fichier de configuration  %s introuvable !" file)))
+			      (setq mode-found nil)))
+		   (throw 'found nil)))))))))
+
+(defun update-major-mode-reload ()
+  "Reset mode after saving."
+  (if (and (eq mode-found t) (not (string= "org-mode" major-mode)))
+      (setq mode-found nil)))
+
 
 (add-hook 'post-command-hook #'update-major-mode)
+(add-hook 'after-save-hook #'update-major-mode-reload)
 
 (provide 'org-mode)
 ;;; org-mode.el ends here

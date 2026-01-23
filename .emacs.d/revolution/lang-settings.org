@@ -1,22 +1,22 @@
 #+BEGIN_COMMENT
-# ======================================================================
-# @license Copyright 2016-2025 Pierre Schebath
-# ---------------------
-# 
-# @brief This file has been written by Pierre Etienne Charles Schebath Cazoulat.
-# 
-# This source code, its related data and algorithms are Pierre Schebath
-# Proprietary Information and shall be protected in strict confidence by
-# the party who receives it.  It shall not be disclosed nor copied nor
-# duplicated in whole or in part to any third party without Pierre Schebath
-# written prior permission.
-# ======================================================================
-# lang-settings.org for revolution in ~/.emacs.d/revolution/
-# @description: choice the langage from major-mode to load specifics configuration
-# 
-# Started on  Wed Jun  4 11:35:28 2025 @author Glider
-## Last update Mon Dec 22 15:10:27 2025 @author Glider
-# ======================================================================
+## ======================================================================
+## @license Copyright 2016-2025 Pierre Schebath
+## ---------------------
+## 
+## @brief This file has been written by Pierre Etienne Charles Schebath Cazoulat.
+## 
+## This source code, its related data and algorithms are Pierre Schebath
+## Proprietary Information and shall be protected in strict confidence by
+## the party who receives it.  It shall not be disclosed nor copied nor
+## duplicated in whole or in part to any third party without Pierre Schebath
+## written prior permission.
+## ======================================================================
+## lang-settings.org for revolution in ~/.emacs.d/revolution/
+## @description: choice the langage from major-mode to load specifics configuration
+## 
+## Started on  Wed Jun  4 11:35:28 2025 @author Glider
+## Last update Fri Jan 23 07:54:05 2026 @author Glider
+## ======================================================================
 #+END_COMMENT
 
 #+NAME: BOF_lang_settings()
@@ -93,12 +93,6 @@
 
 (defun lang-settings-init ()
   "Initialise les réglages de langage pour Emacs Revolution."
-  (use-package company
-    :ensure t
-    :config
-    (progn
-      (add-hook 'after-init-hook 'global-company-mode)))
-  (company-mode)
   (register-auto-modes)
   (add-hook 'after-change-major-mode-hook 'load-lang-settings))
 
@@ -110,6 +104,6 @@
 #+BEGIN_SRC emacs-lisp :lexical t
 
 (provide 'lang-settings)
-  ;;; lang-settings.el ends here
+;;; lang-settings.el ends here
 
 #+END_SRC
