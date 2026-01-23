@@ -4,247 +4,261 @@
 :project-version: 0.1
 :END:
 
-** Description
-  Emacs-Revolution est une distribution modernisée d’Emacs,
-composée de paquets Lisp et d’outils complémentaires, offrant l'auto-complétion,
-détection d’erreurs, documentation, compilation, enregistrement voal, assistance IA
-et bien plus pour un développement fluide et accessible.
 
+* Description
+   Emacs-Revolution est une distribution modernisée d’Emacs,					\
+   composée de paquets Lisp et d’outils complémentaires, offrant l'auto-complétion,		\
+   détection d’erreurs, documentation, compilation, enregistrement voal, assistance IA		\
+   etre bien plus pour un développement fluide et accessible.					\
 
-** Objectif
-+ [X] Chargement du mode adéquate
-  1) [X] Switch vers le mode elisp on-line pour les fichiers org lors de l'ecriture de ce langage.
-+ [ ] Tous les fichiers elisp doivent être généré depuis org à partir de init-revolution-mode.el.
-+ [-] Compatibilités des langages:
-  * [ ] c-mode
-    1) [ ] auto-completion
-    2) [ ] syntaxe
-    3) [ ] documentation
-    4) [ ] Compilation
-  * [ ] c++-mode
-    1) [ ] auto-completion
-    2) [ ] syntaxe
-    3) [ ] documentation
-    4) [ ] Compilation
-  * [ ] glsl-mode
-    1) [ ] auto-completion
-    2) [ ] syntaxe
-    3) [ ] documentation
-    4) [ ] Compilation
-  * [ ] css-mode
-    1) [ ] auto-completion
-    2) [ ] syntaxe
-    3) [ ] documentation
-    4) [ ] Compilation   
-  * [ ] scss-mode
-    1) [ ] auto-completion
-    2) [ ] syntaxe
-    3) [ ] documentation
-    4) [ ] Compilation    
-  * [ ] text-mode
-    1) [ ] auto-completion
-    2) [ ] syntaxe
-    3) [ ] documentation
-    4) [ ] Compilation    
-  * [ ] javascript-mode
-    1) [ ] auto-completion
-    2) [ ] syntaxe
-    3) [ ] documentation
-    4) [ ] Compilation    
-  * [ ] java-mode
-    1) [ ] auto-completion
-    2) [ ] syntaxe
-    3) [ ] documentation
-    4) [ ] Compilation   
-  * [ ] js-mode
-    1) [ ] auto-completion
-    2) [ ] syntaxe
-    3) [ ] documentation
-    4) [ ] Compilation    
-  * [ ] js2-mode
-    1) [ ] auto-completion
-    2) [ ] syntaxe
-    3) [ ] documentation
-    4) [ ] Compilation    
-  * [ ] js3-mode
-    1) [ ] auto-completion
-    2) [ ] syntaxe
-    3) [ ] documentation
-    4) [ ] Compilation    
-  * [ ] typescript-mode
-    1) [ ] auto-completion
-    2) [ ] syntaxe
-    3) [ ] documentation
-    4) [ ] Compilation    
-  * [ ] go-mode
-    1) [ ] auto-completion
-    2) [ ] syntaxe
-    3) [ ] documentation
-    4) [ ] Compilation    
-  * [ ] scala-mode
-    1) [ ] auto-completion
-    2) [ ] syntaxe
-    3) [ ] documentation
-    4) [ ] Compilation
-  * [ ] kotlin-mode
-    1) [ ] auto-completion
-    2) [ ] syntaxe
-    3) [ ] documentation
-    4) [ ] Compilation    
-  * [ ] swift-mode
-    1) [ ] auto-completion
-    2) [ ] syntaxe
-    3) [ ] documentation
-    4) [ ] Compilation    
-  * [ ] csharp-mode
-    1) [ ] auto-completion
-    2) [ ] syntaxe
-    3) [ ] documentation
-    4) [ ] Compilation   
-  * [ ] rust-mode
-    1) [ ] auto-completion
-    2) [ ] syntaxe
-    3) [ ] documentation
-    4) [ ] Compilation    
-  * [ ] json-mode
-    1) [ ] auto-completion
-    2) [ ] syntaxe
-    3) [ ] documentation
-    4) [ ] Compilation    
-  * [ ] mhtml-mode
-    1) [ ] auto-completion
-    2) [ ] syntaxe
-    3) [ ] documentation
-    4) [ ] Compilation    
-  * [ ] xml-mode
-    1) [ ] auto-completion
-    2) [ ] syntaxe
-    3) [ ] documentation
-    4) [ ] Compilation    
-  * [ ] sgml-mode
-    1) [ ] auto-completion
-    2) [ ] syntaxe
-    3) [ ] documentation
-    4) [ ] Compilation    
-  * [ ] web-mode
-    1) [ ] auto-completion
-    2) [ ] syntaxe
-    3) [ ] documentation
-    4) [ ] Compilation    
-  * [ ] html-mode
-    1) [ ] auto-completion
-    2) [ ] syntaxe
-    3) [ ] documentation
-    4) [ ] Compilation   
-  * [ ] vue-mode
-    1) [ ] auto-completion
-    2) [ ] syntaxe
-    3) [ ] documentation
-    4) [ ] Compilation    
-  * [ ] php-mode
-    1) [ ] auto-completion
-    2) [ ] syntaxe
-    3) [ ] documentation
-    4) [ ] Compilation    
-  * [X] emacs-lisp-mode
-    1) [X] auto-completion
-    2) [X] syntaxe
-    3) [X] documentation
-  * [X] lisp-mode
-    1) [X] auto-completion
-    2) [X] syntaxe
-    3) [X] documentation
-  * [ ] clojure-mode
-    1) [ ] auto-completion
-    2) [ ] syntaxe
-    3) [ ] documentation
-    4) [ ] Compilation    
-  * [ ] python-mode
-    1) [ ] auto-completion
-    2) [ ] syntaxe
-    3) [ ] documentation
-    4) [ ] Compilation    
-  * [ ] makefile-gmake-mode
-    1) [ ] auto-completion
-    2) [ ] syntaxe
-    3) [ ] documentation
-    4) [ ] Compilation    
-  * [ ] yaml-mode
-    1) [ ] auto-completion
-    2) [ ] syntaxe
-    3) [ ] documentation
-    4) [ ] Compilation
-    5) TODO
-    6) FIXED
-       1) [X] Lors de l'ourverture du fichier il y a une erreur de major mode.       
-  * [ ] dockerfile-mode
-    1) [ ] auto-completion
-    2) [ ] syntaxe
-    3) [ ] documentation
-    4) [ ] Compilation    
-  * [ ] r-mode
-    1) [ ] auto-completion
-    2) [ ] syntaxe
-    3) [ ] documentation
-    4) [ ] Compilation    
-  * [ ] sh-mode
-    1) [ ] auto-completion
-    2) [ ] syntaxe
-    3) [ ] documentation
-    4) [ ] Compilation    
-  * [ ] perl-mode
-    1) [ ] auto-completion
-    2) [ ] syntaxe
-    3) [ ] documentation
-    4) [ ] Compilation    
-  * [ ] ruby-mode
-    1) [ ] auto-completion
-    2) [ ] syntaxe
-    3) [ ] documentation
-    4) [ ] Compilation    
-  * [ ] powershell-mode
-    1) [ ] auto-completion
-    2) [ ] syntaxe
-    3) [ ] documentation
-    4) [ ] Compilation    
-  * [ ] latex-mode
-    1) [ ] auto-completion
-    2) [ ] syntaxe
-    3) [ ] documentation
-    4) [ ] Compilation   
-  * [ ] org-mode !!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    1) [ ] auto-completion
-    2) [ ] syntaxe
-    3) [ ] documentation
-    4) [ ] Compilation    
-+ [ ] *Docsgen*, /Documentation de votre code/ :
-  * [ ] La documentation est générée de manière interactive ou
-     à l’aide d’un raccourci clavier. Une fois créée,
-     elle est automatiquement enregistrée sous le nom du projet,
-     dans le répertoire racine, avec l’extension .org,
-     à l’intérieur d’un dossier dédié à la documentation:
-    /.emacs.d/revolution/docs/
-  * [ ] Utiliser one.el ou emacs-ssg pour emuler un server web
-    diffusant la documention org en page web,
-    accessible depuis un racourcis(+interactive) clavier.
-+ [ ] Neotree verifier son installation.
-+ [ ] Flux RSS
-  1) [ ] barre d'affichage en haut de la fenetre.
-  2) [ ] shortkey pour switcher afficher/cacher
-  3) [ ] shortkey pour afficher un formulaire pour ajouter un flux RSS.
-+ [ ] Divers
- * [ ] Simplifier la création de nouveaux headers, peut-être proposer d'injecter l'URL de la boite pour laquelle le projet est développé.
- * [ ] elisp-demos
- * [ ] bug-hunter
- * [ ] flycheck-package
- * [ ] which-key
- * [ ] elfeed
- * [ ] calfw-org
- * [ ] multiple-cursors
- * [ ] company-mode verifier les endroit inutiles ou il est appelé.
- * [ ] company-org-block n'est ce pas dans org-mode.el ou il doit etre instancier.
- * [ ] auto-complete
- * [ ] flycheck-posframe
- * [ ] el-fly-indent-mode
- * [ ] boxy-headings
- * [ ] posframe
+* Objectif
+** DONE Chargement du mode adéquate
+ - [X] Switch vers le mode elisp on-line pour les fichiers org lors de l'ecriture de ce langage.
+** DONE Tous les fichiers elisp doivent être généré depuis org à partir de init-revolution-mode.el.
+ - [-] Compatibilités des langages [2/40]:
+   + [ ] c-mode [0/4]
+     - [ ] auto-completion
+     - [ ] syntaxe
+     - [ ] documentation
+     - [ ] Compilation
+   + [ ] c++-mode [0/4]
+     - [ ] auto-completion
+     - [ ] syntaxe
+     - [ ] documentation
+     - [ ] Compilation
+   + [ ] glsl-mode [0/4]
+     - [ ] auto-completion
+     - [ ] syntaxe
+     - [ ] documentation
+     - [ ] Compilation
+   + [ ] css-mode [0/4]
+     - [ ] auto-completion
+     - [ ] syntaxe
+     - [ ] documentation
+     - [ ] Compilation   
+   + [ ] scss-mode [0/4]
+     - [ ] auto-completion
+     - [ ] syntaxe
+     - [ ] documentation
+     - [ ] Compilation    
+   + [ ] text-mode [0/4]
+     - [ ] auto-completion
+     - [ ] syntaxe
+     - [ ] documentation
+     - [ ] Compilation    
+   + [ ] javascript-mode [0/4]
+     - [ ] auto-completion
+     - [ ] syntaxe
+     - [ ] documentation
+     - [ ] Compilation    
+   + [ ] java-mode [0/4]
+     - [ ] auto-completion
+     - [ ] syntaxe
+     - [ ] documentation
+     - [ ] Compilation   
+   + [ ] js-mode [0/4]
+     - [ ] auto-completion
+     - [ ] syntaxe
+     - [ ] documentation
+     - [ ] Compilation    
+   + [ ] js2-mode [0/4]
+     - [ ] auto-completion
+     - [ ] syntaxe
+     - [ ] documentation
+     - [ ] Compilation    
+   + [ ] js3-mode [0/4]
+     - [ ] auto-completion
+     - [ ] syntaxe
+     - [ ] documentation
+     - [ ] Compilation    
+   + [ ] typescript-mode [0/4]
+     - [ ] auto-completion
+     - [ ] syntaxe
+     - [ ] documentation
+     - [ ] Compilation    
+   + [ ] go-mode [0/4]
+     - [ ] auto-completion
+     - [ ] syntaxe
+     - [ ] documentation
+     - [ ] Compilation    
+   + [ ] scala-mode [0/4]
+     - [ ] auto-completion
+     - [ ] syntaxe
+     - [ ] documentation
+     - [ ] Compilation
+   + [ ] kotlin-mode [0/4]
+     - [ ] auto-completion
+     - [ ] syntaxe
+     - [ ] documentation
+     - [ ] Compilation    
+   + [ ] swift-mode [0/4]
+     - [ ] auto-completion
+     - [ ] syntaxe
+     - [ ] documentation
+     - [ ] Compilation    
+   + [ ] csharp-mode [0/4]
+     - [ ] auto-completion
+     - [ ] syntaxe
+     - [ ] documentation
+     - [ ] Compilation   
+   + [ ] rust-mode [0/4]
+     - [ ] auto-completion
+     - [ ] syntaxe
+     - [ ] documentation
+     - [ ] Compilation    
+   + [ ] json-mode [0/4]
+     - [ ] auto-completion
+     - [ ] syntaxe
+     - [ ] documentation
+     - [ ] Compilation    
+   + [ ] mhtml-mode [0/4]
+     - [ ] auto-completion
+     - [ ] syntaxe
+     - [ ] documentation
+     - [ ] Compilation    
+   + [ ] xml-mode [0/4]
+     - [ ] auto-completion
+     - [ ] syntaxe
+     - [ ] documentation
+     - [ ] Compilation    
+   + [ ] sgml-mode [0/4]
+     - [ ] auto-completion
+     - [ ] syntaxe
+     - [ ] documentation
+     - [ ] Compilation    
+   + [ ] web-mode [0/4]
+     - [ ] auto-completion
+     - [ ] syntaxe
+     - [ ] documentation
+     - [ ] Compilation    
+   + [ ] html-mode [0/4]
+     - [ ] auto-completion
+     - [ ] syntaxe
+     - [ ] documentation
+     - [ ] Compilation   
+   + [ ] vue-mode [0/4]
+     - [ ] auto-completion
+     - [ ] syntaxe
+     - [ ] documentation
+     - [ ] Compilation    
+   + [ ] php-mode [0/4]
+     - [ ] auto-completion
+     - [ ] syntaxe
+     - [ ] documentation
+     - [ ] Compilation    
+   + [X] emacs-lisp-mode [3/3]
+     - [X] auto-completion
+     - [X] syntaxe
+     - [X] documentation
+   + [X] lisp-mode [3/3]
+     - [X] auto-completion
+     - [X] syntaxe
+     - [X] documentation
+   + [ ] clojure-mode [0/4]
+     - [ ] auto-completion
+     - [ ] syntaxe
+     - [ ] documentation
+     - [ ] Compilation    
+   + [ ] python-mode [0/4]
+     - [ ] auto-completion
+     - [ ] syntaxe
+     - [ ] documentation
+     - [ ] Compilation    
+   + [ ] makefile-gmake-mode [0/4]
+     - [ ] auto-completion
+     - [ ] syntaxe
+     - [ ] documentation
+     - [ ] Compilation    
+   + [ ] yaml-mode [0/4]
+     - [ ] auto-completion
+     - [ ] syntaxe
+     - [ ] documentation
+     - [ ] Compilation
+     ** TODO ERROR [0/4]
+       - [ ] Lors de l'ourverture du fichier il y a une erreur de major mode.       
+   + [ ] dockerfile-mode [0/4]
+     - [ ] auto-completion
+     - [ ] syntaxe
+     - [ ] documentation
+     - [ ] Compilation    
+   + [ ] r-mode [0/4]
+     - [ ] auto-completion
+     - [ ] syntaxe
+     - [ ] documentation
+     - [ ] Compilation    
+   + [ ] sh-mode [0/4]
+     - [ ] auto-completion
+     - [ ] syntaxe
+     - [ ] documentation
+     - [ ] Compilation    
+   + [ ] perl-mode [0/4]
+     - [ ] auto-completion
+     - [ ] syntaxe
+     - [ ] documentation
+     - [ ] Compilation    
+   + [ ] ruby-mode [0/4]
+     - [ ] auto-completion
+     - [ ] syntaxe
+     - [ ] documentation
+     - [ ] Compilation    
+   + [ ] powershell-mode [0/4]
+     - [ ] auto-completion
+     - [ ] syntaxe
+     - [ ] documentation
+     - [ ] Compilation    
+   + [ ] latex-mode [0/4]
+     - [ ] auto-completion
+     - [ ] syntaxe
+     - [ ] documentation
+     - [ ] Compilation   
+   + [ ] org-mode [0/4]
+     - [ ] auto-completion
+     - [ ] syntaxe
+     - [ ] documentation
+     - [ ] Compilation    
+** TODO *Docsgen*, /Documentation de votre code/ : [0/2]
+   - [ ] La documentation est générée de manière interactive ou
+      à l’aide d’un raccourci clavier. Une fois créée,
+      elle est automatiquement enregistrée sous le nom du projet,
+      dans le répertoire racine, avec l’extension .org,
+      à l’intérieur d’un dossier dédié à la documentation:
+     /.emacs.d/revolution/docs/
+   - [ ] Utiliser one.el ou emacs-ssg pour emuler un server web
+     diffusant la documention org en page web,
+     accessible depuis un racourcis(+interactive) clavier.
+** TODO Flux RSS [0/3]
+   - [ ] barre d'affichage en haut de la fenetre.
+   - [ ] shortkey pour switcher afficher/cacher
+   - [ ] shortkey pour afficher un formulaire pour ajouter un flux RSS.
+** TODO Divers [2/17]
+   + [X] Neotree verifier son installation.
+   + [ ] Simplifier la création de nouveaux headers, peut-être proposer d'injecter l'URL de la boite pour laquelle le projet est développé.
+   + [ ] elisp-demos
+   + [ ] bug-hunter
+   + [X] which-key
+   + [ ] elfeed
+   + [ ] calfw-org
+   + [ ] multiple-cursors
+   + [ ] flycheck-package
+   + [ ] flycheck-posframe
+   + [ ] el-fly-indent-mode
+   + [ ] boxy-headings
+   + [ ] posframe
+   + [ ] le Header permet d'ajouter tous les utilisateur ayant modifié le fichier.
+   + [ ] org-project-capture
+   + [ ] org-sidebar
+     
+* Copyright
+   Copyright © 2025 Pierre Schebath (alias Glider)						\
+												\
+   Cette œuvre est sous licence Creative Commons Attribution -					\
+   Pas d’Utilisation Commerciale 4.0 International (CC BY-NC 4.0).				\
+												\
+   Vous êtes libre de :										\
+    - Partager — copier et redistribuer le matériel sur tout support ou sous tout format	\
+    - Adapter — remixer, transformer et créer à partir du matériel				\
+												\
+   À condition que l'utilisation ne soit pas commerciale.					\
+
+* Contact
+   Email: contact@lugtech.fr
