@@ -1,0 +1,106 @@
+;;; emacs-revolution.el --- -*- lexical-binding: t; -*-
+;;; package --- Summary
+;;; Commentary:
+;; ======================================================================
+;; @license Copyright 2016-2026 Pierre Schebath
+;; ---------------------
+;; 
+;; @brief This file has been written by Pierre Etienne Charles Schebath Cazoulat.
+;; 
+;; This source code, its related data and algorithms are Pierre Schebath
+;; Proprietary Information and shall be protected in strict confidence by
+;; the party who receives it.  It shall not be disclosed nor copied nor
+;; duplicated in whole or in part to any third party without Pierre Schebath
+;; written prior permission.
+;; ======================================================================
+;; emacs-revolution.el for Emacs Revolution in /home/glider/.emacs.d/revolution/
+;; @description: Emacs Dev-tools.
+;; 
+;; Started on  Mon Jan 26 02:49:53 2026 @author Glider
+## Last update Mon Jan 26 14:47:14 2026 @author Glider
+;; ======================================================================
+;;; Code:
+
+* IHM
+** Header File
+#+NAME: BOF_ihm()
+#+BEGIN_SRC emacs-lisp :lexical t
+
+;;; ihm.el --- -*- lexical-binding: t; -*-
+;;; Commentary:
+;;; 
+;;; Code:
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;                            ;;;;;;;;;
+;;;;;;;;;      EMACS SETUP           ;;;;;;;;;
+;;;;;;;;;                            ;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+#+END_SRC
+
+** Initial Settings
+  Basic Configuration from emacs
+#+NAME: init
+#+BEGIN_SRC emacs-lisp :lexical t
+
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+(eval-and-compile
+  (setq use-package-always-ensure t
+        use-package-expand-minimally t))
+
+;; ------------------------------------------------------------
+;; Sécurité & debug
+;; ------------------------------------------------------------
+(use-package warnings :ensure nil)
+(setq debug-on-error t)
+(setq warning-minimum-level :error)
+
+;; ------------------------------------------------------------
+;; Désactivation UI inutile
+;; ------------------------------------------------------------
+(setq inhibit-startup-screen t)
+(setq initial-scratch-message nil)
+
+(set-language-environment "UTF-8")
+(set-default-coding-systems 'utf-8-unix)
+
+#+END_SRC
+
+** Core
+   Packages who make Emacs Revolution
+#+NAME: Core
+#+BEGIN_SRC emacs-lisp :lexical t
+
+(message "Emacs external configuration is loaded")
+(defun revolution-load-org-config()
+  "Load revolution configuration."
+  (if (and (not (string= (buffer-name) "*Messages*")) (not (string= (buffer-name) "*scratch*")))
+      (progn (message "Emacs Start revolution")
+	     (org-babel-load-file "~/.emacs.d/revolution/globals.org")
+	     (org-babel-load-file "~/.emacs.d/revolution/utilities.org")
+	     (org-babel-load-file "~/.emacs.d/revolution/settings.org")
+	     (org-babel-load-file "~/.emacs.d/revolution/ihm.org")
+	     (org-babel-load-file "~/.emacs.d/revolution/major-mode.org")
+	     (org-babel-load-file "~/.emacs.d/revolution/headers/std_comment.org")
+	     (org-babel-load-file "~/.emacs.d/revolution/header.org")
+	     (org-babel-load-file "~/.emacs.d/revolution/attainment.org")
+	     (org-babel-load-file "~/.emacs.d/revolution/shortcuts.org")
+	     (message "Revolution loaded on \"%s\" done." major-mode)
+	     )))
+
+;; Launch Emacs Revolution
+(add-hook 'find-file-hook #'revolution-load-org-config)
+
+#+END_SRC
+
+** End Of File
+#+NAME: EOF_emacs-revolution
+#+BEGIN_SRC emacs-lisp :lexical t
+
+(provide 'emacs-revolution)
+;;; emacs-revolution.el ends here
+
+#+END_SRC

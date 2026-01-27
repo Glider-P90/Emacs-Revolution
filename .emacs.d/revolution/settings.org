@@ -1,0 +1,141 @@
+#+BEGIN_COMMENT
+## ======================================================================
+## @license Copyright 2016-2025 Pierre Schebath
+## ---------------------
+## 
+## @brief This file has been written by Pierre Etienne Charles Schebath Cazoulat.
+## 
+## This source code, its related data and algorithms are Pierre Schebath
+## Proprietary Information and shall be protected in strict confidence by
+## the party who receives it.  It shall not be disclosed nor copied nor
+## duplicated in whole or in part to any third party without Pierre Schebath
+## written prior permission.
+## ======================================================================
+## revolution-settings.org for revolution in ~/.emacs.d/revolution/
+## @description: Revolution-Settings tools & configurations
+## 
+## Started on  Wed Jun  4 23:45:47 2025 @author Glider
+## Last update Mon Jan 26 06:02:09 2026 @author Glider
+## ======================================================================
+#+END_COMMENT
+
+#+NAME: BOF_revolution-settings
+#+BEGIN_SRC emacs-lisp :lexical t
+
+  ;;; revolution-settings.el --- -*- lexical-binding: t; -*-
+  ;;; Commentary:
+  ;;; 
+  ;;; code:
+  
+#+END_SRC
+ 
+#+NAME: Revolution-Settings
+#+BEGIN_SRC emacs-lisp :lexical t
+
+;; ===============================
+;; Revolution-Settingsile: project interaction library for Emacs
+;; ===============================
+
+;; Optional: ag is nice alternative to using grep with Projectile
+(use-package ag
+  :ensure t)
+
+#+END_SRC
+
+
+#+NAME: neotree
+#+BEGIN_SRC emacs-lisp :lexical t
+
+
+;; ===============================
+;; neotree: File system explorer.
+;; ===============================
+(use-package neotree
+  :bind ([f8] . neotree-toggle)
+  :config (setq neo-default-system-application "open"))
+
+#+END_SRC
+
+#+NAME: Projectile
+#+BEGIN_SRC emacs-lisp :lexical t
+  
+;; ===============================
+;; Projectile: Project manager
+;; ===============================
+(use-package projectile
+  :ensure t
+  :init
+  (setq projectile-enable-caching t)
+  (setq projectile-project-search-path
+        '("~/Projects/Emacs-Revolution/"
+          "~/.emacs.d/revolution/"
+	  "~/Projects/Antivir"
+	  "~/Projects/Beauty-Make-Up"
+	  "~/Projects/blob"
+	  "~/Projects/Blob"
+	  "~/Projects/bu-lugtech"
+	  "~/Projects/Cookingpot"
+	  "~/Projects/Crypto"
+	  "~/Projects/cv-regine-cazoulat"
+	  "~/Projects/Dibona"
+	  "~/Projects/Enterprise-Data-Manager"
+	  "~/Projects/Fenix"
+	  "~/Projects/Genome"
+	  "~/Projects/Goba"
+	  "~/Projects/Infinity"
+	  "~/Projects/install-driver"
+	  "~/Projects/Kaamelotte"
+	  "~/Projects/LibraryCoq"
+	  "~/Projects/Lugtech"
+	  "~/Projects/MatLab"
+	  "~/Projects/mcp-jeux"
+	  "~/Projects/Modern-Hospital"
+	  "~/Projects/Mouvement-Constituant-Populaire.github.io"
+	  "~/Projects/my-emacs"
+	  "~/Projects/OpenGL"
+	  "~/Projects/OpenGL-SuperBible-6th-Edition"
+	  "~/Projects/Overview-Transaction-Wallet"
+	  "~/Projects/Revenge"
+	  "~/Projects/RVM"
+	  "~/Projects/server-mining"
+	  "~/Projects/steamcmd"
+	  "~/Projects/Studio-Web-Controller"
+	  "~/Projects/System-Updater"
+	  "~/Projects/templates"
+	  "~/Projects/Twitch"
+	  "~/Projects/Twitch-ui"
+	  "~/Projects/Umbrella-Corporation"
+	  "~/Projects/vortex"
+	  "~/Projects/vulkan"
+	  "~/Projects/Walhalla"
+	  "~/Projects/walhalla-dev"
+	  "~/Projects/webGL"
+	  "~/Projects/webGL-bu"
+	  "~/Projects/widgets"
+	  "~/Projects/Wiki-Fenix"))
+  :config
+  (projectile-mode +1))
+
+#+END_SRC
+
+#+NAME: Flycheck
+#+BEGIN_SRC emacs-lisp :lexical t
+
+;; ===============================
+;; Flycheck: Check syntax in a buffer
+;; ===============================
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode)
+  :config
+  (add-hook 'after-init-hook #'global-flycheck-mode))
+
+#+END_SRC
+
+#+NAME: EOF_project()
+#+BEGIN_SRC emacs-lisp :lexical t
+
+(provide 'revolution-settings)
+  ;;; revolution-settings.el ends here
+
+#+END_SRC

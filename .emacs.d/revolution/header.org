@@ -32,17 +32,6 @@
 #+NAME: write_headers()
 #+BEGIN_SRC emacs-lisp :lexical t
 
-(defun Xstd-get (position)
-  "Function std-get get string from array by POSITION."
-  (let* ((filename (buffer-file-name))
-         (mode-fn (assoc-default filename auto-mode-alist #'string-match))
-         (mode-name (and mode-fn (symbol-name mode-fn)))
-         (std-entry (assoc mode-name std-modes-alist)))
-    (message "Debug std-entry: [%s]" mode-fn)
-    (if std-entry
-      	(cdr (assoc position (cdr std-entry)))
-      nil)))
-
 (defun std-get (position)
   "Return the entry for POSITION based on the current major-mode rules."
   (let* ((filename (buffer-file-name))
@@ -54,7 +43,6 @@
     (funcall (intern mode-name))
     (when std-entry
       (cdr (assoc position (cdr std-entry))))))
-
 
 (defun update-std-header ()
   "Function updates-std-header update time & owner to header."
@@ -111,7 +99,9 @@
   
 #+NAME: EOF_header()
 #+BEGIN_SRC emacs-lisp
-  (provide 'header)
+
+(provide 'header)
     ;;; header.el ends here
+
 #+END_SRC
 

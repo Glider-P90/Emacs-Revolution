@@ -1,60 +1,87 @@
-## Last update Sun Jan 18 06:46:22 2026 @author Glider
-# ======================================================================
-# @license Copyright 2016-2025 Pierre Schebath
-# ---------------------
-# 
-# @brief This file has been written by Pierre Etienne Charles Schebath Cazoulat.
-# 
-# This source code, its related data and algorithms are Pierre Schebath
-# Proprietary Information and shall be protected in strict confidence by
-# the party who receives it.  It shall not be disclosed nor copied nor
-# duplicated in whole or in part to any third party without Pierre Schebath
-# written prior permission.
-# ======================================================================
-# shortcuts.org for revolution in ~/.emacs.d/revolution/
-# @description: shortcuts
-# 
-# Started on  Wed Jun  4 11:17:30 2025 @author Glider
-# Last update Wed Jun  4 11:17:30 2025 @author Glider
-# ======================================================================
+## Last update Tue Jan 27 06:03:29 2026 @author Glider
+## ======================================================================
+## @license Copyright 2016-2025 Pierre Schebath
+## ---------------------
+## 
+## @brief This file has been written by Pierre Etienne Charles Schebath Cazoulat.
+## 
+## This source code, its related data and algorithms are Pierre Schebath
+## Proprietary Information and shall be protected in strict confidence by
+## the party who receives it.  It shall not be disclosed nor copied nor
+## duplicated in whole or in part to any third party without Pierre Schebath
+## written prior permission.
+## ======================================================================
+## shortcuts.org for revolution in ~/.emacs.d/revolution/
+## @description: shortcuts
+## 
+## Started on  Wed Jun  4 11:17:30 2025 @author Glider
+## Last update Wed Jun  4 11:17:30 2025 @author Glider
+## ======================================================================
 #+END_COMMENT
 
 #+NAME: BOF_shortcuts()
 #+BEGIN_SRC emacs-lisp :lexical t
 
-    ;;; shortcuts.el --- -*- lexical-binding: t; -*-
-    ;;; Commentary:
-    ;;; shortcuts it's about easy life
-    ;;; code:
+;;; shortcuts.el --- -*- lexical-binding: t; -*-
+;;; Commentary:
+;;; shortcuts it's about easy life
+;;; code:
 
 #+END_SRC
 
 #+NAME: Shortcuts
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :lexical t
 
-  (global-unset-key (kbd "C-_"))
-  (global-unset-key (kbd "C-x u"))
-  (global-set-key [(control z)] 'undo)
+(use-package which-key
+  :ensure t
+  :custom
+  (which-key-show-early-on-C-h t)
+  (which-key-idle-delay 10000)
+  (which-key-idle-secondary-delay 0.05)
+  (which-key-side-window-max-width 0.40)
+  (which-key-separator " → ")
+  (which-key-prefix-prefix "+")
+  (which-key-sort-order 'which-key-local-then-key-order)
+  (which-key-max-description-length 60)
+  (which-key-show-docstrings t))
 
-  ;;******     Insert an header      ******;;
-  (global-set-key (kbd "C-c h") 'std-file-header)
+(global-unset-key (kbd "<f3>"))
+(global-unset-key (kbd "<f4>"))
+(global-unset-key (kbd "<f5>"))
 
-  ;;******  Affiche le mode majeur   ******;;
-  (global-set-key (kbd "C-c m") 'show-major-mode)
+;; Annuler/Refaire
+(global-set-key [(control z)] 'undo)
 
-  ;;******  Affiche dans la fenetre principale les flux RSS   ******;;
-  (global-set-key (kbd "C-c n") #'my/open-elfeed-fullscreen)
-  (global-set-key (kbd "C-c w") 'elfeed)
+;;******     Insert an header      ******;;
+(global-set-key (kbd "C-c h") 'std-file-header)
 
-  ;;******  Affiche le mode majeur   ******;;
-  (global-set-key (kbd "C-c )") 'check-parens)
+;;******  Affiche le mode majeur   ******;;
+(global-set-key (kbd "C-c m") 'show-major-mode)
 
+;; Documentation du langage
+(global-set-key (kbd "<f2>") #'er-describe-symbol-at-point)
+
+;; debuger deplacer depuis f4 en f5 pour une logique d'utilisation
+(let ((cmd (lookup-key global-map (kbd "<f4>"))))
+  (when (commandp cmd)
+    (global-unset-key (kbd "<f4>"))
+    (global-set-key (kbd "<f5>") cmd)))
+
+;; Documentation des raccourcis
+(global-set-key (kbd "<f3>") #'projectile-help-command)
+(global-set-key (kbd "<f4>") #'which-key-show-top-level)
+
+;; Navigation des pages UNIQUEMENT quand which-key est visible
+(define-key which-key-mode-map (kbd "C-<right>") #'which-key-show-next-page)
+(define-key which-key-mode-map (kbd "C-<left>")  #'which-key-show-previous-page)
 
 #+END_SRC
 
 #+NAME: EOF_shortcuts()
 #+BEGIN_SRC emacs-lisp
-  (provide 'shortcuts)
-  ;;; shortcuts.el ends here
+
+(provide 'shortcuts)
+ ;;; shortcuts.el ends here
+
 #+END_SRC
 

@@ -15,28 +15,32 @@
 ## @description: major mode manager
 ## 
 ## Started on  Wed Jun  4 23:45:47 2025 @author Glider
-## Last update Fri Jan 23 07:52:05 2026 @author Glider
+## Last update Mon Jan 26 08:08:31 2026 @author Glider
 ## ======================================================================
 #+END_COMMENT
 
 #+NAME: BOF_globals()
 #+BEGIN_SRC emacs-lisp :lexical t
 
- ;;; globals.el --- -*- lexical-binding: t; -*-
- ;;; Commentary:
- ;;; Set config following the major mode
- ;;; code:
+;;; globals.el --- -*- lexical-binding: t; -*-
+;;; Commentary:
+;;; Set config following the major mode
+;;; code:
 
 (defgroup emacs-revolution nil
-  "Emacs-Revolution."
+  "Emacs Revolution."
   :group 'tools)
+
+(defconst emacs-revolution-dir
+  (expand-file-name "~/.emacs.d/revolution/")
+  "Racine du projet Emacs-Revolution.")
     
 #+END_SRC
 
 #+NAME:lang_settings_globals()
 #+BEGIN_SRC emacs-lisp :lexical t
 
-(defcustom lang-settings-dir (expand-file-name "revolution/lang-settings/" user-emacs-directory)
+(defcustom lang-settings-dir (expand-file-name "revolution/modes/" user-emacs-directory)
   "Dossier contenant les fichiers de configuration par langage."
   :type 'directory
   :group 'emacs-revolution)
@@ -53,8 +57,8 @@
 
 #+NAME: std_modes_alist()
 #+BEGIN_SRC emacs-lisp :lexical t
-  
-(defvar std-modes-alist
+
+(defcustom std-modes-alist
   '(("c-mode"                (begin . "/**") (mid . " * ") (end . "**/"))
     ("c++-mode"              (begin . "/**") (mid . " * ") (end . " */"))
     ("css-mode"              (begin . "/**") (mid . " * ") (end . " */"))
@@ -80,8 +84,14 @@
     ("html-mode"             (begin . "<!--") (mid . "## ") (end . "-->"))
     ("vue-mode"              (begin . "<!--") (mid . "## ") (end . "-->"))
     ("php-mode"              (begin . "<?php\n/**") (mid . " ** ") (end . " */\n?>"))
-    ("emacs-lisp-mode"       (begin . ";;; FILE_NAME_EXT --- -*- lexical-binding: t; -*-\n;;; package --- Summary\n;;; Commentary:") (mid . ";; ") (end . ";;; Code:\n\n\n(provide 'FILE_NAME)\n;;; FILE_NAME_EXT ends here"))
-    ("lisp-mode"             (begin . ";;; FILE_NAME_EXT --- -*- lexical-binding: t; -*-\n;;; package --- Summary\n;;; Commentary:") (mid . ";; ") (end . ";;; Code:\n\n\n(provide 'FILE_NAME)\n;;; FILE_NAME_EXT ends here"))
+    ("emacs-lisp-mode"
+     (begin . ";;; FILE_NAME_EXT --- -*- lexical-binding: t; -*-\n;;; package --- Summary\n;;; Commentary:")
+     (mid . ";; ")
+     (end . ";;; Code:\n\n\n(provide 'FILE_NAME)\n;;; FILE_NAME_EXT ends here"))
+    ("lisp-mode"
+     (begin . ";;; FILE_NAME_EXT --- -*- lexical-binding: t; -*-\n;;; package --- Summary\n;;; Commentary:")
+     (mid . ";; ")
+     (end . ";;; Code:\n\n\n(provide 'FILE_NAME)\n;;; FILE_NAME_EXT ends here"))
     ("clojure-mode"          (begin . ";;")  (mid . ";; ") (end . ";;"))
     ("python-mode"           (begin . "##*") (mid . "## ") (end . "##"))
     ("makefile-gmake-mode"   (begin . "##*") (mid . "## ") (end . "## "))
@@ -94,7 +104,57 @@
     ("ruby-mode"             (begin . "=begin") (mid . "## ") (end . "=end"))
     ("powershell-mode"       (begin . "<#") (mid . "## ") (end . "#>"))
     ("latex-mode"            (begin . "%%") (mid . "%% ") (end . "%%"))
-    ("org-mode"              (begin . "#+BEGIN_COMMENT") (mid . "## ") (end . "#+END_COMMENT"))))
+    ("org-mode"              (begin . "#+BEGIN_COMMENT") (mid . "## ") (end . "#+END_COMMENT")))
+  "Association entre major-modes et formats de commentaires standards.
+Chaque entrée est de la forme :
+  (MODE (begin . STRING) (mid . STRING) (end . STRING))."
+  :type '(repeat
+          (list
+           (string :tag "Major mode name")
+           (cons :tag "Begin" (const begin) string)
+           (cons :tag "Middle" (const mid) string)
+           (cons :tag "End" (const end) string)))
+  :group 'emacs-revolution)
+
+(defcustom mode-associations
+  '(("\\.jsx?\\'"       . web-mode)
+    ("\\.tsx?\\'"       . web-mode)
+    ("\\.[agj]sp\\'"    . web-mode)
+    ("\\.as[cp]x\\'"    . web-mode)
+    ("\\.erb\\'"        . web-mode)
+    ("\\.mustache\\'"   . web-mode)
+    ("\\.djhtml\\'"     . html-mode)
+    ("\\.html?\\'"      . html-mode)
+    ("\\.phtml\\'"      . html-mode)
+    ("\\.php\\'"        . php-mode)
+    ("\\.js\\'"         . js2-mode)
+    ("\\.json\\'"       . json-mode)
+    ("\\.yaml\\'"       . yaml-mode)
+    ("\\.yml\\'"        . yaml-mode)
+    ("\\.conf\\'"       . conf-mode)
+    ("\\.cfg\\'"        . conf-mode)
+    ("\\.env\\'"        . conf-mode)
+    ("\\.gitignore\\'"  . conf-mode)
+    ("\\.htaccess\\'"   . conf-mode)
+    ("\\.c\\'"          . c-mode)
+    ("\\.h\\'"          . c-mode)
+    ("\\.cpp\\'"        . c++-mode)
+    ("\\.cc\\'"         . c++-mode)
+    ("\\.cxx\\'"        . c++-mode)
+    ("\\.hpp\\'"        . c++-mode)
+    ("\\.glsl\\'"       . glsl-mode)
+    ("\\.el\\'"         . emacs-lisp-mode)
+    ("\\.lisp\\'"       . lisp-mode)
+    ("\\.scm\\'"        . scheme-mode)
+    ("\\.css\\'"        . css-mode)
+    ("\\.org\\'"        . org-mode)
+    ("\\.xml\\'"        . nxml-mode))
+  "Associations entre extensions de fichiers et major-modes."
+  :type '(repeat
+          (cons
+           (regexp :tag "Filename regexp")
+           (symbol :tag "Major mode")))
+  :group 'emacs-revolution)
 
 #+END_SRC
 

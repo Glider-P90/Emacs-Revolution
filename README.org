@@ -4,21 +4,20 @@
 :project-version: 0.1
 :END:
 
-
 * Description
-   Emacs-Revolution est une distribution modernisée d’Emacs,
-   composée de paquets Lisp et d’outils complémentaires, offrant l'auto-complétion,
-   détection d’erreurs, documentation, compilation, enregistrement voal, assistance IA
-   etre bien plus pour un développement fluide et accessible.
+	Emacs-Revolution est une distribution modernisée d’Emacs,
+	composée de paquets Lisp et d’outils complémentaires, offrant l'auto-complétion,
+	détection d’erreurs, documentation, compilation, enregistrement voal, assistance IA
+	etre bien plus pour un développement fluide et accessible.
 
 * Objectif
-** DONE Chargement du mode adéquate
+** DONEOR Chargement du mode adéquate
  - [X] Switch vers le mode elisp on-line pour les fichiers org lors de l'ecriture de ce langage.
-** DONE Tous les fichiers elisp doivent être généré depuis org à partir de init-revolution-mode.el.
- - [-] Compatibilités des langages [2/40]:
-   + [ ] c-mode [0/4]
+** TODO Tous les fichiers elisp doivent être généré depuis org à partir de init-revolution-mode.el.
+ - [-] Compatibilités des langages [1/39]:
+   + [-] c-mode [1/4]
      - [ ] auto-completion
-     - [ ] syntaxe
+     - [X] syntaxe
      - [ ] documentation
      - [ ] Compilation
    + [ ] c++-mode [0/4]
@@ -111,11 +110,6 @@
      - [ ] syntaxe
      - [ ] documentation
      - [ ] Compilation    
-   + [ ] mhtml-mode [0/4]
-     - [ ] auto-completion
-     - [ ] syntaxe
-     - [ ] documentation
-     - [ ] Compilation    
    + [ ] xml-mode [0/4]
      - [ ] auto-completion
      - [ ] syntaxe
@@ -126,34 +120,37 @@
      - [ ] syntaxe
      - [ ] documentation
      - [ ] Compilation    
-   + [ ] web-mode [0/4]
-     - [ ] auto-completion
-     - [ ] syntaxe
-     - [ ] documentation
-     - [ ] Compilation    
    + [ ] html-mode [0/4]
      - [ ] auto-completion
      - [ ] syntaxe
      - [ ] documentation
      - [ ] Compilation   
-   + [ ] vue-mode [0/4]
-     - [ ] auto-completion
-     - [ ] syntaxe
-     - [ ] documentation
-     - [ ] Compilation    
    + [ ] php-mode [0/4]
      - [ ] auto-completion
      - [ ] syntaxe
      - [ ] documentation
      - [ ] Compilation    
-   + [X] emacs-lisp-mode [3/3]
+   + [ ] web-mode [0/4]
+     - [ ] auto-completion
+     - [ ] syntaxe
+     - [ ] documentation
+     - [ ] Compilation    
+   + [ ] mhtml-mode [0/4]
+     - [ ] auto-completion
+     - [ ] syntaxe
+     - [ ] documentation
+     - [ ] Compilation    
+   + [ ] vue-mode [0/4]
+     - [ ] auto-completion
+     - [ ] syntaxe
+     - [ ] documentation
+     - [ ] Compilation    
+   + [-] emacs-lisp-mode & lisp-mode [3/4]
      - [X] auto-completion
      - [X] syntaxe
-     - [X] documentation
-   + [X] lisp-mode [3/3]
-     - [X] auto-completion
-     - [X] syntaxe
-     - [X] documentation
+     - [X] documentation ### EN COURS...
+     - [ ] Divers [0/1]
+       + [ ] le header contient commentary (obligatoire) et description, il n'en restera qu'un seul, hahaha...
    + [ ] clojure-mode [0/4]
      - [ ] auto-completion
      - [ ] syntaxe
@@ -211,11 +208,10 @@
      - [ ] syntaxe
      - [ ] documentation
      - [ ] Compilation   
-   + [ ] org-mode [0/4]
-     - [ ] auto-completion
-     - [ ] syntaxe
-     - [ ] documentation
-     - [ ] Compilation    
+   + [X] org-mode [3/3]
+     - [X] auto-completion
+     - [X] syntaxe
+     - [X] documentation
 ** TODO *Docsgen*, /Documentation de votre code/ : [0/2]
    - [ ] La documentation est générée de manière interactive ou
       à l’aide d’un raccourci clavier. Une fois créée,
@@ -226,16 +222,40 @@
    - [ ] Utiliser one.el ou emacs-ssg pour emuler un server web
      diffusant la documention org en page web,
      accessible depuis un racourcis(+interactive) clavier.
+** TODO Fichier de Configuration
+   - [ ] function qui verifie si le fichier de configuration nommee XXXXX existe.
+   - [ ] Si il n'existe pas affiche un buffer de presentation de Emacs-Revolution avec des parametres configurables.
+     + [ ] Chemin d'installation par defaut, modifiable.
+     + [ ] Formulaire pour personnaliser les raccourcis.
+     + [ ] lancer 'pip install semgrep --user' par defaut oui, btn radio.
+       https://emacs-lsp.github.io/lsp-mode/page/lsp-semgrep/
+     + [ ] Confirmer l'installation du package en mode radion on/off: npm install -g @emacs-eask/cli
+     + [ ] Lier cette fonction au fichier de configuration emacs-revolution-check-org
+     + [ ] Autoriser/Valider l'installation
+** TODO LSP
+   - [ ] Server
+     + [ ] semgrep
+   - [ ] Client
+     + [ ] lsp-ui https://emacs-lsp.github.io/lsp-mode/page/lsp-semgrep/
+     + [ ] org
+     + [ ] elisp
+     + [ ] html/css/javascript
+     + [ ] php
+     + [ ] c/c++
+     + [ ] python
 ** TODO Flux RSS [0/3]
    - [ ] barre d'affichage en haut de la fenetre.
    - [ ] shortkey pour switcher afficher/cacher
    - [ ] shortkey pour afficher un formulaire pour ajouter un flux RSS.
-** TODO Divers [2/17]
+** TODO Divers [1/16]
    + [X] Neotree verifier son installation.
    + [ ] Simplifier la création de nouveaux headers, peut-être proposer d'injecter l'URL de la boite pour laquelle le projet est développé.
    + [ ] elisp-demos
    + [ ] bug-hunter
-   + [X] which-key
+   + [-] which-key
+     - [X] Affiche les completions des shortcuts disponibles.
+     - [ ] Affiche les shortcuts dans une frame en mode colonne a droite de la fenetre.
+     - [ ] Affiche les shortcuts du mode seulement en continue dans une frame en mode colonne a droite de la fenetre.
    + [ ] elfeed
    + [ ] calfw-org
    + [ ] multiple-cursors
@@ -247,7 +267,7 @@
    + [ ] le Header permet d'ajouter tous les utilisateur ayant modifié le fichier.
    + [ ] org-project-capture
    + [ ] org-sidebar
-     
+
 * Copyright
    Copyright © 2025 Pierre Schebath (alias Glider)
 

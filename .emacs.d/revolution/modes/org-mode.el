@@ -17,7 +17,7 @@
 ;; @description: org-mode
 ;; 
 ;; Started on  Tue Jan 30 03:12:24 2024 @author Glider
-;; Last update Fri Jan 23 06:38:49 2026 @author Glider
+;; Last update Tue Jan 27 06:07:57 2026 @author Glider
 ;; ======================================================================
 ;;; Code:
 
@@ -63,20 +63,26 @@
         (while (> (point) (point-min))
           (forward-line -1)
           (let ((line (thing-at-point 'line t)))
-	    (cond ((string-match begin-key line)
-		   (setq mode-found (car (split-string (substring line (match-end 0)) "[ \t\n]+")))
-		   (if (and (not (eq mode-found nil)) (not (string= (symbol-name major-mode) (concat mode-found "-mode"))))
-		       (progn (funcall (intern (concat mode-found "-mode")))))
-		   (throw 'found t))
-		  ((string-match end-key line)
-		   (if (not (string= (symbol-name major-mode) mode-src))
-		       (progn (funcall (intern mode-src))
-			      (let ((file (concat lang-settings-dir mode-src ".el")))
-				(if (file-exists-p file)
-				    (load-file file)
-				  (message "⚠️ Fichier de configuration  %s introuvable !" file)))
-			      (setq mode-found nil)))
-		   (throw 'found nil)))))))))
+            (when (stringp line)
+              (cond
+               ((string-match begin-key line)
+                (setq mode-found
+                      (car (split-string (substring line (match-end 0)) "[ \t\n]+")))
+                (when (and mode-found
+                           (not (string= (symbol-name major-mode)
+                                         (concat mode-found "-mode"))))
+                  (funcall (intern (concat mode-found "-mode"))))
+                (throw 'found t))
+               ((string-match end-key line)
+                (unless (string= (symbol-name major-mode) mode-src)
+                  (funcall (intern mode-src))
+                  (let ((file (concat lang-settings-dir mode-src ".el")))
+                    (if (file-exists-p file)
+                        (load-file file)
+                      (message "⚠ Fichier de configuration %s introuvable !" file)))
+                  (setq mode-found nil))
+                (throw 'found nil))))))))))
+
 
 (defun update-major-mode-reload ()
   "Reset mode after saving."
@@ -86,6 +92,15 @@
 
 (add-hook 'post-command-hook #'update-major-mode)
 (add-hook 'after-save-hook #'update-major-mode-reload)
+
+(use-package lsp-mode
+  :ensure t
+  :commands lsp
+  :hook ((org . lsp) (emacs-lisp . lsp) (lisp . lsp) (lsp-mode . lsp-enable-which-key-integration))
+  :init (setq lsp-keymap-prefix "C-c l")
+  :config
+  (setq lsp-enable-snippet t)
+  (setq lsp-prefer-flymake t))
 
 (provide 'org-mode)
 ;;; org-mode.el ends here
