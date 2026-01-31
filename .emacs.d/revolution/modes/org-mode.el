@@ -17,12 +17,15 @@
 ;; @description: org-mode
 ;; 
 ;; Started on  Tue Jan 30 03:12:24 2024 @author Glider
-;; Last update Tue Jan 27 06:07:57 2026 @author Glider
+;; Last update Sat Jan 31 13:02:50 2026 @author Glider
 ;; ======================================================================
 ;;; Code:
 
 (setq org-src-fontify-natively t)
 (setq org-src-tab-acts-natively t)
+
+(defvar er-org-tree-display t
+  "Permet de verifier si le tree de org est affiché.")
 
 (defun emacs-revolution-org-installed-p ()
   "Vérifie si le paquet Debian/Ubuntu org mode est installé."
@@ -45,8 +48,6 @@
   "Ouvre la documentation officielle Org dans Info."
   (interactive)
   (info "(org)"))
-
-(global-set-key (kbd "C-c o") 'org-manual)
 
 (defvar mode-found nil
   "The variable mode-found permet de signaler un changement de mode.")
@@ -101,6 +102,60 @@
   :config
   (setq lsp-enable-snippet t)
   (setq lsp-prefer-flymake t))
+
+;; Alternative 1: Use the basic completion style
+(setq org-refile-use-outline-path 'file
+      org-outline-path-complete-in-steps t)
+
+(advice-add #'org-olpath-completing-read :around #'vertico-enforce-basic-completion)
+
+(defun vertico-enforce-basic-completion (&rest args)
+  (minibuffer-with-setup-hook
+      (:append
+       (lambda ()
+         (let ((map (make-sparse-keymap)))
+           (define-key map [tab] #'minibuffer-complete)
+           (use-local-map (make-composed-keymap (list map) (current-local-map))))
+         (setq-local completion-styles (cons 'basic completion-styles)
+                     vertico-preselect 'prompt)))
+    (apply args)))
+
+(add-hook 'completion-at-point-functions #'cape-elisp-block 10 t)
+
+(use-package org-side-tree
+  :ensure t
+  :init
+  (org-side-tree))
+
+(defun er-list-side-windows (&optional frame)
+  "Retourne la liste des side windows actives."
+  (seq-filter
+   (lambda (win)
+     (window-parameter win 'window-side))
+   (window-list frame 'no-minibuffer)))
+
+
+(defun resize-side-window (window width)
+  "Resize width of any side window."
+  (unless (stringp window)
+    (error "WINDOW must be a string"))
+  (unless (integerp width)
+    (error "WIDTH must be an integer"))
+  (dolist (win (er-list-side-windows))
+    (when (string-match window (buffer-name (window-buffer win)))
+        (let ((delta (- width (window-width win))))
+	(window-resize win delta t)))))
+
+(resize-side-window "<Tree>" 22)
+
+(defun org-side-tree-toggle-then-resize ()
+  "Org side tree toggle then resize."
+  (interactive)
+  (org-side-tree-toggle)
+  (resize-side-window "<Tree>" 22))
+
+(global-set-key (kbd "<f7>") #'org-side-tree-toggle-then-resize)
+(global-set-key (kbd "C-c o") 'org-manual)
 
 (provide 'org-mode)
 ;;; org-mode.el ends here

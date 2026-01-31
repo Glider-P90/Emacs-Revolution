@@ -1,4 +1,5 @@
-## Last update Tue Jan 27 06:03:29 2026 @author Glider
+#+BEGIN_COMMENT
+## Last update Sat Jan 31 13:27:59 2026 @author Glider
 ## ======================================================================
 ## @license Copyright 2016-2025 Pierre Schebath
 ## ---------------------
@@ -19,6 +20,7 @@
 ## ======================================================================
 #+END_COMMENT
 
+* Header
 #+NAME: BOF_shortcuts()
 #+BEGIN_SRC emacs-lisp :lexical t
 
@@ -29,25 +31,28 @@
 
 #+END_SRC
 
-#+NAME: Shortcuts
+* Unbind Shortcuts
+#+NAME: Unbind Shortcuts
 #+BEGIN_SRC emacs-lisp :lexical t
 
-(use-package which-key
-  :ensure t
-  :custom
-  (which-key-show-early-on-C-h t)
-  (which-key-idle-delay 10000)
-  (which-key-idle-secondary-delay 0.05)
-  (which-key-side-window-max-width 0.40)
-  (which-key-separator " → ")
-  (which-key-prefix-prefix "+")
-  (which-key-sort-order 'which-key-local-then-key-order)
-  (which-key-max-description-length 60)
-  (which-key-show-docstrings t))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;; Unbind Shortcuts
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (global-unset-key (kbd "<f3>"))
 (global-unset-key (kbd "<f4>"))
 (global-unset-key (kbd "<f5>"))
+
+#+END_SRC
+
+* Utilities
+#+NAME: Utilities
+#+BEGIN_SRC emacs-lisp :lexical t
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;; Utilities
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Annuler/Refaire
 (global-set-key [(control z)] 'undo)
@@ -58,7 +63,7 @@
 ;;******  Affiche le mode majeur   ******;;
 (global-set-key (kbd "C-c m") 'show-major-mode)
 
-;; Documentation du langage
+  ;; Documentation du langage
 (global-set-key (kbd "<f2>") #'er-describe-symbol-at-point)
 
 ;; debuger deplacer depuis f4 en f5 pour une logique d'utilisation
@@ -67,15 +72,67 @@
     (global-unset-key (kbd "<f4>"))
     (global-set-key (kbd "<f5>") cmd)))
 
-;; Documentation des raccourcis
-(global-set-key (kbd "<f3>") #'projectile-help-command)
+;;(global-set-key (kbd "<f3>") #'projectile-help-command)
 (global-set-key (kbd "<f4>") #'which-key-show-top-level)
 
-;; Navigation des pages UNIQUEMENT quand which-key est visible
-(define-key which-key-mode-map (kbd "C-<right>") #'which-key-show-next-page)
-(define-key which-key-mode-map (kbd "C-<left>")  #'which-key-show-previous-page)
+#+END_SRC
+
+* Shortcut Initialisation
+#+NAME: Shortcuts
+#+BEGIN_SRC emacs-lisp :lexical t
+
+(use-package which-key
+  :ensure t
+  :custom
+  (which-key-idle-delay 0.2)
+  (which-key-idle-secondary-delay 0.2)
+  (which-key-separator " → ")
+  (which-key-prefix-prefix "+")
+  (which-key-sort-order 'which-key-local-then-key-order)
+  (which-key-show-docstrings t)
+  (which-key-side-window-max-width 0.45)
+  :init
+  (setq which-key-show-next-page-cycle t)
+  (setq which-key-popup-type 'side-window)
+  (setq which-key-max-description-length 120)
+  (setq which-key-max-display-columns 1)
+  (setq which-key-show-prefix 'left)
+  (setq which-key-sort-order 'which-key-key-order)
+  (which-key-mode))
+
+(which-key-mode 1)
+(which-key-setup-side-window-right-bottom)
+
+(defun X-list-side-windows (&optional frame)
+  "Retourne la liste des side windows actives."
+  (seq-filter
+   (lambda (win)
+     (window-parameter win 'window-side))
+   (window-list frame 'no-minibuffer)))
+
+
+(defun go-side-window (window width)
+  "Resize width of any side window."
+  (unless (stringp window)
+    (error "WINDOW must be a string"))
+  (unless (integerp width)
+    (error "WIDTH must be an integer"))
+  (dolist (win (X-list-side-windows))
+    (when (string-match window (buffer-name (window-buffer win)))
+      (let ((delta (- width (window-width win))))
+	(with-selected-window win
+	  (goto-char (point-min))
+	  (forward-line 2))))))
+
+(go-side-window) ;; TODO relier a un hook (affichage which-key) 
+;; (global-unset-key (kbd "C-h"))
+;; (global-unset-key (kbd "TAB"))
+;; (define-key which-key-mode-map (kbd "TAB") #'which-key-C-h-dispatch)
+
+;;(setq which-key-compute-remaps t)
 
 #+END_SRC
+
 
 #+NAME: EOF_shortcuts()
 #+BEGIN_SRC emacs-lisp

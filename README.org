@@ -11,10 +11,10 @@
 	etre bien plus pour un développement fluide et accessible.
 
 * Objectif
-** DONEOR Chargement du mode adéquate
+** DONE Chargement du mode adéquate
  - [X] Switch vers le mode elisp on-line pour les fichiers org lors de l'ecriture de ce langage.
 ** TODO Tous les fichiers elisp doivent être généré depuis org à partir de init-revolution-mode.el.
- - [-] Compatibilités des langages [1/39]:
+ - [-] Compatibilités des langages [0/39]:
    + [-] c-mode [1/4]
      - [ ] auto-completion
      - [X] syntaxe
@@ -208,10 +208,12 @@
      - [ ] syntaxe
      - [ ] documentation
      - [ ] Compilation   
-   + [X] org-mode [3/3]
+   + [-] org-mode [3/4]
      - [X] auto-completion
      - [X] syntaxe
      - [X] documentation
+     - [ ] Divers [0/1]
+       + [ ] L'autocomplétion doit être adapté pour le major mode org car TAB est utilisé par org.
 ** TODO *Docsgen*, /Documentation de votre code/ : [0/2]
    - [ ] La documentation est générée de manière interactive ou
       à l’aide d’un raccourci clavier. Une fois créée,
@@ -267,7 +269,11 @@
    + [ ] le Header permet d'ajouter tous les utilisateur ayant modifié le fichier.
    + [ ] org-project-capture
    + [ ] org-sidebar
-
+** Auto-completion
+   + [ ] max height si Horizontal.
+   + [ ] max width si Vertical.
+   + [ ] Trier: major-mode en premier / Projectile et le reste.
+     
 * Copyright
    Copyright © 2025 Pierre Schebath (alias Glider)
 

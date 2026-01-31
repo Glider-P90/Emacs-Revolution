@@ -17,7 +17,7 @@
 ;; @description: Emacs Dev-tools.
 ;; 
 ;; Started on  Mon Jan 26 02:49:53 2026 @author Glider
-## Last update Mon Jan 26 14:47:14 2026 @author Glider
+## Last update Wed Jan 28 01:51:52 2026 @author Glider
 ;; ======================================================================
 ;;; Code:
 
@@ -44,6 +44,7 @@
 #+NAME: init
 #+BEGIN_SRC emacs-lisp :lexical t
 
+(package-initialize)
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
@@ -59,13 +60,13 @@
 (setq warning-minimum-level :error)
 
 ;; ------------------------------------------------------------
-;; Désactivation UI inutile
+;; UI
 ;; ------------------------------------------------------------
 (setq inhibit-startup-screen t)
 (setq initial-scratch-message nil)
-
 (set-language-environment "UTF-8")
 (set-default-coding-systems 'utf-8-unix)
+(global-ede-mode t)
 
 #+END_SRC
 
@@ -92,7 +93,9 @@
 	     )))
 
 ;; Launch Emacs Revolution
-(add-hook 'find-file-hook #'revolution-load-org-config)
+;;(add-hook 'find-file-hook #'revolution-load-org-config)
+;;(add-hook 'after-init-hook #'revolution-load-org-config)
+(add-hook 'window-setup-hook #'revolution-load-org-config)
 
 #+END_SRC
 

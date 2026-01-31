@@ -15,7 +15,7 @@
 ## @description: major mode manager
 ## 
 ## Started on  Wed Jun  4 23:45:47 2025 @author Glider
-## Last update Mon Jan 26 11:18:48 2026 @author Glider
+## Last update Thu Jan 29 07:18:04 2026 @author Glider
 ## ======================================================================
 #+END_COMMENT
 
@@ -36,141 +36,64 @@
 #+NAME: Vertico()
 #+BEGIN_SRC emacs-lisp :lexical t
 
-(defun basic-completion-style ()
-  (setq completion-auto-wrap t
-        completion-auto-select 'second-tab
-        completion-auto-help 'always
-        completion-show-help nil
-        completions-format 'one-column
-        completions-max-height 10))
-
-(defun icomplete-vertical-style ()
-  (setq completion-auto-wrap t
-        completion-auto-help nil
-        completions-max-height 15
-        completion-styles '(initials flex)
-        icomplete-in-buffer t
-        max-mini-window-height 10)
-
-  (icomplete-mode 1)
-  (icomplete-vertical-mode 1))
-
-(defun fido-style ()
-  (setq completion-auto-wrap t
-        completion-auto-help nil
-        completions-max-height 15
-        completion-styles '(flex)
-        icomplete-in-buffer t
-        max-mini-window-height 10)
-
-  (fido-mode 1)
-  (fido-vertical-mode 1))
-
-;; Bind C-r to show minibuffer history entries
-(keymap-set minibuffer-mode-map "C-r" #'minibuffer-complete-history)
-
-
 ;; ===============================
 ;; Vertico (core)
 ;; ===============================
 (use-package vertico
   :ensure t
-   :custom
-   ;; (vertico-scroll-margin 0) ;; Different scroll margin
-  (vertico-count 20) ;; Show more candidates
-  (vertico-resize t) ;; Grow and shrink the Vertico minibuffer
-  (vertico-cycle t)  ;; Enable cycling for `vertico-next/previous'
+  :custom
+  (vertico-count 12) ;; Show more candidates
+  ;;  (vertico-resize t) ;; Grow and shrink the Vertico minibuffer
+  (vertico-cycle t) ;; Enable cycling for `vertico-next/previous'
   :init
-  (vertico-mode 1)
-  :bind
-  (:map vertico-map
-        ("M-q"   . vertico-quick-insert)
-        ("C-q"   . vertico-quick-exit)
-        ("DEL"   . vertico-directory-delete-char)
-        ("M-DEL" . vertico-directory-delete-word))
+  (vertico-multiform-mode)
+  (setq read-file-name-completion-ignore-case t
+ 	read-buffer-completion-ignore-case t
+	completion-ignore-case t)
+  (vertico-mode)
   :config
-  ;; Mouse support
   (vertico-mouse-mode 1))
 
-;; Repeat last Vertico session
-(use-package vertico-repeat
-  :ensure nil
-  :after vertico
-  :bind (("M-R" . vertico-repeat)))
-
-;; Quick selection (jump to candidate)
-(use-package vertico-quick
-  :ensure nil
-  :after vertico)
-
-;; Posframe backend
-(use-package vertico-posframe
-  :ensure t
-  :after vertico
-  :config
-  (vertico-posframe-mode 1))
-
-;; ===============================
-;; Marginalia (annotations)
-;; ===============================
-(use-package marginalia
-  :ensure t
-  :init
-  (marginalia-mode 1))
-
-;; ===============================
-;; Orderless (matching style)
-;; ===============================
-(use-package orderless
-  :ensure t
-  :init
-  (setq completion-styles '(orderless basic)
-        completion-category-overrides
-        '((file (styles basic partial-completion)))))
-
-
-#+END_SRC
-
-** Corfu
-  Completion Framework
-#+NAME: corfu
+** Orderless
+Order of Completion List
+#+NAME: orderless
 #+BEGIN_SRC emacs-lisp :lexical t
 
 ;; ===============================
-;; Corfu: Completion Framework
+;; ORDERLESS: Order of Completion List 
 ;; ===============================
-(use-package corfu
+(use-package orderless
   :ensure t
   :custom
-  (corfu-cycle t)                  ;; Cycle through candidates
-  (corfu-quit-at-boundary nil)     ;; Don't quit at buffer boundary
-  (corfu-quit-no-match 'separator) ;; Keep popup when no match
-  (corfu-preview-current nil)      ;; Disable preview
-  (corfu-preselect 'prompt)        ;; Preselect prompt
-  (corfu-auto nil)                 ;; Enable auto completion
-  (corfu-auto-delay 0.3)           ;; Delay before auto popup
-  (corfu-auto-prefix 3)            ;; Trigger after 3 chars
-  (corfu-auto-trigger ".")         ;; Trigger on dot
-  (corfu-separator ?\s)
+  (completion-styles '(basic orderless partial-completion))
+  (completion-category-overrides '((file (styles partial-completion)))
+   (symbol (orderless-matching-styles '(orderless-initialism)))
+   (variable (orderless-matching-styles '(orderless-literal))))
+  (completion-pcm-leading-wildcard t))
+
+#+END_SRC
+
+** marginalia
+  Rich annotations using the Marginalia package
+#+NAME: marginalia
+#+BEGIN_SRC emacs-lisp :lexical t
+
+;; ===============================
+;; Enable rich annotations using the Marginalia package
+;; ===============================
+(use-package marginalia
+  :ensure t
+  ;; Bind `marginalia-cycle' locally in the minibuffer.  To make the binding
+  ;; available in the *Completions* buffer, add it to the
+  ;; `completion-list-mode-map'.
+  :bind (:map minibuffer-local-map
+              ("M-A" . marginalia-cycle))
+  ;; The :init section is always executed.
   :init
-  (global-corfu-mode)
-  (corfu-popupinfo-mode) ;; Inline documentation popup
-  (define-key corfu-map (kbd "SPC")
-              (lambda ()
-                (interactive)
-                (if current-prefix-arg
-  		  (progn
-                      (corfu-quit)
-                      (insert " "))
-  		(if (and (= (char-before) corfu-separator)
-  			 (or
-  			  (not (char-after))
-  			  (= (char-after) ?\s)
-  			  (= (char-after) ?\n)))
-                      (progn
-                        (corfu-insert)
-                        (insert " "))
-  		  (corfu-insert-separator))))))
+  ;; Marginalia must be activated in the :init section of use-package such that
+  ;; the mode gets enabled right away. Note that this forces loading the
+  ;; package.
+  (marginalia-mode))
 
 #+END_SRC
 
@@ -194,69 +117,6 @@
   (setq text-mode-ispell-word-completion nil)
   ;; Filter M-x commands (hide irrelevant)
   (setq read-extended-command-predicate #'command-completion-default-include-p))
-
-#+END_SRC
-
-** Cape
-  Completion At Point Extensions
-#+NAME: cape
-#+BEGIN_SRC emacs-lisp :lexical t
-
-;; ===============================
-;; CAPE: Completion At Point Extensions
-;; ===============================
-(use-package cape
-  :ensure t
-  :bind ("C-c p" . cape-prefix-map)
-  :init
-  (add-hook 'completion-at-point-functions #'cape-dabbrev)
-  (add-hook 'completion-at-point-functions #'cape-file)
-  (add-hook 'completion-at-point-functions #'cape-elisp-block)
-  (setq cape-file-expand 'absolute))
-
-#+END_SRC
-
-** Orderless
-  Order of Completion List
-#+NAME: orderless
-#+BEGIN_SRC emacs-lisp :lexical t
-
-;; ===============================
-;; ORDERLESS: Order of Completion List 
-;; ===============================
-(use-package orderless
-  :ensure t
-  :custom
-  (completion-styles '(basic orderless partial-completion))
-  (completion-pcm-leading-wildcard t)
-  (completion-category-overrides
-   '((file (styles partial-completion)))
-   (symbol (orderless-matching-styles '(orderless-initialism)))
-   (variable (orderless-matching-styles '(orderless-literal))))
-  (completion-pcm-leading-wildcard t))
-
-#+END_SRC
-
-** marginalia
-  Rich annotations using the Marginalia package
-#+NAME: marginalia
-#+BEGIN_SRC emacs-lisp :lexical t
-
-;; ===============================
-;; Enable rich annotations using the Marginalia package
-;; ===============================
-(use-package marginalia
-  ;; Bind `marginalia-cycle' locally in the minibuffer.  To make the binding
-  ;; available in the *Completions* buffer, add it to the
-  ;; `completion-list-mode-map'.
-  :bind (:map minibuffer-local-map
-              ("M-A" . marginalia-cycle))
-  ;; The :init section is always executed.
-  :init
-  ;; Marginalia must be activated in the :init section of use-package such that
-  ;; the mode gets enabled right away. Note that this forces loading the
-  ;; package.
-  (marginalia-mode))
 
 #+END_SRC
 
@@ -293,17 +153,14 @@
 ;;   (setq eglot-autoshutdown t)
 ;;   (setq eglot-send-changes-idle-time 0.3))
 
-#+END_SRC
 
-** Dape mode
-  Debuger Linked to LSP Server
-#+NAME: dape-mode
-#+BEGIN_SRC emacs-lisp :lexical t
+
+;;(use-package lsp-ui :commands lsp-ui-mode)
 
 ;; ==============================
 ;;  Debuger: Linked LSP
 ;; ==============================
-;; (use-package dap-mode)
+;;(dap-mode 1)
 
 #+END_SRC
 
@@ -315,14 +172,85 @@
 ;; ========n======================
 ;; Parsing Syntaxique: Highlighting / Indentation / Folding
 ;; ===============================
-;; (use-package treesit-auto
-;;  :custom
-;;  (treesit-auto-install 'prompt)
-;;  :config
-;;  (treesit-auto-add-to-auto-mode-alist 'all)
-;;  (global-treesit-auto-mode))
+(use-package treesit-auto
+  :ensure t
+  :custom
+  (treesit-auto-install 'prompt)
+  :config
+  (treesit-auto-add-to-auto-mode-alist 'all)
+  (global-treesit-auto-mode))
 
 #+END_SRC
+
+** Corfu
+  Completion Framework
+#+NAME: corfu
+#+BEGIN_SRC emacs-lisp :lexical t
+
+(use-package corfu
+  :ensure t
+  :custom
+  (corfu-cycle t) ;; Cycle through candidates                                                                                                                                                        
+  (corfu-quit-at-boundary nil) ;; Don't quit at buffer boundary                                                                                                                                                   
+  ;;(corfu-quit-no-match 'separator) ;; Keep popup when no match                                                                                                                                                         
+  ;; (corfu-preview-current t) ;; Disable preview                                                                                                                                                                 
+  (corfu-preselect 'prompt) ;; Preselect prompt                                                                                                                                                                
+  (corfu-auto-prefix 3)	;; Trigger after 3 chars                                                                                                                                                           
+  (corfu-auto-trigger "~/.") ;; Trigger on dot                                                                                                                                                                  
+  (corfu-separator ?^)
+  (corfu-count 10)
+  (corfu-min-width 100)
+  (global-corfu-minibuffer t)
+  ;; (corfu-max-width corfu-min-width)
+  :init
+  (corfu-echo-mode t)
+  (global-corfu-mode)
+  (corfu-popupinfo-mode))
+
+
+#+END_SRC
+** Corfu Terminal
+#+NAME: corfu-terminal
+#+BEGIN_SRC emacs-lisp
+
+(unless (require 'corfu-terminal nil t)
+  (unless (package-installed-p 'quelpa)
+    (package-refresh-contents)
+    (package-install 'quelpa))
+  (require 'quelpa)
+  (quelpa '(corfu-terminal
+            :fetcher git
+            :url "https://codeberg.org/akib/emacs-corfu-terminal.git")))
+
+(when (and (not (display-graphic-p))
+           (require 'corfu-terminal nil t))
+  (corfu-terminal-mode 1))
+
+#+END_SRC
+
+** Cape
+  Completion At Point Extensions
+#+NAME: cape
+#+BEGIN_SRC emacs-lisp :lexical t
+
+;; ===============================
+;; CAPE: Completion At Point Extensions
+;; ===============================
+(use-package cape
+  :ensure t
+  :bind ("<tab>" . cape-file)
+  :after corfu
+  :init
+  (add-to-list 'completion-at-point-functions #'cape-history)
+  (add-to-list 'completion-at-point-functions #'cape-dict)
+  (add-to-list 'completion-at-point-functions #'cape-file)
+  (add-to-list 'completion-at-point-functions #'cape-sgml)
+  (add-to-list 'completion-at-point-functions #'cape-elisp-symbol)
+  (add-to-list 'completion-at-point-functions #'cape-elisp-block)
+  (add-to-list 'completion-at-point-functions #'cape-dabbrev))
+
+#+END_SRC
+
 
 ** Emacs
   General Setup
@@ -335,11 +263,13 @@
 (use-package emacs
   :custom
   (tab-always-indent 'complete)
+  ;;(temp-buffer-resize-mode t) a check!
   (context-menu-mode t)
+  (column-number-mode t)
+  ;; (read-extended-command-predicate #'command-completion-default-include-p));; est ce vraiment bien?
   (enable-recursive-minibuffers t))
 
 #+END_SRC
-
 ** End Of File
 #+NAME: EOF_ihm()
 #+BEGIN_SRC emacs-lisp :lexical t

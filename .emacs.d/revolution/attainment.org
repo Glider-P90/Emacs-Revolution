@@ -15,10 +15,11 @@
 ## @description: Load attainment configuration for any major-mode.
 ## 
 ## Started on  Mon Jan 26 14:33:35 2026 @author Glider
-## Last update Mon Jan 26 14:38:43 2026 @author Glider
+## Last update Sat Jan 31 11:14:41 2026 @author Glider
 ## ======================================================================
 #+END_COMMENT
 
+* Header
 #+NAME: BOF_attainment
 #+BEGIN_SRC emacs-lisp :lexical t
 
@@ -29,14 +30,31 @@
 
 #+END_SRC
 
-#+NAME: lsp-packages
+* Emoticons
+#+NAME: unicode-emoticons
 #+BEGIN_SRC emacs-lisp :lexical t
 
-(use-package lsp-ui :commands lsp-ui-mode)
-(use-package dap-mode)
+(use-package unicode-emoticons
+  :ensure t
+  :init
+  (unicode-emoticons-mode))
   
 #+END_SRC
+
+* Surround a string
+#+NAME: unicode-enbox
+#+BEGIN_SRC emacs-lisp :lexical t
+
+;; (use-package unicode-enbox
+;;   :ensure t
+;;   :init
+;;   (set-fontset-font "fontset-default"
+;;                   (cons (decode-char 'ucs #x2500)  (decode-char 'ucs #x257F))
+;;                   (font-spec :name "DejaVu Sans Mono:" :registry "iso10646-1")))
   
+#+END_SRC
+
+* End Of File
 #+NAME: BOF_attainment
 #+BEGIN_SRC emacs-lisp :lexical t
 

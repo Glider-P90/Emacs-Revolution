@@ -16,7 +16,7 @@
 ;; @description: main file of project.
 ;; 
 ;; Started on  Sun Jan 25 00:01:57 2026 @author Glider
-;; Last update Mon Jan 26 14:52:28 2026 @author Glider
+;; Last update Sat Jan 31 11:06:52 2026 @author Glider
 ;; ======================================================================
 ;;; Code:
 
@@ -27,51 +27,29 @@
 
 (require 'package)
 (setq package-archives
-      '(("melpa" . "https://melpa.org/packages/")
-        ("gnu"   . "https://elpa.gnu.org/packages/")
-	("nongnu" . "https://elpa.nongnu.org/nongnu/")
-	("org" . "https://orgmode.org/elpa/")))
-
+      '(("melpa"  . "https://melpa.org/packages/")
+        ("gnu"    . "https://elpa.gnu.org/packages/")
+	("nongnu" . "https://elpa.nongnu.org/nongnu/")))
 (package-initialize)
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-(eval-and-compile
-  (setq use-package-always-ensure t
-        use-package-expand-minimally t))
 
+;; Set Emacs Revolution
+(org-babel-load-file "~/.emacs.d/revolution/emacs-revolution.org")
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(column-number-mode t))
+ '(package-selected-packages
+   '(cape corfu corfu-terminal dired-filetype-face dired-launch
+	  dired-quick-sort disk-usage font-utils htmlize lsp-mode
+	  marginalia neotree orderless org-drill org-side-tree quelpa
+	  treesit-auto unicode-emoticons unicode-enbox vertico))
+ '(which-key-popup-type 'side-window)
+ '(which-key-show-prefix 'left))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "unspecified-bg" :foreground "dodgerblue" :inverse-video nil :box nil :strike-through nil :extend nil :overline nil :underline nil :slant normal :weight regular :height 1 :width normal :foundry "default" :family "default"))))
- '(Info-quoted ((t (:inherit fixed-pitch-serif))))
- '(ag-match-face ((t (:inherit match :background "yellow" :distant-foreground "black" :foreground "black"))))
- '(ansi-color-green ((t (:background "green3" :foreground "brightgreen"))))
- '(corfu-bar ((t (:background "darkorange" :foreground "darkslategray"))))
- '(corfu-border ((t (:background "#d7d7d7" :foreground "black"))))
- '(custom-comment ((t (:background "brightgreen" :foreground "black"))))
- '(elisp-shorthand-font-lock-face ((t (:inherit font-lock-keyword-face :foreground "green"))))
- '(font-lock-builtin-face ((t (:foreground "deepskyblue"))))
- '(font-lock-string-face ((t (:foreground "brightmagenta"))))
- '(neo-file-link-face ((t (:foreground "deepskyblue"))))
- '(org-checkbox ((t (:inherit bold :foreground "green"))))
- '(org-code ((t (:inherit shadow :foreground "green"))))
- '(org-default ((t (:inherit default :foreground "deepskyblue"))))
- '(org-property-value ((t (:inherit default :foreground "dodgerblue"))))
- '(org-tag ((t (:background "purple1" :weight bold))))
- '(popup-scroll-bar-foreground-face ((t (:background "blue"))))
- '(shadow ((t (:foreground "brightgreen")))))
-
-;; Set Emacs Revolution
-(org-babel-load-file "~/.emacs.d/revolution/emacs-revolution.org")
-
-(provide '.emacs)
-;;; .emacs ends here
+ '(neo-dir-link-face ((t (:foreground "brightblue"))))
+ '(neo-file-link-face ((t (:foreground "magenta")))))

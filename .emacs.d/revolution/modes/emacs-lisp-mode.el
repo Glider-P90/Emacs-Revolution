@@ -17,31 +17,12 @@
 ;; @description: Configuration pour le mode elisp.
 ;; 
 ;; Started on  Mon Jun  2 14:50:20 2025 @author Glider
-;; Last update Mon Jan 26 15:04:03 2026 @author Glider
+;; Last update Wed Jan 28 12:27:12 2026 @author Glider
 ;; ======================================================================
 ;;; Code:
 
-;;; GLOBALS ;;;
-(setq shortcut-debug "C-c C-d")        ; Debugging code
-(setq shortcut-compilation "C-c C-c")  ; Compilation
-(setq shortcut-search "C-c s")       ; Search function/Macro/keywords
-
-(setq tab-always-indent 'complete)
-
-;; Raccourci debugger
-(global-set-key (kbd shortcut-debug) 'bug-hunter-file)
-
-(require 'cape)
-(require 'corfu)
-
-;; Emacs Lisp mode completions
-(add-hook 'emacs-lisp-mode-hook
-          (lambda ()
-            ;; Completion at point: prioritize elisp symbols
-            (add-hook 'completion-at-point-functions #'cape-elisp-block 10 t)
-            (add-hook 'completion-at-point-functions #'cape-dabbrev 90 t)
-            ;; Optional: enable corfu locally
-            (corfu-mode 1)))
+(add-hook 'completion-at-point-functions #'cape-elisp-block 10 t)
+(add-hook 'completion-at-point-functions #'cape-dabbrev 90 t)
 
 (use-package lsp-mode
   :ensure t

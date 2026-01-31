@@ -15,7 +15,7 @@
 ## @description: revolution
 ## 
 ## Started on  Wed Jun  4 23:42:40 2025 @author Glider
-## Last update Mon Jan 26 15:13:39 2026 @author Glider
+## Last update Fri Jan 30 10:02:56 2026 @author Glider
 ## ======================================================================
 #+END_COMMENT
 
@@ -34,19 +34,19 @@
 
 ;;; Permet d'afficher le mode majeur actuel
 (defun show-major-mode ()
-        "Affiche le mode majeur pendant 5 secondes."
-        (interactive)
-        (let ((content (format "Mode majeur : %s" major-mode))
-              (buffer-name "*Major Mode*"))
-          (with-current-buffer (get-buffer-create buffer-name)
-            (erase-buffer)
-            (insert content))
-          (let ((window (display-buffer buffer-name
-        				'((display-buffer-reuse-window
-        				   display-buffer-below-selected)
-        				  (window-height . 2)))))
-            (run-at-time "5 sec" nil #'delete-window window)
-            )))
+  "Affiche le mode majeur pendant 5 secondes."
+  (interactive)
+  (let ((content (format "Mode majeur : %s" major-mode))
+        (buffer-name "*Major Mode*"))
+    (with-current-buffer (get-buffer-create buffer-name)
+      (erase-buffer)
+      (insert content))
+    (let ((window (display-buffer buffer-name
+        			  '((display-buffer-reuse-window
+        			     display-buffer-below-selected)
+        			    (window-height . 2)))))
+      (run-at-time "5 sec" nil #'delete-window window)
+      )))
 
 #+END_SRC
 
@@ -63,6 +63,21 @@
      ((facep sym)   (describe-face sym))
      (t (describe-symbol sym)))))
 
+#+END_SRC
+
+#+NAME: Paging Which-key help
+#+BEGIN_SRC emacs-lisp :lexical t
+
+;; ;;	  (which-key--pages-obj ;; contient la liste formatée et paginée)
+;; (defun er-setup-paging-which-key ()
+;;   "Setup minibuffer to paging with TAB key."
+;;   (when which-key--pages-obj
+;;     (let ((pages-struct which-key--pages-obj))
+;;       (which-key--show-page )
+;;       (message "[1] Hello world [%s]" (which-key--process-page- pages-struct)))))
+
+;; (add-hook 'which-key-init-buffer-hook 'er-setup-paging-which-key)
+  ;; hook minibuffer-exit-hook
 #+END_SRC
 
 #+NAME: EOF_lib_revolution()
