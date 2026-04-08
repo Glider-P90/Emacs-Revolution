@@ -5,10 +5,15 @@
 :END:
 
 * Description
-	Emacs-Revolution est une distribution modernisée d’Emacs,
-	composée de paquets Lisp et d’outils complémentaires, offrant l'auto-complétion,
-	détection d’erreurs, documentation, compilation, enregistrement voal, assistance IA
-	etre bien plus pour un développement fluide et accessible.
+ Emacs-Revolution est une distribution modernisée d’Emacs 30.1,
+ composée de paquets Lisp et d’outils complémentaires.
+ Comme tout outils de développement, il offre l'auto-complétion,
+ la détection d’erreurs, documentation, compilation, enregistrement vocal, assistance IA, etc..
+
+ Les principales caractéristiques du projet sont sa légèreté, favorisant la rapidité,
+ ainsi que sa simplicité, basée sur la composition d’outils complexes et modernes.
+
+ Cet outil a pour but d'etre libre et communautaire.
 
 * Objectif
 ** DONE Chargement du mode adéquate
