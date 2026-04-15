@@ -34,48 +34,24 @@
 
       | Langage               | Documentation | Syntaxe | Complétion | LSP Server |
       |-----------------------+---------------+---------+------------+------------|
+      | Bash                  | [ ]           | [ ]     | [ ]        | [ ]        |
       | c                     | [ ]           | [X]     | [ ]        | [ ]        |
-      | c++                   | [ ]           | [ ]     | [ ]        | [ ]        |
-      | c#                    | [ ]           | [ ]     | [ ]        | [ ]        |
-      | glsl                  | [ ]           | [ ]     | [ ]        | [ ]        |
-      | CSS/LessCSS/SASS/SCSS | [ ]           | [ ]     | [ ]        | [ ]        |
-      | text                  | [ ]           | [ ]     | [ ]        | N/A        |
-      | TeX/LaTeX             | [ ]           | [ ]     | [ ]        | [ ]        |
-      | javascript/typescript | [ ]           | [ ]     | [ ]        | [ ]        |
-      | java                  | [ ]           | [ ]     | [ ]        | [ ]        |
-      | go                    | [ ]           | [ ]     | [ ]        | [ ]        |
-      | SQL                   | [ ]           | [ ]     | [ ]        | [ ]        |
-      | scala                 | [ ]           | [ ]     | [ ]        | [ ]        |
-      | pascal                | [ ]           | [ ]     | [ ]        | [ ]        |
-      | kotlin                | [ ]           | [ ]     | [ ]        | [ ]        |
-      | Swift                 | [ ]           | [ ]     | [ ]        | [ ]        |
-      | csharp                | [ ]           | [ ]     | [ ]        | [ ]        |
-      | Rust                  | [ ]           | [ ]     | [ ]        | [ ]        |
-      | Json                  | [ ]           | [ ]     | [ ]        | [ ]        |
+      | C++                   | [ ]           | [ ]     | [ ]        | [ ]        |
+      | C#                    | [ ]           | [ ]     | [ ]        | [ ]        |
+      | CSS/LessCSS/SASS/SCSS | [ ]           | [ ]     | [ ]        | [X]        |
+      | Texte                 | [ ]           | [ ]     | [ ]        | N/A        |
       | GitHub Copilot        | [ ]           | [ ]     | [ ]        | [ ]        |
-      | Angular               | [ ]           | [ ]     | [ ]        | [ ]        |
-      | xml                   | [ ]           | [ ]     | [ ]        | [ ]        |
-      | sgml                  | [ ]           | [ ]     | [ ]        | N/A        |
-      | html                  | [ ]           | [ ]     | [ ]        | [ ]        |
-      | php                   | [ ]           | [ ]     | [ ]        | [ ]        |
-      | web                   | [ ]           | [ ]     | [ ]        | [ ]        |
-      | mhtml                 | [ ]           | [ ]     | [ ]        | [ ]        |
-      | vue                   | [ ]           | [ ]     | [ ]        | N/A        |
-      | lisp/elisp            | [X]           | [X]     | [X]        | [ ]        |
-      | clojure               | [ ]           | [ ]     | [ ]        | [ ]        |
-      | Perl                  | [ ]           | [ ]     | [ ]        | [ ]        |
+      | HTML                  | [ ]           | [ ]     | [ ]        | [ ]        |
+      | Javascript/typescript | [ ]           | [ ]     | [ ]        | [X]        |
+      | Json                  | [ ]           | [ ]     | [ ]        | [ ]        |
+      | Lisp/elisp            | [X]           | [X]     | [X]        | [ ]        |
+      | Makefile-gmake        | [ ]           | [ ]     | [ ]        | N/A        |
       | Python                | [ ]           | [ ]     | [ ]        | [ ]        |
-      | cmake                 | [ ]           | [ ]     | [ ]        | [ ]        |
-      | makefile-gmake        | [ ]           | [ ]     | [ ]        | N/A        |
-      | yaml                  | [ ]           | [ ]     | [ ]        | [ ]        |
-      | dockerfile            | [ ]           | [ ]     | [ ]        | [ ]        |
-      | r                     | [ ]           | [ ]     | [ ]        | [ ]        |
-      | sh                    | [ ]           | [ ]     | [ ]        | [ ]        |
-      | perl                  | [ ]           | [ ]     | [ ]        | [ ]        |
-      | ruby                  | [ ]           | [ ]     | [ ]        | [ ]        |
-      | powershell            | [ ]           | [ ]     | [ ]        | [ ]        |
-      | latex                 | [ ]           | [ ]     | [ ]        | [ ]        |
-      | org                   | [X]           | [X]     | [X]        | [ ]        |
+      | PHP                   | [ ]           | [ ]     | [ ]        | [ ]        |
+      | Glsl                  | [ ]           | [ ]     | [ ]        | [ ]        |
+      | Org                   | [X]           | [X]     | [X]        | N/A        |
+      | Xml                   | [ ]           | [ ]     | [ ]        | [ ]        |
+      | Yaml                  | [ ]           | [ ]     | [ ]        | [ ]        |
      
    * [ ] *Docsgen*, /Documentation de votre code/ : [0/1]
      - [ ] La documentation est générée de manière interactive ou
