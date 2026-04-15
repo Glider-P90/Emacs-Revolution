@@ -1,255 +1,109 @@
 * Emacs Revolution 
 :PROPERTIES:
 :project-name: Emacs Revolution
-:project-version: 0.1
+:project-version: 0.
 :END:
 
+#+TAGS: Empty(e) NA(n)
+#+STARTUP: show3levels
+
 * Description
-	Emacs-Revolution est une distribution modernisée d’Emacs,
-	composée de paquets Lisp et d’outils complémentaires, offrant l'auto-complétion,
-	détection d’erreurs, documentation, compilation, enregistrement voal, assistance IA
-	etre bien plus pour un développement fluide et accessible.
+ Emacs-Revolution est une distribution modernisée d’Emacs 30.1,
+ composée de paquets Lisp et d’outils complémentaires.
+ Comme tout outils de développement, il offre l'auto-complétion,
+ la détection d’erreurs, documentation, compilation, enregistrement vocal, assistance IA, etc..
+
+ Les principales caractéristiques du projet sont sa légèreté, favorisant la rapidité,
+ ainsi que sa simplicité, basée sur la composition d’outils complexes et modernes.
+
+ Cet outil a pour but d'etre libre et communautaire.
 
 * Objectif
-** DONE Chargement du mode adéquate
- - [X] Switch vers le mode elisp on-line pour les fichiers org lors de l'ecriture de ce langage.
-** TODO Tous les fichiers elisp doivent être généré depuis org à partir de init-revolution-mode.el.
- - [-] Compatibilités des langages [0/39]:
-   + [-] c-mode [1/4]
-     - [ ] auto-completion
-     - [X] syntaxe
-     - [ ] documentation
-     - [ ] Compilation
-   + [ ] c++-mode [0/4]
-     - [ ] auto-completion
-     - [ ] syntaxe
-     - [ ] documentation
-     - [ ] Compilation
-   + [ ] glsl-mode [0/4]
-     - [ ] auto-completion
-     - [ ] syntaxe
-     - [ ] documentation
-     - [ ] Compilation
-   + [ ] css-mode [0/4]
-     - [ ] auto-completion
-     - [ ] syntaxe
-     - [ ] documentation
-     - [ ] Compilation   
-   + [ ] scss-mode [0/4]
-     - [ ] auto-completion
-     - [ ] syntaxe
-     - [ ] documentation
-     - [ ] Compilation    
-   + [ ] text-mode [0/4]
-     - [ ] auto-completion
-     - [ ] syntaxe
-     - [ ] documentation
-     - [ ] Compilation    
-   + [ ] javascript-mode [0/4]
-     - [ ] auto-completion
-     - [ ] syntaxe
-     - [ ] documentation
-     - [ ] Compilation    
-   + [ ] java-mode [0/4]
-     - [ ] auto-completion
-     - [ ] syntaxe
-     - [ ] documentation
-     - [ ] Compilation   
-   + [ ] js-mode [0/4]
-     - [ ] auto-completion
-     - [ ] syntaxe
-     - [ ] documentation
-     - [ ] Compilation    
-   + [ ] js2-mode [0/4]
-     - [ ] auto-completion
-     - [ ] syntaxe
-     - [ ] documentation
-     - [ ] Compilation    
-   + [ ] js3-mode [0/4]
-     - [ ] auto-completion
-     - [ ] syntaxe
-     - [ ] documentation
-     - [ ] Compilation    
-   + [ ] typescript-mode [0/4]
-     - [ ] auto-completion
-     - [ ] syntaxe
-     - [ ] documentation
-     - [ ] Compilation    
-   + [ ] go-mode [0/4]
-     - [ ] auto-completion
-     - [ ] syntaxe
-     - [ ] documentation
-     - [ ] Compilation    
-   + [ ] scala-mode [0/4]
-     - [ ] auto-completion
-     - [ ] syntaxe
-     - [ ] documentation
-     - [ ] Compilation
-   + [ ] kotlin-mode [0/4]
-     - [ ] auto-completion
-     - [ ] syntaxe
-     - [ ] documentation
-     - [ ] Compilation    
-   + [ ] swift-mode [0/4]
-     - [ ] auto-completion
-     - [ ] syntaxe
-     - [ ] documentation
-     - [ ] Compilation    
-   + [ ] csharp-mode [0/4]
-     - [ ] auto-completion
-     - [ ] syntaxe
-     - [ ] documentation
-     - [ ] Compilation   
-   + [ ] rust-mode [0/4]
-     - [ ] auto-completion
-     - [ ] syntaxe
-     - [ ] documentation
-     - [ ] Compilation    
-   + [ ] json-mode [0/4]
-     - [ ] auto-completion
-     - [ ] syntaxe
-     - [ ] documentation
-     - [ ] Compilation    
-   + [ ] xml-mode [0/4]
-     - [ ] auto-completion
-     - [ ] syntaxe
-     - [ ] documentation
-     - [ ] Compilation    
-   + [ ] sgml-mode [0/4]
-     - [ ] auto-completion
-     - [ ] syntaxe
-     - [ ] documentation
-     - [ ] Compilation    
-   + [ ] html-mode [0/4]
-     - [ ] auto-completion
-     - [ ] syntaxe
-     - [ ] documentation
-     - [ ] Compilation   
-   + [ ] php-mode [0/4]
-     - [ ] auto-completion
-     - [ ] syntaxe
-     - [ ] documentation
-     - [ ] Compilation    
-   + [ ] web-mode [0/4]
-     - [ ] auto-completion
-     - [ ] syntaxe
-     - [ ] documentation
-     - [ ] Compilation    
-   + [ ] mhtml-mode [0/4]
-     - [ ] auto-completion
-     - [ ] syntaxe
-     - [ ] documentation
-     - [ ] Compilation    
-   + [ ] vue-mode [0/4]
-     - [ ] auto-completion
-     - [ ] syntaxe
-     - [ ] documentation
-     - [ ] Compilation    
-   + [-] emacs-lisp-mode & lisp-mode [3/4]
-     - [X] auto-completion
-     - [X] syntaxe
-     - [X] documentation ### EN COURS...
-     - [ ] Divers [0/1]
-       + [ ] le header contient commentary (obligatoire) et description, il n'en restera qu'un seul, hahaha...
-   + [ ] clojure-mode [0/4]
-     - [ ] auto-completion
-     - [ ] syntaxe
-     - [ ] documentation
-     - [ ] Compilation    
-   + [ ] python-mode [0/4]
-     - [ ] auto-completion
-     - [ ] syntaxe
-     - [ ] documentation
-     - [ ] Compilation    
-   + [ ] makefile-gmake-mode [0/4]
-     - [ ] auto-completion
-     - [ ] syntaxe
-     - [ ] documentation
-     - [ ] Compilation    
-   + [ ] yaml-mode [0/4]
-     - [ ] auto-completion
-     - [ ] syntaxe
-     - [ ] documentation
-     - [ ] Compilation
-     ** TODO ERROR [0/4]
-       - [ ] Lors de l'ourverture du fichier il y a une erreur de major mode.       
-   + [ ] dockerfile-mode [0/4]
-     - [ ] auto-completion
-     - [ ] syntaxe
-     - [ ] documentation
-     - [ ] Compilation    
-   + [ ] r-mode [0/4]
-     - [ ] auto-completion
-     - [ ] syntaxe
-     - [ ] documentation
-     - [ ] Compilation    
-   + [ ] sh-mode [0/4]
-     - [ ] auto-completion
-     - [ ] syntaxe
-     - [ ] documentation
-     - [ ] Compilation    
-   + [ ] perl-mode [0/4]
-     - [ ] auto-completion
-     - [ ] syntaxe
-     - [ ] documentation
-     - [ ] Compilation    
-   + [ ] ruby-mode [0/4]
-     - [ ] auto-completion
-     - [ ] syntaxe
-     - [ ] documentation
-     - [ ] Compilation    
-   + [ ] powershell-mode [0/4]
-     - [ ] auto-completion
-     - [ ] syntaxe
-     - [ ] documentation
-     - [ ] Compilation    
-   + [ ] latex-mode [0/4]
-     - [ ] auto-completion
-     - [ ] syntaxe
-     - [ ] documentation
-     - [ ] Compilation   
-   + [-] org-mode [3/4]
-     - [X] auto-completion
-     - [X] syntaxe
-     - [X] documentation
-     - [ ] Divers [0/1]
-       + [ ] L'autocomplétion doit être adapté pour le major mode org car TAB est utilisé par org.
-** TODO *Docsgen*, /Documentation de votre code/ : [0/2]
-   - [ ] La documentation est générée de manière interactive ou
-      à l’aide d’un raccourci clavier. Une fois créée,
-      elle est automatiquement enregistrée sous le nom du projet,
-      dans le répertoire racine, avec l’extension .org,
-      à l’intérieur d’un dossier dédié à la documentation:
+
+** VERSION 1.0 [3/12]
+  + [X] Chargement du mode adéquate
+  + [X] Switch vers le mode elisp on-line pour les fichiers org lors de l'ecriture de ce langage.
+  + [X] Tous les fichiers elisp doivent être généré depuis org à partir de init-revolution-mode.el.
+  + [-] LSP [0/3]
+    * [ ] Server
+      - [ ] semgrep
+    * [ ] Client
+      - [ ] L'autocomplétion doit être adapté pour le major mode org car TAB est utilisé par org.
+      - [ ] lsp-ui https://emacs-lsp.github.io/lsp-mode/page/lsp-semgrep/
+    * [-] Compatibilités des langages
+
+      | Langage               | Documentation | Syntaxe | Complétion | LSP Server |
+      |-----------------------+---------------+---------+------------+------------|
+      | c                     | [ ]           | [X]     | [ ]        | [ ]        |
+      | c++                   | [ ]           | [ ]     | [ ]        | [ ]        |
+      | c#                    | [ ]           | [ ]     | [ ]        | [ ]        |
+      | glsl                  | [ ]           | [ ]     | [ ]        | [ ]        |
+      | CSS/LessCSS/SASS/SCSS | [ ]           | [ ]     | [ ]        | [ ]        |
+      | text                  | [ ]           | [ ]     | [ ]        | N/A        |
+      | TeX/LaTeX             | [ ]           | [ ]     | [ ]        | [ ]        |
+      | javascript/typescript | [ ]           | [ ]     | [ ]        | [ ]        |
+      | java                  | [ ]           | [ ]     | [ ]        | [ ]        |
+      | go                    | [ ]           | [ ]     | [ ]        | [ ]        |
+      | SQL                   | [ ]           | [ ]     | [ ]        | [ ]        |
+      | scala                 | [ ]           | [ ]     | [ ]        | [ ]        |
+      | pascal                | [ ]           | [ ]     | [ ]        | [ ]        |
+      | kotlin                | [ ]           | [ ]     | [ ]        | [ ]        |
+      | Swift                 | [ ]           | [ ]     | [ ]        | [ ]        |
+      | csharp                | [ ]           | [ ]     | [ ]        | [ ]        |
+      | Rust                  | [ ]           | [ ]     | [ ]        | [ ]        |
+      | Json                  | [ ]           | [ ]     | [ ]        | [ ]        |
+      | GitHub Copilot        | [ ]           | [ ]     | [ ]        | [ ]        |
+      | Angular               | [ ]           | [ ]     | [ ]        | [ ]        |
+      | xml                   | [ ]           | [ ]     | [ ]        | [ ]        |
+      | sgml                  | [ ]           | [ ]     | [ ]        | N/A        |
+      | html                  | [ ]           | [ ]     | [ ]        | [ ]        |
+      | php                   | [ ]           | [ ]     | [ ]        | [ ]        |
+      | web                   | [ ]           | [ ]     | [ ]        | [ ]        |
+      | mhtml                 | [ ]           | [ ]     | [ ]        | [ ]        |
+      | vue                   | [ ]           | [ ]     | [ ]        | N/A        |
+      | lisp/elisp            | [X]           | [X]     | [X]        | [ ]        |
+      | clojure               | [ ]           | [ ]     | [ ]        | [ ]        |
+      | Perl                  | [ ]           | [ ]     | [ ]        | [ ]        |
+      | Python                | [ ]           | [ ]     | [ ]        | [ ]        |
+      | cmake                 | [ ]           | [ ]     | [ ]        | [ ]        |
+      | makefile-gmake        | [ ]           | [ ]     | [ ]        | N/A        |
+      | yaml                  | [ ]           | [ ]     | [ ]        | [ ]        |
+      | dockerfile            | [ ]           | [ ]     | [ ]        | [ ]        |
+      | r                     | [ ]           | [ ]     | [ ]        | [ ]        |
+      | sh                    | [ ]           | [ ]     | [ ]        | [ ]        |
+      | perl                  | [ ]           | [ ]     | [ ]        | [ ]        |
+      | ruby                  | [ ]           | [ ]     | [ ]        | [ ]        |
+      | powershell            | [ ]           | [ ]     | [ ]        | [ ]        |
+      | latex                 | [ ]           | [ ]     | [ ]        | [ ]        |
+      | org                   | [X]           | [X]     | [X]        | [ ]        |
+     
+   * [ ] *Docsgen*, /Documentation de votre code/ : [0/1]
+     - [ ] La documentation est générée de manière interactive ou
+	à l’aide d’un raccourci clavier. Une fois créée,
+	elle est automatiquement enregistrée sous le nom du projet,
+	dans le répertoire racine, avec l’extension .org,
+	à l’intérieur d’un dossier dédié à la documentation:
      /.emacs.d/revolution/docs/
-   - [ ] Utiliser one.el ou emacs-ssg pour emuler un server web
+   * [ ] Utiliser one.el ou emacs-ssg pour emuler un server web
      diffusant la documention org en page web,
      accessible depuis un racourcis(+interactive) clavier.
-** TODO Fichier de Configuration
+ + [ ] Fichier de Configuration [0/2]
    - [ ] function qui verifie si le fichier de configuration nommee XXXXX existe.
-   - [ ] Si il n'existe pas affiche un buffer de presentation de Emacs-Revolution avec des parametres configurables.
+   - [ ] Si il n'existe pas affiche un buffer de presentation de Emacs-Revolution avec des parametres configurables. [0/8]
      + [ ] Chemin d'installation par defaut, modifiable.
      + [ ] Formulaire pour personnaliser les raccourcis.
      + [ ] lancer 'pip install semgrep --user' par defaut oui, btn radio.
        https://emacs-lsp.github.io/lsp-mode/page/lsp-semgrep/
+     + [ ] sudo apt install -y build-essential libtree-sitter-dev
+     + [ ] sudo snap install bash-language-server --classic  
      + [ ] Confirmer l'installation du package en mode radion on/off: npm install -g @emacs-eask/cli
      + [ ] Lier cette fonction au fichier de configuration emacs-revolution-check-org
      + [ ] Autoriser/Valider l'installation
-** TODO LSP
-   - [ ] Server
-     + [ ] semgrep
-   - [ ] Client
-     + [ ] lsp-ui https://emacs-lsp.github.io/lsp-mode/page/lsp-semgrep/
-     + [ ] org
-     + [ ] elisp
-     + [ ] html/css/javascript
-     + [ ] php
-     + [ ] c/c++
-     + [ ] python
-** TODO Flux RSS [0/3]
+ + [ ] Flux RSS [0/3]
    - [ ] barre d'affichage en haut de la fenetre.
    - [ ] shortkey pour switcher afficher/cacher
    - [ ] shortkey pour afficher un formulaire pour ajouter un flux RSS.
-** TODO Divers [1/16]
+ + [-] Divers [1/16]
    + [X] Neotree verifier son installation.
    + [ ] Simplifier la création de nouveaux headers, peut-être proposer d'injecter l'URL de la boite pour laquelle le projet est développé.
    + [ ] elisp-demos
@@ -269,10 +123,6 @@
    + [ ] le Header permet d'ajouter tous les utilisateur ayant modifié le fichier.
    + [ ] org-project-capture
    + [ ] org-sidebar
-** Auto-completion
-   + [ ] max height si Horizontal.
-   + [ ] max width si Vertical.
-   + [ ] Trier: major-mode en premier / Projectile et le reste.
      
 * Copyright
    Copyright © 2025 Pierre Schebath (alias Glider)
