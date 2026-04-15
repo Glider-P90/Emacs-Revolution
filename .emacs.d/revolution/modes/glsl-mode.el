@@ -16,11 +16,11 @@
 ;; duplicated in whole or in part to any third party without Pierre Schebath
 ;; written prior permission.
 ;; ======================================================================
-;; glsl-mode.el for revolution in ~/.emacs.d/revolution/lang-settings/
+;; glsl-mode.el for revolution in ~/.emacs.d/revolution/modes/
 ;; @description: glsl config file.
 ;; 
 ;; Started on  Fri Oct  3 08:22:00 2025 @author Glider
-;; Last update Fri Oct  3 08:22:30 2025 @author Glider
+;; Last update Fri Apr 10 08:58:32 2026 @author Glider
 ;; ======================================================================
 ;;; Code:
 

@@ -17,7 +17,7 @@
 ;; @description: Emacs Dev-tools.
 ;; 
 ;; Started on  Mon Jan 26 02:49:53 2026 @author Glider
-## Last update Wed Jan 28 01:51:52 2026 @author Glider
+## Last update Mon Feb 16 03:57:34 2026 @author Glider
 ;; ======================================================================
 ;;; Code:
 
@@ -78,24 +78,26 @@
 (message "Emacs external configuration is loaded")
 (defun revolution-load-org-config()
   "Load revolution configuration."
+  (org-babel-load-file "~/.emacs.d/revolution/globals.org")
+  (org-babel-load-file "~/.emacs.d/revolution/utilities.org")
+  (org-babel-load-file "~/.emacs.d/revolution/settings.org")
+  (org-babel-load-file "~/.emacs.d/revolution/ihm.org")
   (if (and (not (string= (buffer-name) "*Messages*")) (not (string= (buffer-name) "*scratch*")))
       (progn (message "Emacs Start revolution")
-	     (org-babel-load-file "~/.emacs.d/revolution/globals.org")
-	     (org-babel-load-file "~/.emacs.d/revolution/utilities.org")
-	     (org-babel-load-file "~/.emacs.d/revolution/settings.org")
-	     (org-babel-load-file "~/.emacs.d/revolution/ihm.org")
-	     (org-babel-load-file "~/.emacs.d/revolution/major-mode.org")
-	     (org-babel-load-file "~/.emacs.d/revolution/headers/std_comment.org")
-	     (org-babel-load-file "~/.emacs.d/revolution/header.org")
-	     (org-babel-load-file "~/.emacs.d/revolution/attainment.org")
-	     (org-babel-load-file "~/.emacs.d/revolution/shortcuts.org")
-	     (message "Revolution loaded on \"%s\" done." major-mode)
-	     )))
+	     (org-babel-load-file "~/.emacs.d/revolution/major-mode.org")))
+  (org-babel-load-file "~/.emacs.d/revolution/headers/std_comment.org")
+  (org-babel-load-file "~/.emacs.d/revolution/header.org")
+  (org-babel-load-file "~/.emacs.d/revolution/attainment.org")
+  (org-babel-load-file "~/.emacs.d/revolution/shortcuts.org")
+  (message "Revolution loaded on \"%s\" done." major-mode)
+  )
 
 ;; Launch Emacs Revolution
 ;;(add-hook 'find-file-hook #'revolution-load-org-config)
 ;;(add-hook 'after-init-hook #'revolution-load-org-config)
-(add-hook 'window-setup-hook #'revolution-load-org-config)
+;;(add-hook 'window-setup-hook #'revolution-load-org-config)
+(add-hook 'emacs-startup-hook #'revolution-load-org-config)
+
 
 #+END_SRC
 

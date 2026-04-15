@@ -1,5 +1,5 @@
 #+BEGIN_COMMENT
-## Last update Sat Jan 31 13:27:59 2026 @author Glider
+## Last update Thu Apr  9 23:02:40 2026 @author Glider
 ## ======================================================================
 ## @license Copyright 2016-2025 Pierre Schebath
 ## ---------------------
@@ -72,7 +72,6 @@
     (global-unset-key (kbd "<f4>"))
     (global-set-key (kbd "<f5>") cmd)))
 
-;;(global-set-key (kbd "<f3>") #'projectile-help-command)
 (global-set-key (kbd "<f4>") #'which-key-show-top-level)
 
 #+END_SRC
@@ -103,36 +102,15 @@
 (which-key-mode 1)
 (which-key-setup-side-window-right-bottom)
 
-(defun X-list-side-windows (&optional frame)
-  "Retourne la liste des side windows actives."
-  (seq-filter
-   (lambda (win)
-     (window-parameter win 'window-side))
-   (window-list frame 'no-minibuffer)))
-
-
-(defun go-side-window (window width)
-  "Resize width of any side window."
-  (unless (stringp window)
-    (error "WINDOW must be a string"))
-  (unless (integerp width)
-    (error "WIDTH must be an integer"))
-  (dolist (win (X-list-side-windows))
-    (when (string-match window (buffer-name (window-buffer win)))
-      (let ((delta (- width (window-width win))))
-	(with-selected-window win
-	  (goto-char (point-min))
-	  (forward-line 2))))))
-
-(go-side-window) ;; TODO relier a un hook (affichage which-key) 
-;; (global-unset-key (kbd "C-h"))
-;; (global-unset-key (kbd "TAB"))
-;; (define-key which-key-mode-map (kbd "TAB") #'which-key-C-h-dispatch)
-
-;;(setq which-key-compute-remaps t)
-
 #+END_SRC
 
+** Org side tree shortcut
+#+NAME: Org side tree shortcut
+#+BEGIN_SRC emacs-lisp :lexical t
+
+(global-set-key (kbd "<f3>") #'org-side-tree-toggle-usable)
+
+#+END_SRC
 
 #+NAME: EOF_shortcuts()
 #+BEGIN_SRC emacs-lisp

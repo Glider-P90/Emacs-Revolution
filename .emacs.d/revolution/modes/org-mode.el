@@ -13,19 +13,17 @@
 ;; duplicated in whole or in part to any third party without Pierre Schebath
 ;; written prior permission.
 ;; ======================================================================
-;; org-mode.el for lugtech in ~/.emacs.d/config/
+;; org-mode.el for lugtech in ~/.emacs.d/revolution/modes/
 ;; @description: org-mode
 ;; 
 ;; Started on  Tue Jan 30 03:12:24 2024 @author Glider
-;; Last update Sat Jan 31 13:02:50 2026 @author Glider
+;; Last update Fri Apr 10 11:05:52 2026 @author Glider
 ;; ======================================================================
 ;;; Code:
 
-(setq org-src-fontify-natively t)
-(setq org-src-tab-acts-natively t)
-
-(defvar er-org-tree-display t
-  "Permet de verifier si le tree de org est affiché.")
+;; ===============================
+;; Installation
+;; ===============================
 
 (defun emacs-revolution-org-installed-p ()
   "Vérifie si le paquet Debian/Ubuntu org mode est installé."
@@ -44,66 +42,88 @@
 
 (emacs-revolution-check-org)
 
+;; ===============================
+;; Initialisation
+;; ===============================
+
+(setq org-provide-todo-statistics t
+      org-hierarchical-todo-statistics t
+      org-src-fontify-natively t
+      org-src-tab-acts-natively t
+      org-log-done 'time
+      org-log-into-drawer t)
+
+(setq org-todo-keywords
+      '(
+	(sequence "TODO" "DRAFT" "PROJECT" "SUBJECT" "|" "DONE(d!)" "DELEGATED" "CLOSED" "CLOSES" "CLOSE" "FIX" "FIXES" "FIXED" "RESOLVE" "RESOLVES" "RESOLVED" "PENDING" "BLOCKED" "PAUSED" "TESTING" "VALIDATION" "INACTIVE" "ACTIVE" "WAITING" "HOLDING" "REJECTED" "REOPENED" "FIXED" "MERGED" "DEPLOYED" "STANDBY" "MONITORED" "OBSOLETE" "RETIRED" "LOCKED" "UNLOCKED" "AT-RISK" "ONHOLD" "READY" "NA" "NOT-APPLICABLE")
+	(sequence "FEEDBACK" "VERIFY" "TESTING" "|" "CHECKED" "CHECK" "CLOSED" "CLOSES" "CLOSE" "PENDING" "TESTED" "VALIDATE" "INACTIVE" "ACTIVE" "WAITING" "HOLDING" "REJECTED" "MONITORED" "OBSOLETE" "RETIRED" "LOCKED" "UNLOCKED" "AT-RISK" "ONHOLD" "NA" "NOT-APPLICABLE")
+	(sequence "MONITOR" "|" "ENABLE" "DISABLE" "VALIDATE" "INACTIVE" "ACTIVE" "WAITING" "HOLDING" "REJECTED" "MONITORED" "OBSOLETE" "RETIRED" "LOCKED" "UNLOCKED" "AT-RISK" "ONHOLD" "NA" "NOT-APPLICABLE")
+        (sequence "GIT" "GITHUB" "|" "CLOSED" "CLOSES" "CLOSE" "FIX" "FIXES" "FIXED" "RESOLVE" "RESOLVES" "RESOLVED")
+        (sequence "VERSION" "STEP" "REPORT" "BUG" "ISSUE" "|" "DONE" "COMPLETED" "APPROVED" "RESOLVED" "CLOSED" "CANCELLED" "DELETED" "ARCHIVED" "FAILED")
+	(type "BLUE" "RED" "GREEN" "GREY" "WHITE" "BLACK" "YELLOW" "ORANGE" "PURPLE" "|" "DONE(d!)" "DELEGATED" "CHECKED" "CHECK" "CLOSED" "CLOSES" "CLOSE" "FIX" "FIXES" "FIXED" "RESOLVE" "RESOLVES" "RESOLVED" "PENDING" "BLOCKED" "PAUSED" "TESTING" "VALIDATION" "INACTIVE" "ACTIVE" "WAITING" "HOLDING" "REJECTED" "REOPENED" "FIXED" "MERGED" "DEPLOYED" "STANDBY" "MONITORED" "OBSOLETE" "RETIRED" "LOCKED" "UNLOCKED" "AT-RISK" "ONHOLD" "READY")))
+
+(setq org-todo-keyword-faces
+      '(("MONITORING" . "orange") ("PENDING" . "orange") ("WAITING" . "orange") ("HOLDING" . "orange") ("ONHOLD" . "orange") ("TESTING" . "orange") ("PAUSED" . "orange")
+	("BLOCKED" . "red") ("INACTIVE" . "red") ("REJECTED" . "red") ("OBSOLETE" . (:foreground "brown" :distant-foreground "grey")) ("RETIRED" . (:foreground "brown" :distant-foreground "grey")) ("LOCKED" . (:foreground "brown" :distant-foreground "grey"))
+        ("CANCELED" . (:foreground "red" :weight bold))))
+
+
+;; ===============================
+;; Operations
+;; ===============================
+
 (defun org-manual ()
   "Ouvre la documentation officielle Org dans Info."
   (interactive)
   (info "(org)"))
 
-(defvar mode-found nil
-  "The variable mode-found permet de signaler un changement de mode.")
-
-(defvar mode-src (symbol-name major-mode)
-  "The variable mode-src permet de reprendre le mode d'origine.")
-
-(defun update-major-mode ()
-  "Set major mode according to the lang block above point."
-  (let ((begin-key "^#\\+BEGIN_SRC[ \t]+")
-        (end-key "^#\\+END_SRC"))
-    (save-excursion
-      (catch 'found
-        (while (> (point) (point-min))
-          (forward-line -1)
-          (let ((line (thing-at-point 'line t)))
-            (when (stringp line)
-              (cond
-               ((string-match begin-key line)
-                (setq mode-found
-                      (car (split-string (substring line (match-end 0)) "[ \t\n]+")))
-                (when (and mode-found
-                           (not (string= (symbol-name major-mode)
-                                         (concat mode-found "-mode"))))
-                  (funcall (intern (concat mode-found "-mode"))))
-                (throw 'found t))
-               ((string-match end-key line)
-                (unless (string= (symbol-name major-mode) mode-src)
-                  (funcall (intern mode-src))
-                  (let ((file (concat lang-settings-dir mode-src ".el")))
-                    (if (file-exists-p file)
-                        (load-file file)
-                      (message "⚠ Fichier de configuration %s introuvable !" file)))
-                  (setq mode-found nil))
-                (throw 'found nil))))))))))
-
-
-(defun update-major-mode-reload ()
-  "Reset mode after saving."
-  (if (and (eq mode-found t) (not (string= "org-mode" major-mode)))
-      (setq mode-found nil)))
-
-
-(add-hook 'post-command-hook #'update-major-mode)
-(add-hook 'after-save-hook #'update-major-mode-reload)
-
 (use-package lsp-mode
   :ensure t
+  :after eglot
   :commands lsp
-  :hook ((org . lsp) (emacs-lisp . lsp) (lisp . lsp) (lsp-mode . lsp-enable-which-key-integration))
+  :hook ((emacs-lisp . lsp) (lisp . lsp) (lsp-mode . lsp-enable-which-key-integration))
   :init (setq lsp-keymap-prefix "C-c l")
   :config
   (setq lsp-enable-snippet t)
   (setq lsp-prefer-flymake t))
 
+
+(defcustom org-side-tree-status t
+  "State of org-side-tree if enable or disable."
+  :type 'boolean
+  :group 'emacs-revolution)
+
+(use-package org-side-tree
+  :ensure t
+  :init
+  (when org-side-tree-status
+    (org-side-tree)))
+
+(resize-side-window "<Tree>" 22)
+
+(defun org-side-tree-toggle-usable ()
+  "Toggle the usabillity of org-side-tree, not just toggle display."
+  (interactive)
+  (org-side-tree-toggle)
+  (if org-side-tree-status
+      (progn
+	(setq org-side-tree-status nil)
+	(setq org-side-tree-enable-folding nil))
+    (progn
+      (setq org-side-tree-status t)
+      (setq org-side-tree-enable-folding t)))
+  )
+
+(defun org-side-tree-toggle-then-resize ()
+  "Org side tree toggle then resize."
+  (interactive)
+  (org-side-tree-toggle)
+  (resize-side-window "<Tree>" 22))
+
+;; =============================================
 ;; Alternative 1: Use the basic completion style
+;; =============================================
+
 (setq org-refile-use-outline-path 'file
       org-outline-path-complete-in-steps t)
 
@@ -122,40 +142,56 @@
 
 (add-hook 'completion-at-point-functions #'cape-elisp-block 10 t)
 
-(use-package org-side-tree
-  :ensure t
-  :init
-  (org-side-tree))
+;; ********        WARNING        ********
+;; Script need to stay a end of file
+;; ********         BEGIN         ********
 
-(defun er-list-side-windows (&optional frame)
-  "Retourne la liste des side windows actives."
-  (seq-filter
-   (lambda (win)
-     (window-parameter win 'window-side))
-   (window-list frame 'no-minibuffer)))
+(defun update-major-mode-in-org-file ()
+  "Set major mode according to the lang block above point."
+  (let ((begin-key "^#\\+BEGIN_SRC[ \t]+")
+        (end-key "^#\\+END_SRC"))
+    (save-excursion
+      (catch 'found
+        (while (> (point) (point-min))
+          (forward-line -1)
+          (let ((line (thing-at-point 'line t)))
+            (when (stringp line)
+              (cond
+               ((string-match begin-key line)
+                (setq er-mode-found
+                      (car (split-string (substring line (match-end 0)) "[ \t\n]+")))
+                (when (and er-mode-found
+                           (not (string= (symbol-name major-mode)
+                                         (concat er-mode-found "-mode"))))
+                  (funcall (intern (concat er-mode-found "-mode"))))
+                (throw 'found t))
+               ((string-match end-key line)
+                (unless (string= (symbol-name major-mode) er-mode-src)
+                  (funcall (intern er-mode-src))
+                  (let ((file (concat lang-settings-dir er-mode-src ".el")))
+                    (if (file-exists-p file)
+                        (load-file file)
+                      (message "⚠ Fichier de configuration %s introuvable !" file)))
+                  (setq er-mode-found nil))
+                (throw 'found nil))))))))))
 
 
-(defun resize-side-window (window width)
-  "Resize width of any side window."
-  (unless (stringp window)
-    (error "WINDOW must be a string"))
-  (unless (integerp width)
-    (error "WIDTH must be an integer"))
-  (dolist (win (er-list-side-windows))
-    (when (string-match window (buffer-name (window-buffer win)))
-        (let ((delta (- width (window-width win))))
-	(window-resize win delta t)))))
+(defun update-major-mode-in-org-file-reload ()
+  "Reset mode after saving."
+  (if (and (eq er-mode-found t) (not (string= "org-mode" major-mode)))
+      (setq er-mode-found nil)))
 
-(resize-side-window "<Tree>" 22)
 
-(defun org-side-tree-toggle-then-resize ()
-  "Org side tree toggle then resize."
-  (interactive)
-  (org-side-tree-toggle)
-  (resize-side-window "<Tree>" 22))
+(add-hook 'post-command-hook #'update-major-mode-in-org-file)
+(add-hook 'after-save-hook #'update-major-mode-in-org-file-reload)
 
 (global-set-key (kbd "<f7>") #'org-side-tree-toggle-then-resize)
 (global-set-key (kbd "C-c o") 'org-manual)
+
+;; ********        WARNING        ********
+;; Script need to stay a end of file
+;; ********          END          ********
+
 
 (provide 'org-mode)
 ;;; org-mode.el ends here

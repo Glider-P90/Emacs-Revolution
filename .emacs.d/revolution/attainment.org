@@ -51,7 +51,9 @@
 ;;   (set-fontset-font "fontset-default"
 ;;                   (cons (decode-char 'ucs #x2500)  (decode-char 'ucs #x257F))
 ;;                   (font-spec :name "DejaVu Sans Mono:" :registry "iso10646-1")))
-  
+
+(setq select-enable-primary t)
+(setq select-enable-clipboard t)
 #+END_SRC
 
 * End Of File

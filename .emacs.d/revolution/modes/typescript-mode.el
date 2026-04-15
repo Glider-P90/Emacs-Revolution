@@ -13,14 +13,13 @@
 ;; duplicated in whole or in part to any third party without Pierre Schebath
 ;; written prior permission.
 ;; ======================================================================
-;; typescript-mode.el for Emacs Revolution in ~/.emacs.d/revolution/lang-settings/
-;; @description: list of package for typescript major-mode..
+;; typescript-mode.el for Emacs Revolution in ~/.emacs.d/revolution/modes/
+;; @description: typescript config file.
 ;; 
 ;; Started on  Sun Jan 25 02:40:58 2026 @author Glider
-;; Last update Sun Jan 25 02:51:07 2026 @author Glider
+;; Last update Wed Apr 15 16:33:38 2026 @author Glider
 ;; ======================================================================
 ;;; Code:
-
 
 (provide 'typescript-mode)
 ;;; typescript-mode.el ends here

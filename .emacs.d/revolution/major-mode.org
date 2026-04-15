@@ -15,10 +15,11 @@
 ## @description: choice the langage from major-mode to load specifics configuration
 ## 
 ## Started on  Wed Jun  4 11:35:28 2025 @author Glider
-## Last update Sun Jan 25 00:47:32 2026 @author Glider
+## Last update Sun Feb  1 23:25:14 2026 @author Glider
 ## ======================================================================
 #+END_COMMENT
 
+* Header
 #+NAME: BOF_lang_settings()
 #+BEGIN_SRC emacs-lisp :lexical t
 
@@ -29,6 +30,7 @@
 
 #+END_SRC
 
+* major mode
 #+NAME: lang_settings()
 #+BEGIN_SRC emacs-lisp :lexical t
 
@@ -67,6 +69,7 @@
     
 #+END_SRC
 
+* End Of File
 #+NAME: EOF_lang_settings()
 #+BEGIN_SRC emacs-lisp :lexical t
 

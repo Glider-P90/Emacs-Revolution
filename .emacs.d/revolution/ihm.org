@@ -15,7 +15,7 @@
 ## @description: major mode manager
 ## 
 ## Started on  Wed Jun  4 23:45:47 2025 @author Glider
-## Last update Thu Jan 29 07:18:04 2026 @author Glider
+## Last update Fri Apr 10 09:42:32 2026 @author Glider
 ## ======================================================================
 #+END_COMMENT
 
@@ -28,6 +28,16 @@
 ;;; Commentary:
 ;;; 
 ;;; Code:
+
+#+END_SRC
+
+** Design
+#+NAME: Design
+#+BEGIN_SRC emacs-lisp :lexical t
+
+;; ===============================
+;; Icons & Fonts
+;; ===============================
 
 #+END_SRC
 
@@ -50,9 +60,10 @@
   (setq read-file-name-completion-ignore-case t
  	read-buffer-completion-ignore-case t
 	completion-ignore-case t)
-  (vertico-mode)
-  :config
-  (vertico-mouse-mode 1))
+  (vertico-mode))
+;;  :config
+
+#+END_SRC
 
 ** Orderless
 Order of Completion List
@@ -124,68 +135,59 @@ Order of Completion List
   LSP Client
 #+NAME: eglot
 #+BEGIN_SRC emacs-lisp :lexical t
+  ;; ===============================
+    ;; Eglot: LSP Client
+    ;; ===============================
 
-;; ===============================
-;; Eglot: LSP Client
-;; ===============================
-;; (use-package eglot
-;;   :ensure t
-;;   :init
-;;   ;; Enable Eglot automatically for multiple major modes
-;;   (dolist (hook '(python-mode-hook
-;;                   c-mode-hook
-;;                   c++-mode-hook
-;;                   js-mode-hook
-;;                   typescript-mode-hook
-;;                   java-mode-hook
-;;                   ruby-mode-hook
-;;                   go-mode-hook
-;;                   rust-mode-hook
-;;                   emacs-lisp-mode-hook
-;;                   sh-mode-hook
-;;                   html-mode-hook
-;;                   css-mode-hook
-;;                   json-mode-hook
-;;                   php-mode-hook
-;;                   dart-mode-hook))
-;;     (add-hook hook 'eglot-ensure))
-;;   :config
-;;   (setq eglot-autoshutdown t)
-;;   (setq eglot-send-changes-idle-time 0.3))
+  (defun eglot--mode-symbol (mode-spec)
+    "Retourne le symbole du mode principal pour MODE-SPEC.
+  MODE-SPEC peut être :
+  - un symbole : python-mode
+  - une liste avec des propriétés : (js-mode :language-id \"javascript\")
+  - une liste de symboles : (rust-ts-mode rust-mode)"
+    (cond
+     ((symbolp mode-spec) mode-spec)
+     ((and (listp mode-spec) (symbolp (car mode-spec))) (car mode-spec))
+     ((listp mode-spec) (car mode-spec))
+     (t nil)))
 
+  (use-package eglot
+      :ensure t
+      :config
+      (setq eglot-autoshutdown t
+            eglot-send-changes-idle-time 0.3)
+      (dolist (entry eglot-server-programs)
+        (let ((modes (car entry)))
+          (dolist (mode (if (listp modes) modes (list modes)))
+            (let ((mode-sym (eglot--mode-symbol mode)))
+              (when (and mode-sym (fboundp mode-sym))
+                (add-hook (intern (concat (symbol-name mode-sym) "-hook"))
+                          'eglot-ensure)))))))
 
+  (use-package lsp-ui
+    :after lsp-mode
+    :commands lsp-ui-mode)
 
-;;(use-package lsp-ui :commands lsp-ui-mode)
-
-;; ==============================
-;;  Debuger: Linked LSP
-;; ==============================
-;;(dap-mode 1)
-
-#+END_SRC
-
-** Treesite
-  Parsing Syntaxique: Highlighting / Indentation / Folding
-#+NAME: treesite-auto
-#+BEGIN_SRC emacs-lisp :lexical t
-
-;; ========n======================
-;; Parsing Syntaxique: Highlighting / Indentation / Folding
-;; ===============================
-(use-package treesit-auto
-  :ensure t
-  :custom
-  (treesit-auto-install 'prompt)
-  :config
-  (treesit-auto-add-to-auto-mode-alist 'all)
-  (global-treesit-auto-mode))
+  ;; ==============================
+  ;;  Debuger: Linked LSP
+  ;; ==============================
+  (use-package dap-mode
+    :ensure t
+    :init
+    (dap-mode 1))
 
 #+END_SRC
 
-** Corfu
-  Completion Framework
+** Corfu Completion Framework
 #+NAME: corfu
 #+BEGIN_SRC emacs-lisp :lexical t
+
+(use-package accent
+  :ensure t
+  :init
+  (setq cursor-type t)
+  (setq accent-position 'before)
+  (global-set-key (kbd "C-x C-a") 'accent-menu))
 
 (use-package corfu
   :ensure t
@@ -209,27 +211,8 @@ Order of Completion List
 
 
 #+END_SRC
-** Corfu Terminal
-#+NAME: corfu-terminal
-#+BEGIN_SRC emacs-lisp
 
-(unless (require 'corfu-terminal nil t)
-  (unless (package-installed-p 'quelpa)
-    (package-refresh-contents)
-    (package-install 'quelpa))
-  (require 'quelpa)
-  (quelpa '(corfu-terminal
-            :fetcher git
-            :url "https://codeberg.org/akib/emacs-corfu-terminal.git")))
-
-(when (and (not (display-graphic-p))
-           (require 'corfu-terminal nil t))
-  (corfu-terminal-mode 1))
-
-#+END_SRC
-
-** Cape
-  Completion At Point Extensions
+** Completion At Point Extensions
 #+NAME: cape
 #+BEGIN_SRC emacs-lisp :lexical t
 
@@ -251,9 +234,7 @@ Order of Completion List
 
 #+END_SRC
 
-
-** Emacs
-  General Setup
+** Emacs General Setup
 #+NAME: emacs
 #+BEGIN_SRC emacs-lisp :lexical t
 
@@ -265,11 +246,19 @@ Order of Completion List
   (tab-always-indent 'complete)
   ;;(temp-buffer-resize-mode t) a check!
   (context-menu-mode t)
+  (setq select-enable-primary t)
+  (setq select-enable-clipboard t)
+  (setq mouse-drag-copy-region t)
+  (setq save-interprogram-selection t)
+  (setq mouse-yank-at-point t)
+  (vertico-mouse-mode 1)  
   (column-number-mode t)
-  ;; (read-extended-command-predicate #'command-completion-default-include-p));; est ce vraiment bien?
   (enable-recursive-minibuffers t))
+  ;; (read-extended-command-predicate #'command-completion-default-include-p));; est ce vraiment bien?
+
 
 #+END_SRC
+
 ** End Of File
 #+NAME: EOF_ihm()
 #+BEGIN_SRC emacs-lisp :lexical t

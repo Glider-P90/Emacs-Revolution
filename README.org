@@ -19,7 +19,6 @@
  Cet outil a pour but d'etre libre et communautaire.
 
 * Objectif
-
 ** VERSION 1.0 [3/12]
   + [X] Chargement du mode adéquate
   + [X] Switch vers le mode elisp on-line pour les fichiers org lors de l'ecriture de ce langage.
@@ -34,17 +33,18 @@
 
       | Langage               | Documentation | Syntaxe | Complétion | LSP Server |
       |-----------------------+---------------+---------+------------+------------|
-      | Bash                  | [ ]           | [ ]     | [ ]        | [ ]        |
-      | c                     | [ ]           | [X]     | [ ]        | [ ]        |
-      | C++                   | [ ]           | [ ]     | [ ]        | [ ]        |
+      | Bash                  | [ ]           | [ ]     | [ ]        | [X]        |
+      | c                     | [ ]           | [X]     | [ ]        | N/A        |
+      | C++                   | [ ]           | [ ]     | [ ]        | [X]        |
       | C#                    | [ ]           | [ ]     | [ ]        | [ ]        |
       | CSS/LessCSS/SASS/SCSS | [ ]           | [ ]     | [ ]        | [X]        |
       | Texte                 | [ ]           | [ ]     | [ ]        | N/A        |
+      | TypeScript            | [ ]           | [ ]     | [ ]        | N/A        |
       | GitHub Copilot        | [ ]           | [ ]     | [ ]        | [ ]        |
-      | HTML                  | [ ]           | [ ]     | [ ]        | [ ]        |
+      | HTML                  | [ ]           | [ ]     | [ ]        | [X]        |
       | Javascript/typescript | [ ]           | [ ]     | [ ]        | [X]        |
       | Json                  | [ ]           | [ ]     | [ ]        | [ ]        |
-      | Lisp/elisp            | [X]           | [X]     | [X]        | [ ]        |
+      | Lisp/elisp            | [X]           | [X]     | [X]        | [X]        |
       | Makefile-gmake        | [ ]           | [ ]     | [ ]        | N/A        |
       | Python                | [ ]           | [ ]     | [ ]        | [ ]        |
       | PHP                   | [ ]           | [ ]     | [ ]        | [ ]        |

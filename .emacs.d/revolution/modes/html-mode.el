@@ -13,19 +13,19 @@
 ;; duplicated in whole or in part to any third party without Pierre Schebath
 ;; written prior permission.
 ;; ======================================================================
-;; html-mode.el for Emacs Revolution in ~/Projects/Emacs-Revolution/.emacs.d/revolution/lang-settings/
-;; @description: load packages and configure them in convenience of the language file.
+;; html-mode.el for Emacs Revolution in ~/.emacs.d/revolution/modes/
+;; @description: html config file.
 ;; 
 ;; Started on  Fri Jan 23 10:57:22 2026 @author Glider
-;; Last update Mon Jan 26 13:36:00 2026 @author Glider
+;; Last update Tue Apr 14 20:55:35 2026 @author Glider
 ;; ======================================================================
 ;;; Code:
 
-
+(use-package js2-mode :ensure t)
 (use-package lsp-mode
   :ensure t
   :commands lsp
-  :hook ((semgrep . lsp) (javascript . lsp) (css . lsp) (html-mode . lsp) (lsp-mode . lsp-enable-which-key-integration))
+  :hook ((javascript . lsp) (css . lsp) (html-mode . lsp) (lsp-mode . lsp-enable-which-key-integration))
   :init (setq lsp-keymap-prefix "C-c l")
   :config
   (setq lsp-enable-snippet t)

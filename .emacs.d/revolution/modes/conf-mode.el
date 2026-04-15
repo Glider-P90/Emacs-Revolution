@@ -12,11 +12,11 @@
 ;; duplicated in whole or in part to any third party without Pierre Schebath
 ;; written prior permission.
 ;; ======================================================================
-;; conf-mode.el for revolution in /home/glider/.emacs.d/revolution/lang-settings/
+;; conf-mode.el for revolution in /home/glider/.emacs.d/revolution/modes/
 ;; @description: Parametre conf-mode
 ;; 
 ;; Started on  Mon Jun  2 11:20:32 2025 @author Glider
-;; Last update Mon Jun  2 11:21:36 2025 @author Glider
+;; Last update Fri Apr 10 08:57:54 2026 @author Glider
 ;; ======================================================================
 ;;; Code:
 

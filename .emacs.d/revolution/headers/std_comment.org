@@ -15,10 +15,22 @@
 # @description: header
 # 
 # Started on  Wed Jun  4 23:44:31 2025 @author Glider
-## Last update Fri Oct  3 10:00:39 2025 @author Glider
+## Last update Tue Feb  3 23:29:16 2026 @author Glider
 # ======================================================================
 #+END_COMMENT
 
+* Header
+#+NAME: BOF_globals()
+#+BEGIN_SRC emacs-lisp :lexical t
+
+;;; std_comment.el --- -*- lexical-binding: t; -*-
+;;; Commentary:
+;;; Set config following the major mode
+;;; code:
+
+#+END_SRC
+
+* Std Comment
 #+NAME: std_comment()
 #+BEGIN_SRC emacs-lisp
 (defvar header-part        "======================================================================")
@@ -43,4 +55,13 @@
 (defvar domaine-name       "pierre.schebath@lilo.org")
 (defvar user-nickname      "@author Glider")
 (defvar header-comment     "")
+#+END_SRC
+
+* End Of File
+#+NAME: EOF_globals()
+#+BEGIN_SRC emacs-lisp :lexical t
+
+(provide 'std_comment)
+;;; std_comment.el ends here
+
 #+END_SRC
