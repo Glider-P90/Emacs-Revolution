@@ -1,0 +1,8 @@
+* Debian System Packages Required
+
+** list cmd to install packages
++ apt
+  - elpa-yasnippet-snippets
+  - clangd-12 /Officiellement mais la version clangd-21 est disponible, fonctionne t'elle?/
++ npm
+  - bash-language-server

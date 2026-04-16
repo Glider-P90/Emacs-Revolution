@@ -17,7 +17,7 @@
 ;; @description: html config file.
 ;; 
 ;; Started on  Fri Jan 23 10:57:22 2026 @author Glider
-;; Last update Tue Apr 14 20:55:35 2026 @author Glider
+;; Last update Thu Apr 16 09:32:28 2026 @author Glider
 ;; ======================================================================
 ;;; Code:
 
@@ -27,9 +27,12 @@
   :commands lsp
   :hook ((javascript . lsp) (css . lsp) (html-mode . lsp) (lsp-mode . lsp-enable-which-key-integration))
   :init (setq lsp-keymap-prefix "C-c l")
-  :config
-  (setq lsp-enable-snippet t)
-  (setq lsp-prefer-flymake t))
+  :custom
+  (setq lsp-completion-provider :none
+	lsp-completion-enable t
+	lsp-completion-default-behaviour :insert
+	lsp-enable-snippet t
+	lsp-prefer-flymake t))
 
 (provide 'html-mode)
 ;;; html-mode.el ends here

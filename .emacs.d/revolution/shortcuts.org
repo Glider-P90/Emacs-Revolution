@@ -1,5 +1,5 @@
 #+BEGIN_COMMENT
-## Last update Thu Apr  9 23:02:40 2026 @author Glider
+## Last update Thu Apr 16 10:57:46 2026 @author Glider
 ## ======================================================================
 ## @license Copyright 2016-2025 Pierre Schebath
 ## ---------------------
@@ -21,7 +21,7 @@
 #+END_COMMENT
 
 * Header
-#+NAME: BOF_shortcuts()
+#+NAME: BOF_shortcuts
 #+BEGIN_SRC emacs-lisp :lexical t
 
 ;;; shortcuts.el --- -*- lexical-binding: t; -*-
@@ -34,7 +34,6 @@
 * Unbind Shortcuts
 #+NAME: Unbind Shortcuts
 #+BEGIN_SRC emacs-lisp :lexical t
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; Unbind Shortcuts

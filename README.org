@@ -1,16 +1,15 @@
 * Emacs Revolution 
 :PROPERTIES:
 :project-name: Emacs Revolution
-:project-version: 0.
+:project-version: 0.7b
 :END:
 
-#+TAGS: Empty(e) NA(n)
-#+STARTUP: show3levels
+#+TAGS: N/A(n) INSTALLÉ(i) 
 
 * Description
  Emacs-Revolution est une distribution modernisée d’Emacs 30.1,
  composée de paquets Lisp et d’outils complémentaires.
- Comme tout outils de développement, il offre l'auto-complétion,
+ Comme tout outil de développement, il offre l'auto-complétion,
  la détection d’erreurs, documentation, compilation, enregistrement vocal, assistance IA, etc..
 
  Les principales caractéristiques du projet sont sa légèreté, favorisant la rapidité,
@@ -33,25 +32,25 @@
 
       | Langage               | Documentation | Syntaxe | Complétion | LSP Server |
       |-----------------------+---------------+---------+------------+------------|
-      | Bash                  | [ ]           | [ ]     | [ ]        | [X]        |
-      | c                     | [ ]           | [X]     | [ ]        | N/A        |
-      | C++                   | [ ]           | [ ]     | [ ]        | [X]        |
-      | C#                    | [ ]           | [ ]     | [ ]        | [ ]        |
-      | CSS/LessCSS/SASS/SCSS | [ ]           | [ ]     | [ ]        | [X]        |
-      | Texte                 | [ ]           | [ ]     | [ ]        | N/A        |
-      | TypeScript            | [ ]           | [ ]     | [ ]        | N/A        |
-      | GitHub Copilot        | [ ]           | [ ]     | [ ]        | [ ]        |
-      | HTML                  | [ ]           | [ ]     | [ ]        | [X]        |
-      | Javascript/typescript | [ ]           | [ ]     | [ ]        | [X]        |
-      | Json                  | [ ]           | [ ]     | [ ]        | [ ]        |
-      | Lisp/elisp            | [X]           | [X]     | [X]        | [X]        |
-      | Makefile-gmake        | [ ]           | [ ]     | [ ]        | N/A        |
-      | Python                | [ ]           | [ ]     | [ ]        | [ ]        |
-      | PHP                   | [ ]           | [ ]     | [ ]        | [ ]        |
-      | Glsl                  | [ ]           | [ ]     | [ ]        | [ ]        |
-      | Org                   | [X]           | [X]     | [X]        | N/A        |
-      | Xml                   | [ ]           | [ ]     | [ ]        | [ ]        |
-      | Yaml                  | [ ]           | [ ]     | [ ]        | [ ]        |
+      | Bash                  |               |         |            | X          |
+      | c                     |               | X       |            | N/A        |
+      | C++                   |               |         |            | X          |
+      | C#                    |               |         |            |            |
+      | CSS/LessCSS/SASS/SCSS |               |         |            | X          |
+      | Texte                 |               |         |            | N/A        |
+      | TypeScript            |               |         |            | N/A        |
+      | GitHub Copilot        |               |         |            |            |
+      | HTML                  | X             | X       | X          | X          |
+      | Javascript/typescript |               |         |            | X          |
+      | Json                  |               |         |            |            |
+      | Lisp/elisp            | X             | X       | X          | X          |
+      | Makefile-gmake        |               |         |            | N/A        |
+      | Python                |               |         |            |            |
+      | PHP                   |               |         |            |            |
+      | Glsl                  |               |         |            |            |
+      | Org                   | X             | X       | X          | N/A        |
+      | Xml                   |               |         |            |            |
+      | Yaml                  |               |         |            |            |
      
    * [ ] *Docsgen*, /Documentation de votre code/ : [0/1]
      - [ ] La documentation est générée de manière interactive ou

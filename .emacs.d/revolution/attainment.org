@@ -15,7 +15,7 @@
 ## @description: Load attainment configuration for any major-mode.
 ## 
 ## Started on  Mon Jan 26 14:33:35 2026 @author Glider
-## Last update Sat Jan 31 11:14:41 2026 @author Glider
+## Last update Thu Apr 16 13:44:54 2026 @author Glider
 ## ======================================================================
 #+END_COMMENT
 
@@ -39,6 +39,23 @@
   :init
   (unicode-emoticons-mode))
   
+#+END_SRC
+
+** Accent
+#+NAME: Accent
+#+BEGIN_SRC emacs-lisp :lexical t
+
+;; ==============================
+;;  Accent
+;; ==============================
+
+(use-package accent
+  :ensure t
+  :init
+  (setq cursor-type t)
+  (setq accent-position 'before)
+  (global-set-key (kbd "C-x C-a") 'accent-menu))
+
 #+END_SRC
 
 * Surround a string

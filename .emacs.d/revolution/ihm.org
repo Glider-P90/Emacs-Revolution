@@ -15,7 +15,7 @@
 ## @description: major mode manager
 ## 
 ## Started on  Wed Jun  4 23:45:47 2025 @author Glider
-## Last update Fri Apr 10 09:42:32 2026 @author Glider
+## Last update Thu Apr 16 13:44:33 2026 @author Glider
 ## ======================================================================
 #+END_COMMENT
 
@@ -31,24 +31,15 @@
 
 #+END_SRC
 
-** Design
-#+NAME: Design
-#+BEGIN_SRC emacs-lisp :lexical t
-
-;; ===============================
-;; Icons & Fonts
-;; ===============================
-
-#+END_SRC
-
 ** Vertico
   Système de complétion minimaliste pour le minibuffer.
-#+NAME: Vertico()
+#+NAME: Vertico
 #+BEGIN_SRC emacs-lisp :lexical t
 
 ;; ===============================
 ;; Vertico (core)
 ;; ===============================
+
 (use-package vertico
   :ensure t
   :custom
@@ -66,13 +57,13 @@
 #+END_SRC
 
 ** Orderless
-Order of Completion List
 #+NAME: orderless
 #+BEGIN_SRC emacs-lisp :lexical t
 
 ;; ===============================
-;; ORDERLESS: Order of Completion List 
+;; ORDERLESS: Order of Completion List
 ;; ===============================
+
 (use-package orderless
   :ensure t
   :custom
@@ -92,6 +83,7 @@ Order of Completion List
 ;; ===============================
 ;; Enable rich annotations using the Marginalia package
 ;; ===============================
+
 (use-package marginalia
   :ensure t
   ;; Bind `marginalia-cycle' locally in the minibuffer.  To make the binding
@@ -116,6 +108,7 @@ Order of Completion List
 ;; ======================================================================
 ;; Dabbrev: Dynamic Abbreviation
 ;; ======================================================================
+
 (use-package dabbrev
   :bind (("M-/" . dabbrev-completion)
          ("C-M-/" . dabbrev-expand))
@@ -133,46 +126,72 @@ Order of Completion List
 
 ** Eglot
   LSP Client
-#+NAME: eglot
+#+NAME: Eglot
 #+BEGIN_SRC emacs-lisp :lexical t
-  ;; ===============================
-    ;; Eglot: LSP Client
-    ;; ===============================
 
-  (defun eglot--mode-symbol (mode-spec)
-    "Retourne le symbole du mode principal pour MODE-SPEC.
+;; ===============================
+;; Eglot: LSP Client
+;; ===============================
+
+(defun eglot--mode-symbol (mode-spec)
+  "Retourne le symbole du mode principal pour MODE-SPEC.
   MODE-SPEC peut être :
   - un symbole : python-mode
   - une liste avec des propriétés : (js-mode :language-id \"javascript\")
   - une liste de symboles : (rust-ts-mode rust-mode)"
-    (cond
-     ((symbolp mode-spec) mode-spec)
-     ((and (listp mode-spec) (symbolp (car mode-spec))) (car mode-spec))
-     ((listp mode-spec) (car mode-spec))
-     (t nil)))
+  (cond
+   ((symbolp mode-spec) mode-spec)
+   ((and (listp mode-spec) (symbolp (car mode-spec))) (car mode-spec))
+   ((listp mode-spec) (car mode-spec))
+   (t nil)))
 
-  (use-package eglot
-      :ensure t
-      :config
-      (setq eglot-autoshutdown t
-            eglot-send-changes-idle-time 0.3)
-      (dolist (entry eglot-server-programs)
-        (let ((modes (car entry)))
-          (dolist (mode (if (listp modes) modes (list modes)))
-            (let ((mode-sym (eglot--mode-symbol mode)))
-              (when (and mode-sym (fboundp mode-sym))
-                (add-hook (intern (concat (symbol-name mode-sym) "-hook"))
-                          'eglot-ensure)))))))
+(use-package eglot
+  :ensure t
+  :config
+  (setq eglot-autoshutdown t
+        eglot-send-changes-idle-time 0.3)
+  (dolist (entry eglot-server-programs)
+    (let ((modes (car entry)))
+      (dolist (mode (if (listp modes) modes (list modes)))
+        (let ((mode-sym (eglot--mode-symbol mode)))
+          (when (and mode-sym (fboundp mode-sym))
+            (add-hook (intern (concat (symbol-name mode-sym) "-hook"))
+                      'eglot-ensure)))))))
 
-  (use-package lsp-ui
-    :after lsp-mode
-    :commands lsp-ui-mode)
+#+END_SRC
 
-  ;; ==============================
-  ;;  Debuger: Linked LSP
-  ;; ==============================
+** LSP-UI
+#+NAME: lsp-ui
+#+BEGIN_SRC emacs-lisp :lexical t
+
+;; ==============================
+;;  Debuger: LSP-UI loaded after LSP
+;; ==============================
+(use-package lsp-ui
+  :ensure t
+  :defer t
+  :after lsp-mode
+  :commands lsp-ui-mode
+  :config
+  (setq lsp-ui-doc-enable nil
+        lsp-ui-doc-max-width 70
+        lsp-ui-peek-enable t
+        lsp-ui-peek-always-show nil
+        lsp-ui-sideline-enable nil))
+
+#+END_SRC                                                                                                            
+                                                                                                                     
+** Dap
+#+NAME: Dap
+#+BEGIN_SRC emacs-lisp :lexical t 
+
+;; ==============================
+;;  Debuger: Linked LSP
+;; ==============================
+
   (use-package dap-mode
     :ensure t
+    :after lsp-mode
     :init
     (dap-mode 1))
 
@@ -182,20 +201,15 @@ Order of Completion List
 #+NAME: corfu
 #+BEGIN_SRC emacs-lisp :lexical t
 
-(use-package accent
-  :ensure t
-  :init
-  (setq cursor-type t)
-  (setq accent-position 'before)
-  (global-set-key (kbd "C-x C-a") 'accent-menu))
+;; ==============================
+;;  Debuger: CORFU
+;; ==============================
 
 (use-package corfu
   :ensure t
   :custom
   (corfu-cycle t) ;; Cycle through candidates                                                                                                                                                        
   (corfu-quit-at-boundary nil) ;; Don't quit at buffer boundary                                                                                                                                                   
-  ;;(corfu-quit-no-match 'separator) ;; Keep popup when no match                                                                                                                                                         
-  ;; (corfu-preview-current t) ;; Disable preview                                                                                                                                                                 
   (corfu-preselect 'prompt) ;; Preselect prompt                                                                                                                                                                
   (corfu-auto-prefix 3)	;; Trigger after 3 chars                                                                                                                                                           
   (corfu-auto-trigger "~/.") ;; Trigger on dot                                                                                                                                                                  
@@ -203,22 +217,53 @@ Order of Completion List
   (corfu-count 10)
   (corfu-min-width 100)
   (global-corfu-minibuffer t)
-  ;; (corfu-max-width corfu-min-width)
   :init
   (corfu-echo-mode t)
   (global-corfu-mode)
   (corfu-popupinfo-mode))
 
+(use-package corfu-terminal
+  :quelpa (corfu-terminal
+           :fetcher git
+           :url "https://codeberg.org/akib/emacs-corfu-terminal.git")
+  :after corfu
+  :custom
+  (unless (display-graphic-p)
+    (corfu-terminal-mode 1)))
+
+#+END_SRC
+
+** Yasnippet
+#+NAME: yasnippet
+#+BEGIN_SRC emacs-lisp :lexical t
+
+;; ==============================
+;;  Yasnippet
+;; ==============================
+
+(use-package yasnippet
+  :ensure t
+  :diminish yas-minor-mode
+  :bind (:map yas-minor-mode-map
+              ("C-c C-e" . yas-expand))  
+  :config
+  (yas-reload-all)
+  (add-hook 'prog-mode-hook #'yas-minor-mode)
+  ;;(yas-global-mode 1)
+  (setq yas-prompt-functions '(yas-dropdown-prompt
+                               yas-ido-prompt
+                               yas-completing-prompt)))
 
 #+END_SRC
 
 ** Completion At Point Extensions
-#+NAME: cape
+#+NAME: Completion At Point Extensions
 #+BEGIN_SRC emacs-lisp :lexical t
 
 ;; ===============================
 ;; CAPE: Completion At Point Extensions
 ;; ===============================
+
 (use-package cape
   :ensure t
   :bind ("<tab>" . cape-file)
