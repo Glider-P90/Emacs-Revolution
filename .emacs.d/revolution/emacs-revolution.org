@@ -17,7 +17,7 @@
 ;; @description: Emacs Dev-tools.
 ;; 
 ;; Started on  Mon Jan 26 02:49:53 2026 @author Glider
-## Last update Fri Apr 17 02:04:18 2026 @author Glider
+## Last update Fri Apr 17 02:16:34 2026 @author Glider
 ;; ======================================================================
 ;;; Code:
 
@@ -80,7 +80,6 @@
   "Load revolution configuration."
   (org-babel-load-file "~/.emacs.d/revolution/globals.org")
   (org-babel-load-file "~/.emacs.d/revolution/utilities.org")
-  (org-babel-load-file "~/.emacs.d/revolution/settings.org")
   (org-babel-load-file "~/.emacs.d/revolution/ihm.org")
   (if (and (not (string= (buffer-name) "*Messages*")) (not (string= (buffer-name) "*scratch*")))
       (progn (message "Emacs Start revolution")
@@ -98,6 +97,16 @@
 ;;(add-hook 'window-setup-hook #'revolution-load-org-config)
 (add-hook 'emacs-startup-hook #'revolution-load-org-config)
 
+
+#+END_SRC
+
+** Minor Settings
+ Some minors settings
+#+NAME: Minor Settings
+#+BEGIN_SRC emacs-lisp :lexical t
+
+(setq select-enable-primary t) ;; Cut and Paste with Other Window Applications
+(setq select-enable-clipboard t) ;; Clipboard witch C-w &  M-w
 
 #+END_SRC
 
