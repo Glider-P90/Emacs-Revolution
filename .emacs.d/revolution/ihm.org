@@ -15,7 +15,7 @@
 ## @description: major mode manager
 ## 
 ## Started on  Wed Jun  4 23:45:47 2025 @author Glider
-## Last update Fri Apr 17 01:59:08 2026 @author Glider
+## Last update Fri Apr 17 04:39:22 2026 @author Glider
 ## ======================================================================
 #+END_COMMENT
 
@@ -259,14 +259,15 @@
   (global-corfu-mode)
   (corfu-popupinfo-mode))
 
-(use-package corfu-terminal
-  :quelpa (corfu-terminal
-           :fetcher git
-           :url "https://codeberg.org/akib/emacs-corfu-terminal.git")
-  :after corfu
-  :config
-  (unless (display-graphic-p)
-    (corfu-terminal-mode 1)))
+(when (< emacs-major-version 31)
+  (use-package corfu-terminal
+    :quelpa (corfu-terminal
+             :fetcher git
+             :url "https://codeberg.org/akib/emacs-corfu-terminal.git")
+    :after corfu
+    :config
+    (unless (display-graphic-p)
+      (corfu-terminal-mode 1))))
 
 #+END_SRC
 

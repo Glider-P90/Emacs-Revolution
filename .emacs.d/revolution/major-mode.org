@@ -15,12 +15,14 @@
 ## @description: choice the langage from major-mode to load specifics configuration
 ## 
 ## Started on  Wed Jun  4 11:35:28 2025 @author Glider
-## Last update Sun Feb  1 23:25:14 2026 @author Glider
+## Last update Fri Apr 17 02:28:56 2026 @author Glider
 ## ======================================================================
 #+END_COMMENT
 
-* Header
-#+NAME: BOF_lang_settings()
+* Major Mode Manager
+
+** Header
+#+NAME: BOF_lang_settings
 #+BEGIN_SRC emacs-lisp :lexical t
 
     ;;; lang-settings.el --- -*- lexical-binding: t; -*-
@@ -30,8 +32,30 @@
 
 #+END_SRC
 
-* major mode
-#+NAME: lang_settings()
+** Show Major Mode
+#+NAME: show_major_mode
+#+BEGIN_SRC emacs-lisp :lexical t
+
+;;; Permet d'afficher le mode majeur actuel
+(defun show-major-mode ()
+  "Affiche le mode majeur pendant 5 secondes."
+  (interactive)
+  (let ((content (format "Mode majeur : %s" major-mode))
+        (buffer-name "*Major Mode*"))
+    (with-current-buffer (get-buffer-create buffer-name)
+      (erase-buffer)
+      (insert content))
+    (let ((window (display-buffer buffer-name
+        			  '((display-buffer-reuse-window
+        			     display-buffer-below-selected)
+        			    (window-height . 2)))))
+      (run-at-time "5 sec" nil #'delete-window window)
+      )))
+
+#+END_SRC
+
+** Major Mode Loading
+#+NAME: Major-Mode-Loading
 #+BEGIN_SRC emacs-lisp :lexical t
 
 (defun register-auto-modes ()
@@ -69,7 +93,7 @@
     
 #+END_SRC
 
-* End Of File
+** End Of File
 #+NAME: EOF_lang_settings()
 #+BEGIN_SRC emacs-lisp :lexical t
 
