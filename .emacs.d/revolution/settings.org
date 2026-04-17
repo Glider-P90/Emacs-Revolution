@@ -15,7 +15,7 @@
 ## @description: Revolution-Settings tools & configurations
 ## 
 ## Started on  Wed Jun  4 23:45:47 2025 @author Glider
-## Last update Mon Feb  2 02:01:04 2026 @author Glider
+## Last update Fri Apr 17 02:04:11 2026 @author Glider
 ## ======================================================================
 #+END_COMMENT
 
@@ -23,11 +23,15 @@
 #+NAME: BOF_revolution-settings
 #+BEGIN_SRC emacs-lisp :lexical t
 
-  ;;; revolution-settings.el --- -*- lexical-binding: t; -*-
-  ;;; Commentary:
-  ;;; 
-  ;;; code:
+;;; revolution-settings.el --- -*- lexical-binding: t; -*-
+;;; Commentary:
+;;; 
+;;; code:
   
+
+(setq select-enable-primary t) ;; Cut and Paste with Other Window Applications
+(setq select-enable-clipboard t) ;; Clipboard witch C-w &  M-w
+
 #+END_SRC
 
 * Neotree
@@ -46,13 +50,6 @@
 
 #+END_SRC
 
-* Disk Usage
-#+NAME: Disk Uage
-#+BEGIN_SRC emacs-lisp :lexical t
-
-(use-package disk-usage :ensure t)
-
-#+END_SRC
 
 * Dired
 #+NAME: Dired

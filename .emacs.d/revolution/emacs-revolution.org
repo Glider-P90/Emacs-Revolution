@@ -17,7 +17,7 @@
 ;; @description: Emacs Dev-tools.
 ;; 
 ;; Started on  Mon Jan 26 02:49:53 2026 @author Glider
-## Last update Thu Apr 16 10:07:03 2026 @author Glider
+## Last update Fri Apr 17 02:04:18 2026 @author Glider
 ;; ======================================================================
 ;;; Code:
 
@@ -68,15 +68,6 @@
 (setq debug-on-error t)
 (setq warning-minimum-level :error)
 
-;; ------------------------------------------------------------
-;; UI
-;; ------------------------------------------------------------
-(setq inhibit-startup-screen t)
-(setq initial-scratch-message nil)
-(set-language-environment "UTF-8")
-(set-default-coding-systems 'utf-8-unix)
-(global-ede-mode t)
-
 #+END_SRC
 
 ** Core
@@ -96,7 +87,7 @@
 	     (org-babel-load-file "~/.emacs.d/revolution/major-mode.org")))
   (org-babel-load-file "~/.emacs.d/revolution/headers/std_comment.org")
   (org-babel-load-file "~/.emacs.d/revolution/header.org")
-  (org-babel-load-file "~/.emacs.d/revolution/attainment.org")
+  (org-babel-load-file "~/.emacs.d/revolution/system.org")
   (org-babel-load-file "~/.emacs.d/revolution/shortcuts.org")
   (message "Revolution loaded on \"%s\" done." major-mode)
   )

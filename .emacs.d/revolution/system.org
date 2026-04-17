@@ -1,0 +1,64 @@
+#+BEGIN_COMMENT
+## ======================================================================
+## @license Copyright 2016-2026 Pierre Schebath
+## ---------------------
+## 
+## @brief This file has been written by Pierre Etienne Charles Schebath Cazoulat.
+## 
+## This source code, its related data and algorithms are Pierre Schebath
+## Proprietary Information and shall be protected in strict confidence by
+## the party who receives it.  It shall not be disclosed nor copied nor
+## duplicated in whole or in part to any third party without Pierre Schebath
+## written prior permission.
+## ======================================================================
+## attainment.org for Emacs Revolution in ~/.emacs.d/revolution/
+## @description: Load attainment configuration for any major-mode.
+## 
+## Started on  Mon Jan 26 14:33:35 2026 @author Glider
+## Last update Fri Apr 17 02:01:27 2026 @author Glider
+## ======================================================================
+#+END_COMMENT
+
+* attainment of project
+
+** Header
+#+NAME: BOF_attainment
+#+BEGIN_SRC emacs-lisp :lexical t
+
+;;; ihm.el --- -*- lexical-binding: t; -*-
+;;; Commentary:
+;;; 
+;;; Code:
+
+#+END_SRC
+
+** Disk Usage
+#+NAME: Disk Uage
+#+BEGIN_SRC emacs-lisp :lexical t
+
+(use-package disk-usage :ensure t)
+
+#+END_SRC
+
+
+** Surround a string
+#+NAME: unicode-enbox
+#+BEGIN_SRC emacs-lisp :lexical t
+
+;; (use-package unicode-enbox
+;;   :ensure t
+;;   :init
+;;   (set-fontset-font "fontset-default"
+;;                   (cons (decode-char 'ucs #x2500)  (decode-char 'ucs #x257F))
+;;                   (font-spec :name "DejaVu Sans Mono:" :registry "iso10646-1")))
+
+#+END_SRC
+
+* End Of File
+#+NAME: BOF_attainment
+#+BEGIN_SRC emacs-lisp :lexical t
+
+(provide 'attainment)
+;;; attainment.el ends here
+
+#+END_SRC

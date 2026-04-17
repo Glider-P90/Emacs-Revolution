@@ -6,3 +6,14 @@
   - clangd-12 /Officiellement mais la version clangd-21 est disponible, fonctionne t'elle?/
 + npm
   - bash-language-server
+  - vscode-langservers-extracted
+  - dockerfile-language-server-nodejs
+  - @github/copilot-language-server
+  - sql-language-server
++ pip
+  - cmake-language-server
+  - jedi-language-server
+
++ elisp
+  - XML : Install this language server with M-xlsp-install-server RET xmlls RET.
+  - YAML : Install this language server with M-xlsp-install-server RET yamlls RET.

@@ -15,7 +15,7 @@
 ## @description: major mode manager
 ## 
 ## Started on  Wed Jun  4 23:45:47 2025 @author Glider
-## Last update Thu Apr 16 13:44:33 2026 @author Glider
+## Last update Fri Apr 17 01:59:08 2026 @author Glider
 ## ======================================================================
 #+END_COMMENT
 
@@ -29,10 +29,47 @@
 ;;; 
 ;;; Code:
 
+;; ------------------------------------------------------------
+;; UI
+;; ------------------------------------------------------------
+
+(setq inhibit-startup-screen t)
+(setq initial-scratch-message nil)
+(set-language-environment "UTF-8")
+(set-default-coding-systems 'utf-8-unix)
+(global-ede-mode t)
+
+#+END_SRC
+** Emoticons
+#+NAME: unicode-emoticons
+#+BEGIN_SRC emacs-lisp :lexical t
+
+(use-package unicode-emoticons
+  :ensure t
+  :init
+  (unicode-emoticons-mode))
+  
+#+END_SRC
+
+** Accent
+#+NAME: Accent
+#+BEGIN_SRC emacs-lisp :lexical t
+
+;; ==============================
+;;  Accent
+;; ==============================
+
+(use-package accent
+  :ensure t
+  :init
+  (setq cursor-type t)
+  (setq accent-position 'before)
+  (global-set-key (kbd "C-x C-a") 'accent-menu))
+
 #+END_SRC
 
 ** Vertico
-  Système de complétion minimaliste pour le minibuffer.
+ Système de complétion minimaliste pour le minibuffer.
 #+NAME: Vertico
 #+BEGIN_SRC emacs-lisp :lexical t
 
@@ -227,7 +264,7 @@
            :fetcher git
            :url "https://codeberg.org/akib/emacs-corfu-terminal.git")
   :after corfu
-  :custom
+  :config
   (unless (display-graphic-p)
     (corfu-terminal-mode 1)))
 
