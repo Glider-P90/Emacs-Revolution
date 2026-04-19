@@ -17,12 +17,14 @@
 ;; @description: Configuration pour le mode elisp.
 ;; 
 ;; Started on  Mon Jun  2 14:50:20 2025 @author Glider
-;; Last update Thu Apr  9 13:01:00 2026 @author Glider
+;; Last update Fri Apr 17 13:23:53 2026 @author Glider
 ;; ======================================================================
 ;;; Code:
 
-(add-hook 'completion-at-point-functions #'cape-elisp-block 10 t)
-(add-hook 'completion-at-point-functions #'cape-dabbrev 90 t)
+
+(add-to-list 'completion-at-point-functions #'cape-elisp-symbol)
+(add-to-list 'completion-at-point-functions #'cape-elisp-block)
+(add-to-list 'completion-at-point-functions #'cape-elisp-symbol-wrapper)
 
 (provide 'emacs-lisp-mode)
 ;;; emacs-lisp-mode.el ends here

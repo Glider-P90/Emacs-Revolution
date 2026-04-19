@@ -17,7 +17,7 @@
 ;; @description: mode for css/scss.
 ;; 
 ;; Started on  Mon Feb  2 01:22:21 2026 @author Glider
-;; Last update Thu Apr  9 10:29:12 2026 @author Glider
+;; Last update Fri Apr 17 13:03:43 2026 @author Glider
 ;; ======================================================================
 ;;; Code:
 
@@ -27,8 +27,13 @@
   :hook ((css . lsp) (lsp-mode . lsp-enable-which-key-integration))
   :init (setq lsp-keymap-prefix "C-c l")
   :config
-  (setq lsp-enable-snippet t)
-  (setq lsp-prefer-flymake t))
+  (setq lsp-completion-provider :none
+	lsp-completion-enable t
+	lsp-completion-default-behaviour :insert
+	lsp-enable-snippet t
+	lsp-prefer-flymake t
+	lsp-dired-mode nil
+	lsp-keymap-prefix "C-c l"))
 
 ;; (use-package js2-mode :ensure t)
 ;; (use-package simple-httpd

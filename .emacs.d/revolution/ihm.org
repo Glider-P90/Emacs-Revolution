@@ -15,11 +15,12 @@
 ## @description: major mode manager
 ## 
 ## Started on  Wed Jun  4 23:45:47 2025 @author Glider
-## Last update Fri Apr 17 04:39:22 2026 @author Glider
+## Last update Sun Apr 19 17:36:54 2026 @author Glider
 ## ======================================================================
 #+END_COMMENT
 
 * IHM
+
 ** Header File
 #+NAME: BOF_ihm()
 #+BEGIN_SRC emacs-lisp :lexical t
@@ -48,7 +49,12 @@
   :ensure t
   :init
   (unicode-emoticons-mode))
-  
+
+(use-package all-the-icons :ensure t)
+
+(use-package all-the-icons-dired
+  :hook (dired-mode . all-the-icons-dired-mode))
+
 #+END_SRC
 
 ** Accent
@@ -161,42 +167,6 @@
 
 #+END_SRC
 
-** Eglot
-  LSP Client
-#+NAME: Eglot
-#+BEGIN_SRC emacs-lisp :lexical t
-
-;; ===============================
-;; Eglot: LSP Client
-;; ===============================
-
-(defun eglot--mode-symbol (mode-spec)
-  "Retourne le symbole du mode principal pour MODE-SPEC.
-  MODE-SPEC peut être :
-  - un symbole : python-mode
-  - une liste avec des propriétés : (js-mode :language-id \"javascript\")
-  - une liste de symboles : (rust-ts-mode rust-mode)"
-  (cond
-   ((symbolp mode-spec) mode-spec)
-   ((and (listp mode-spec) (symbolp (car mode-spec))) (car mode-spec))
-   ((listp mode-spec) (car mode-spec))
-   (t nil)))
-
-(use-package eglot
-  :ensure t
-  :config
-  (setq eglot-autoshutdown t
-        eglot-send-changes-idle-time 0.3)
-  (dolist (entry eglot-server-programs)
-    (let ((modes (car entry)))
-      (dolist (mode (if (listp modes) modes (list modes)))
-        (let ((mode-sym (eglot--mode-symbol mode)))
-          (when (and mode-sym (fboundp mode-sym))
-            (add-hook (intern (concat (symbol-name mode-sym) "-hook"))
-                      'eglot-ensure)))))))
-
-#+END_SRC
-
 ** LSP-UI
 #+NAME: lsp-ui
 #+BEGIN_SRC emacs-lisp :lexical t
@@ -210,7 +180,7 @@
   :after lsp-mode
   :commands lsp-ui-mode
   :config
-  (setq lsp-ui-doc-enable nil
+  (setq lsp-ui-doc-enable t
         lsp-ui-doc-max-width 70
         lsp-ui-peek-enable t
         lsp-ui-peek-always-show nil
@@ -219,18 +189,19 @@
 #+END_SRC                                                                                                            
                                                                                                                      
 ** Dap
+ Debug Adapter Protocol
 #+NAME: Dap
 #+BEGIN_SRC emacs-lisp :lexical t 
 
 ;; ==============================
-;;  Debuger: Linked LSP
+;; Debug Adapter Protocol
 ;; ==============================
 
-  (use-package dap-mode
-    :ensure t
-    :after lsp-mode
-    :init
-    (dap-mode 1))
+(use-package dap-mode
+  :ensure t
+  :after lsp-ui
+  :init
+  (setq dap-auto-configure-features '(sessions locals controls tooltip)))
 
 #+END_SRC
 
@@ -268,26 +239,29 @@
     :config
     (unless (display-graphic-p)
       (corfu-terminal-mode 1))))
-
+ 
 #+END_SRC
 
 ** Yasnippet
-#+NAME: yasnippet
+#+NAME: Yasnippet
 #+BEGIN_SRC emacs-lisp :lexical t
 
 ;; ==============================
 ;;  Yasnippet
 ;; ==============================
 
+(use-package yasnippet-snippets :ensure t)
+
 (use-package yasnippet
   :ensure t
+  :after lsp-mode
   :diminish yas-minor-mode
   :bind (:map yas-minor-mode-map
               ("C-c C-e" . yas-expand))  
   :config
   (yas-reload-all)
   (add-hook 'prog-mode-hook #'yas-minor-mode)
-  ;;(yas-global-mode 1)
+  (yas-global-mode t)
   (setq yas-prompt-functions '(yas-dropdown-prompt
                                yas-ido-prompt
                                yas-completing-prompt)))
@@ -310,9 +284,6 @@
   (add-to-list 'completion-at-point-functions #'cape-history)
   (add-to-list 'completion-at-point-functions #'cape-dict)
   (add-to-list 'completion-at-point-functions #'cape-file)
-  (add-to-list 'completion-at-point-functions #'cape-sgml)
-  (add-to-list 'completion-at-point-functions #'cape-elisp-symbol)
-  (add-to-list 'completion-at-point-functions #'cape-elisp-block)
   (add-to-list 'completion-at-point-functions #'cape-dabbrev))
 
 #+END_SRC
@@ -338,7 +309,6 @@
   (column-number-mode t)
   (enable-recursive-minibuffers t))
   ;; (read-extended-command-predicate #'command-completion-default-include-p));; est ce vraiment bien?
-
 
 #+END_SRC
 

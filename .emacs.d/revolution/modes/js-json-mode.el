@@ -1,4 +1,4 @@
-;;; web-mode.el --- -*- lexical-binding: t; -*-
+;;; js-json-mode.el --- -*- lexical-binding: t; -*-
 ;;; package --- Summary
 ;;; Commentary:
 ;; ======================================================================
@@ -13,30 +13,25 @@
 ;; duplicated in whole or in part to any third party without Pierre Schebath
 ;; written prior permission.
 ;; ======================================================================
-;; web-mode.el for Emacs-revolution in /home/glider/.emacs.d/revolution/modes/
+;; js-json-mode.el for Emacs-revolution in /home/glider/.emacs.d/revolution/modes/
 ;; @description: php/html/css/javascript config file.
 ;; 
 ;; Started on  Sun Feb  1 23:01:27 2026 @author Glider
-;; Last update Fri Apr 17 13:03:43 2026 @author Glider
+;; Last update Fri Apr 17 12:24:04 2026 @author Glider
 ;; ======================================================================
 ;;; Code:
 
+(use-package json-mode :ensure t)
 (use-package lsp-mode
   :ensure t
   :commands lsp
-  :hook ((mhtml-lisp . lsp) (html . lsp) (css . lsp) (javascript . lsp) (lsp-mode . lsp-enable-which-key-integration))
+  :hook ((json . lsp) (lsp-mode . lsp-enable-which-key-integration))
   :init (setq lsp-keymap-prefix "C-c l")
   :config
-  (setq lsp-completion-provider :none
-	lsp-completion-enable t
-	lsp-completion-default-behaviour :insert
-	lsp-enable-snippet t
+  (setq lsp-enable-snippet t
 	lsp-prefer-flymake t
 	lsp-dired-mode nil
 	lsp-keymap-prefix "C-c l"))
 
-(require 'dap-firefox)
-;;(use-package dap-firefox :ensure t)
-
-(provide 'web-mode)
-;;; web-mode.el ends here
+(provide 'js-json-mode)
+;;; js-json-mode.el ends here

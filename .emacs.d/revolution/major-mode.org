@@ -15,7 +15,7 @@
 ## @description: choice the langage from major-mode to load specifics configuration
 ## 
 ## Started on  Wed Jun  4 11:35:28 2025 @author Glider
-## Last update Fri Apr 17 02:28:56 2026 @author Glider
+## Last update Sun Apr 19 10:49:14 2026 @author Glider
 ## ======================================================================
 #+END_COMMENT
 
@@ -73,24 +73,25 @@
 
 (defun load-lang-settings ()
   "Charge dynamiquement le fichier de configuration associé au major mode courant."
-  (if (not (eq er-src-mode major-mode))
+  (if (not (eq er-major-mode-origin major-mode))
       (when buffer-file-name
-        (let* ((er-src-mode major-mode)
-               (er-src-mode-name (symbol-name er-src-mode))
+        (let* ((er-major-mode-origin major-mode)
+               (er-src-mode-name (symbol-name er-major-mode-origin))
                (file-mode (concat lang-settings-dir (concat er-src-mode-name ".el"))))
           (if (file-exists-p file-mode)
-              (progn (message "Info: major mode [%s] witch file %s" (symbol-name er-src-mode) file-mode)
+              (progn (message "[E-R] Info: major mode [%s] witch file %s" (symbol-name er-major-mode-origin) file-mode)
           	(load-file file-mode))
             )))))
 
 (defun lang-settings-init ()
   "Initialise les réglages de langage pour Emacs Revolution."
   (register-auto-modes)
-  (load-lang-settings))
+  (load-lang-settings)
+  (run-hooks 'emacs-revolution-major-mode-hook))
 
 
 (lang-settings-init)
-    
+
 #+END_SRC
 
 ** End Of File

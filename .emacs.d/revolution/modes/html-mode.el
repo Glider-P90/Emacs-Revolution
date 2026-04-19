@@ -17,7 +17,7 @@
 ;; @description: html config file.
 ;; 
 ;; Started on  Fri Jan 23 10:57:22 2026 @author Glider
-;; Last update Thu Apr 16 09:32:28 2026 @author Glider
+;; Last update Fri Apr 17 13:01:30 2026 @author Glider
 ;; ======================================================================
 ;;; Code:
 
@@ -32,7 +32,11 @@
 	lsp-completion-enable t
 	lsp-completion-default-behaviour :insert
 	lsp-enable-snippet t
-	lsp-prefer-flymake t))
+	lsp-prefer-flymake t
+	lsp-dired-mode nil
+	lsp-keymap-prefix "C-c l"))
+
+(use-package dap-firefox :ensure t)
 
 (provide 'html-mode)
 ;;; html-mode.el ends here

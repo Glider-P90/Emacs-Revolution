@@ -14,7 +14,7 @@
 ## Pierre Schebath
 ## 
 ## Started on  Fri Jun 26 21:01:38 2020 @author glider
-Last update Fri Jan 23 08:40:17 2026 @author Glider
+Last update Sun Apr 19 13:33:26 2026 @author Glider
 ## ======================================================================
 ##
 
@@ -31,3 +31,4 @@ www/.cookingpot
 .project
 planning/
 RSS/
+vendor/

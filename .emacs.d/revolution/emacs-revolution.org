@@ -17,14 +17,14 @@
 ;; @description: Emacs Dev-tools.
 ;; 
 ;; Started on  Mon Jan 26 02:49:53 2026 @author Glider
-## Last update Fri Apr 17 04:42:38 2026 @author Glider
+## Last update Sun Apr 19 17:52:06 2026 @author Glider
 ;; ======================================================================
 ;;; Code:
 
 * Emacs Revolution
 
-** Initial Settings
-  Basic Configuration from emacs
+** Header
+Basic Configuration from emacs
 #+NAME: init
 #+BEGIN_SRC emacs-lisp :lexical t
 
@@ -39,6 +39,114 @@
 ;;;;;;;;;                            ;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defgroup emacs-revolution nil
+  "Emacs Revolution."
+  :group 'tools)
+
+(defcustom er-version "0.7b"
+  "This variable indicate the project version of Emacs Revolution."
+  :type 'string
+  :group 'emacs-revolution)
+
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (message "Emacs Revolution version %s loaded on %2.3fs mode." er-version
+                     (float-time
+		      (time-subtract after-init-time before-init-time)))))
+
+(defcustom emacs-revolution-dir
+  (expand-file-name "~/.emacs.d/revolution/")
+  "Root of the project Emacs-Revolution."
+  :type 'directory
+  :group 'emacs-revolution)
+
+(defcustom lang-settings-dir (expand-file-name "revolution/modes/" user-emacs-directory)
+  "Folder containing the configuration files by major-mode."
+  :type 'directory
+  :group 'emacs-revolution)
+
+(defcustom er-update-is-enable nil
+  "The update can be set on with t ether nil disable updates."
+  :type 'boolean
+  :group 'emacs-revolution)
+
+(defcustom er-auto-package-update-interval 7
+  "Set interval time to auto package update."
+  :type 'integer
+  :group 'emacs-revolution)
+
+(defcustom er-auto-package-update-prompt-before-update t
+  "Ask to user by prompt to confirm auto update."
+  :type 'boolean
+  :group 'emacs-revolution)
+
+(defcustom er-auto-package-update-hide-results nil
+  "Hide/show auto package update result."
+  :type 'boolean
+  :group 'emacs-revolution)
+
+(defcustom er-auto-package-update-at-time "09:00"
+  "Set Time to auto package update with following syntaxe 09:00."
+  :type 'string
+  :group 'emacs-revolution)
+
+(defcustom er-lsp-php-composer-dir "~/.emacs.d/revolution/composer"
+  "Set directory for lsp  php composer."
+  :type 'string
+  :group 'emacs-revolution)
+
+#+END_SRC
+
+** Managing Major Modes
+#+NAME: Managing Major Modes
+#+BEGIN_SRC emacs-lisp :lexical t
+
+(defcustom er-mode-found nil
+  "The variable er-mode-found permet de signaler un changement de mode."
+  :type 'boolean
+  :group 'emacs-revolution)
+
+(defcustom er-mode-src (symbol-name major-mode)
+  "The variable er-mode-src permet de reprendre le mode d'origine."
+  :type 'string
+  :group 'emacs-revolution)
+
+(defcustom er-major-mode-origin major-mode
+  "Main Major mode from opened file used as origin when major-mode change."
+  :type 'symbol
+  :group 'emacs-revolution)
+
+(defcustom set-er-major-mode-origin (lambda ()
+  			     (setq er-major-mode-origin major-mode)
+  			     (message "[E-R] Set Major Mode origin: %s." er-major-mode-origin))
+  "Get main major mode of the opened file."
+  :type 'function
+  :group 'emacs-revolution)
+(fset 'set-er-major-mode-origin set-er-major-mode-origin)
+
+(defcustom emacs-revolution-major-mode-hook ()
+  "Hook: Emacs revolution setting up major mode."
+  :type 'hook
+  :group 'emacs-revolution)
+
+(add-hook 'emacs-revolution-major-mode-hook #'set-er-major-mode-origin)
+
+(unless er-major-mode-origin
+  (setq er-major-mode-origin major-mode))
+
+(defcustom er-finalize-configuration-mode (lambda ()
+					    (org-babel-load-file "~/.emacs.d/revolution/major-mode-finalize.org"))
+  "Finalizing globe mode for major mode."
+  :type 'function
+  :group 'emacs-revolution)
+
+(fset 'er-finalize-configuration-mode er-finalize-configuration-mode)
+
+#+END_SRC
+
+** Packages source and update
+#+NAME: Packages source and update
+#+BEGIN_SRC emacs-lisp :lexical t
 
 (package-initialize)
 (unless (package-installed-p 'use-package)
@@ -48,6 +156,15 @@
 (eval-and-compile
     (setq use-package-always-ensure t
           use-package-expand-minimally t))
+
+(use-package auto-package-update
+  :custom
+  (auto-package-update-interval er-auto-package-update-interval)
+  (auto-package-update-prompt-before-update er-auto-package-update-prompt-before-update)
+  (auto-package-update-hide-results er-auto-package-update-hide-results)
+  :config
+  (auto-package-update-maybe)
+  (auto-package-update-at-time er-auto-package-update-at-time))
 
 (use-package quelpa
   :ensure t)
@@ -65,56 +182,6 @@
 (setq debug-on-error t)
 (setq warning-minimum-level :error)
 
-#+END_SRC
-
-** Emacs Revolution
-#+NAME: Emacs Revolution
-#+BEGIN_SRC emacs-lisp :lexical t
-
-(defgroup emacs-revolution nil
-  "Emacs Revolution."
-  :group 'tools)
-
-(defcustom emacs-revolution-dir
-  (expand-file-name "~/.emacs.d/revolution/")
-  "Racine du projet Emacs-Revolution."
-  :type 'directory
-  :group 'emacs-revolution)
-
-(defcustom lang-settings-dir (expand-file-name "revolution/modes/" user-emacs-directory)
-  "Dossier contenant les fichiers de configuration par langage."
-  :type 'directory
-  :group 'emacs-revolution)
-
-(defcustom er-update-is-enable nil
-  "The update can be set on with t ether nil disable updates."
-  :type 'boolean
-  :group 'emacs-revolution)
-
-#+END_SRC
-
-** Managing Major Modes
-#+NAME: Managing Major Modes
-#+BEGIN_SRC emacs-lisp :lexical t
-
-(defcustom er-mode-found nil                                                                                          
-  "The variable er-mode-found permet de signaler un changement de mode."                                              
-  :type 'boolean                                                                                                      
-  :group 'emacs-revolution)                                                                                           
-                                                                                                                      
-(defcustom er-mode-src (symbol-name major-mode)                                                                          
-  "The variable er-mode-src permet de reprendre le mode d'origine."                                                   
-  :type 'string                                                                                                       
-  :group 'emacs-revolution)                                                                                           
-                                                                                                                      
-(defcustom er-src-mode major-mode                                                                                     
-  "Major mode source for Emacs-Revolution."                                                                           
-  :type 'symbol                                                                                                       
-  :group 'emacs-revolution)                                                                                           
-                                                                                                                      
-(unless er-src-mode
-  (setq er-src-mode major-mode))
-    
 #+END_SRC
 
 ** Headers
@@ -205,12 +272,32 @@
 
 #+END_SRC
 
+** Dependencies
+#+NAME: Dependencies
+#+BEGIN_SRC emacs-lisp :lexical t
+
+;; ------------------------------------------------------------
+;; Dependencies
+;; ------------------------------------------------------------
+  
+  (use-package s :ensure t)
+  (use-package popup :ensure t)
+  (use-package dash :ensure t)
+  (use-package xcscope :ensure t)
+  (use-package auto-complete
+    :ensure t
+    :config
+    (ac-config-default))
+  (use-package helm :ensure t)
+
+#+END_SRC
+
 ** File extenssion
 #+NAME: Associate mode with extenssion file
 #+BEGIN_SRC emacs-lisp :lexical t
   
 (defcustom mode-associations
-    '(("\\.jsx?\\'"       . web-mode)
+    '(("\\.jsx?\\'"       . js2-mode)
       ("\\.tsx?\\'"       . web-mode)
       ("\\.[agj]sp\\'"    . web-mode)
       ("\\.as[cp]x\\'"    . web-mode)
@@ -249,8 +336,6 @@
              (symbol :tag "Major mode")))
     :group 'emacs-revolution)
 
-  (setq major-mode-remap-alist
-        '((css-mode . css-ts-mode)))
 
 #+END_SRC
 
@@ -275,23 +360,22 @@
 #+NAME: Core
 #+BEGIN_SRC emacs-lisp :lexical t
 
-(message "Emacs external configuration is loaded")
 (defun revolution-load-org-config()
-  "Load revolution configuration."
+  "[E-R] Info: Load revolution configuration."
   (org-babel-load-file "~/.emacs.d/revolution/ihm.org")
   (if (and (not (string= (buffer-name) "*Messages*")) (not (string= (buffer-name) "*scratch*")))
-      (progn (message "Emacs Start revolution")
+      (progn (message "Emacs Start Revolution.")
 	     (org-babel-load-file "~/.emacs.d/revolution/major-mode.org")))
   (org-babel-load-file "~/.emacs.d/revolution/headers/std_comment.org")
   (org-babel-load-file "~/.emacs.d/revolution/header.org")
   (org-babel-load-file "~/.emacs.d/revolution/system.org")
+  (org-babel-load-file "~/.emacs.d/revolution/elfeed-init.org")
   (org-babel-load-file "~/.emacs.d/revolution/shortcuts.org")
-  (message "Revolution loaded on \"%s\" done." major-mode)
-  )
+  (er-finalize-configuration-mode)
+  (setq er-done (format-time-string "%s")))
 
 ;; Launch Emacs Revolution
 (add-hook 'emacs-startup-hook #'revolution-load-org-config)
-
 
 #+END_SRC
 

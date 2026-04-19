@@ -17,10 +17,12 @@
 ;; @description: Configuration pour le mode c++.
 ;; 
 ;; Started on  Mon Jun  2 14:50:20 2025 @author Glider
-;; Last update Wed Apr 15 16:14:48 2026 @author Glider
+;; Last update Fri Apr 17 11:16:31 2026 @author Glider
 ;; ======================================================================
 ;;; Code:
 
+(use-package dap-gdb :ensure t)
+(use-package dap-lldb :ensure t)
 
 (provide 'c-mode)
 ;;; c-mode.el ends here

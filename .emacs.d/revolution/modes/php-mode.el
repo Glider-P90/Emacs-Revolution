@@ -17,58 +17,71 @@
 ;; @description: php config file.
 ;; 
 ;; Started on  Sun Feb  1 22:55:08 2026 @author Glider
-;; Last update Fri Apr 10 09:00:13 2026 @author Glider
+;; Last update Sun Apr 19 18:10:43 2026 @author Glider
 ;; ======================================================================
 ;;; Code:
 
-(defvar er-phpactor-exist nil
-  "Permet de savoir si phpactor est installé.")
+;; ================================================================
+;; First auto-completion based on user project.
+;; ================================================================
 
-(use-package php-mode :ensure t)
-(use-package composer :ensure t)
+(auto-complete-mode t)
+(use-package ac-php
+  :ensure t
+  :config
+  (setq ac-sources '(ac-source-php)))
 
-
-
-(defun emacs-revolution-install-phpactor ()
-  "Clone phpactor, installe les dépendances via Composer et crée le lien symbolique."
-  (interactive)
-  (let ((default-directory (expand-file-name "modes/php/" emacs-revolution-dir)))
-    (shell-command "git clone https://github.com/phpactor/phpactor.git")
-    (let ((default-directory (expand-file-name "phpactor/" default-directory)))
-      (composer-install)
-      (shell-command (concat "sudo ln -s " default-directory " /usr/local/bin/phpactor")))))
-
+;; ================================================================
+;; Sewcond auto-completion based PHP then other officials sources
+;; ================================================================
 
 (use-package lsp-mode
   :ensure t
   :commands lsp
   :hook
-  ((php-lisp . lsp) (lsp-mode . lsp-enable-which-key-integration))
+  ((php-mode . lsp) (lsp-mode . lsp-enable-which-key-integration))
   :config
-  (setq lsp-enable-snippet t)
-  (setq lsp-prefer-flymake t)
-  :init
-  (setq lsp-dired-mode t)
-  (setq lsp-keymap-prefix "C-c l"))
+  (setq lsp-completion-provider :none
+	lsp-completion-enable t
+	lsp-completion-default-behaviour :insert
+	lsp-enable-snippet t
+	lsp-prefer-flymake t
+	lsp-dired-mode nil
+	lsp-keymap-prefix "C-c l"))
 
-(use-package flycheck-php-noverify
+(setq completion-category-overrides
+      '((lsp-capf (style try-completion orderless all-completions doc))))
+
+(use-package flycheck-phpstan :ensure t)
+
+(defun my-php-mode-setup ()
+  "My PHP-mode hook."
+  (require 'flycheck-phpstan)
+  (flycheck-mode t))
+
+(add-hook 'php-mode-hook 'my-php-mode-setup)
+(with-eval-after-load 'phpstan-hover
+  (setopt phpstan-hover-idle-delay 0.5) ;; Show popups more quickly than the default.
+  (setopt phpstan-hover-display-backend 'auto) ;; Auto-select from available popup backends.
+  (setopt phpstan-hover-message-prefix "🔖 ") ;; Use a shorter emoji prefix instead of "PHPStan: ".
+  (setopt phpstan-hover-show-kind-label t)) ;; Set nil to hide syntax labels in popup messages.
+
+;; ================================================================
+;; Flycheck PHP Configuration - Checkers personnalisés
+;; ================================================================
+(use-package flycheck
   :ensure t
+  :after php-mode
   :config
-  (progn
-    (flycheck-php-noverify-setup)))
-;; Excluded checks. 
-;; default: '("undefinedConstant" "undefinedClass" "undefinedFunction" 
-;;            "undefinedMethod" "undefinedProperty" "undefinedTrait")
-(add-to-list 'flycheck-php-noverify-exclude-checks "constCase")
+  (setq	flycheck-phpstan-executable "~/.emacs.d/revolution/vendor/bin/phpstan"
+	flycheck-php-phpcs-executable "~/.emacs.d/revolution/vendor/bin/phpcs"
+	flycheck-phpstan-args '("-c" "phpstan.neon")
+	flycheck-php-phpcs-args '("--standard=PSR12"))
+  (add-hook 'php-mode-hook
+            (lambda ()
+              (when (executable-find flycheck-php-phpcs-executable)
+                (flycheck-select-checker 'php-phpcs)))))
 
-;; Allowed checks. default: nil
-(setq flycheck-php-noverify-allow-checks '("unused"))
-
-;; Analyze as PHP 7. default: nil
-(setq flycheck-php-noverify-php7 t)
-
-;; additional 'noverify' args
-(setq flycheck-php-noverify-args '("--cores" "4"))
 
 (provide 'er-php-mode)
 ;;; er-php-mode.el ends here

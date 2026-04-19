@@ -1,4 +1,4 @@
-;;; web-mode.el --- -*- lexical-binding: t; -*-
+;;; js2-mode.el --- -*- lexical-binding: t; -*-
 ;;; package --- Summary
 ;;; Commentary:
 ;; ======================================================================
@@ -13,18 +13,18 @@
 ;; duplicated in whole or in part to any third party without Pierre Schebath
 ;; written prior permission.
 ;; ======================================================================
-;; web-mode.el for Emacs-revolution in /home/glider/.emacs.d/revolution/modes/
+;; js2-mode.el for Emacs-revolution in /home/glider/.emacs.d/revolution/modes/
 ;; @description: php/html/css/javascript config file.
 ;; 
 ;; Started on  Sun Feb  1 23:01:27 2026 @author Glider
-;; Last update Fri Apr 17 13:03:43 2026 @author Glider
+;; Last update Fri Apr 17 13:02:39 2026 @author Glider
 ;; ======================================================================
 ;;; Code:
 
 (use-package lsp-mode
   :ensure t
   :commands lsp
-  :hook ((mhtml-lisp . lsp) (html . lsp) (css . lsp) (javascript . lsp) (lsp-mode . lsp-enable-which-key-integration))
+  :hook ((javascript . lsp) (lsp-mode . lsp-enable-which-key-integration))
   :init (setq lsp-keymap-prefix "C-c l")
   :config
   (setq lsp-completion-provider :none
@@ -36,7 +36,7 @@
 	lsp-keymap-prefix "C-c l"))
 
 (require 'dap-firefox)
-;;(use-package dap-firefox :ensure t)
+(dap-firefox-setup)
 
-(provide 'web-mode)
-;;; web-mode.el ends here
+(provide 'js2-mode)
+;;; js2-mode.el ends here

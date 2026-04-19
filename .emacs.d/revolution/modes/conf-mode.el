@@ -16,7 +16,7 @@
 ;; @description: Parametre conf-mode
 ;; 
 ;; Started on  Mon Jun  2 11:20:32 2025 @author Glider
-;; Last update Fri Apr 10 08:57:54 2026 @author Glider
+;; Last update Fri Apr 17 13:21:59 2026 @author Glider
 ;; ======================================================================
 ;;; Code:
 
@@ -24,6 +24,8 @@
 (setq-default tab-width 0)
 (setq-default standard-indent 0)
 
+(add-to-list 'completion-at-point-functions #'cape-emoji)
+(add-to-list 'completion-at-point-functions #'cape-abbrev)
 
 (provide 'conf-mode.el)
 ;;; conf-mode.el ends here

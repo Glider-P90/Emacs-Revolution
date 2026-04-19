@@ -7,9 +7,12 @@
 + npm
   - bash-language-server
   - vscode-langservers-extracted
+  - intelephense
   - dockerfile-language-server-nodejs
   - @github/copilot-language-server
   - sql-language-server
+  - typescript
+  - eslint
 + pip
   - cmake-language-server
   - jedi-language-server
@@ -17,3 +20,8 @@
 + elisp
   - XML : Install this language server with M-xlsp-install-server RET xmlls RET.
   - YAML : Install this language server with M-xlsp-install-server RET yamlls RET.
++ composer
+  - composer require --dev phpstan/phpstan &&
+    export PATH="$HOME/.emacs.d/revolution/vendor/bin:$PATH"
+  - composer require --dev "squizlabs/php_codesniffer" &&
+    export PATH="$HOME/.emacs.d/revolution/vendor/bin:$PATH"

@@ -17,7 +17,7 @@
 ;; @description: Configuration pour le mode c++.
 ;; 
 ;; Started on  Mon Jun  2 14:50:20 2025 @author Glider
-;; Last update Fri Apr 10 09:06:24 2026 @author Glider
+;; Last update Fri Apr 17 11:16:40 2026 @author Glider
 ;; ======================================================================
 ;;; Code:
 
@@ -33,6 +33,8 @@
   (setq lsp-enable-snippet t)
   (setq lsp-prefer-flymake t))
 
+(use-package dap-gdb :ensure t)
+(use-package dap-lldb :ensure t)
 
 (provide 'cpp-mode)
 ;;; cpp-mode.el ends here

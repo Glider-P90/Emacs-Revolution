@@ -1,5 +1,5 @@
 #+BEGIN_COMMENT
-## Last update Thu Apr 16 10:57:46 2026 @author Glider
+## Last update Fri Apr 17 06:46:53 2026 @author Glider
 ## ======================================================================
 ## @license Copyright 2016-2025 Pierre Schebath
 ## ---------------------
@@ -89,17 +89,17 @@
   (which-key-sort-order 'which-key-local-then-key-order)
   (which-key-show-docstrings t)
   (which-key-side-window-max-width 0.45)
+  :config
+  (which-key-setup-side-window-right-bottom)
   :init
-  (setq which-key-show-next-page-cycle t)
-  (setq which-key-popup-type 'side-window)
-  (setq which-key-max-description-length 120)
-  (setq which-key-max-display-columns 1)
-  (setq which-key-show-prefix 'left)
-  (setq which-key-sort-order 'which-key-key-order)
+  (setq which-key-show-next-page-cycle t
+	which-key-popup-type 'side-window
+	which-key-max-description-length 120
+	which-key-max-display-columns 1
+	which-key-show-prefix 'left
+	which-key-sort-order 'which-key-key-order)
   (which-key-mode))
 
-(which-key-mode 1)
-(which-key-setup-side-window-right-bottom)
 
 #+END_SRC
 
