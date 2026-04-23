@@ -1,0 +1,86 @@
+* Emacs Revolution 
+:PROPERTIES:
+:project-name: Emacs Revolution
+:project-version: 0.7b
+:END:
+
+#+TAGS: N/A(n) INSTALLÉ(i) 
+
+** Langages supportés
+
+      | Langage               | Documentation | Syntaxe | Complétion | LSP Server |
+      |-----------------------+---------------+---------+------------+------------|
+      | Bash                  |               |         |            | X          |
+      | c                     |               | X       |            | N/A        |
+      | C++                   |               |         |            | X          |
+      | C#                    |               |         |            |            |
+      | CSS/LessCSS/SASS/SCSS |               |         |            | X          |
+      | Texte                 |               |         |            | N/A        |
+      | TypeScript            |               |         |            | N/A        |
+      | GitHub Copilot        |               |         |            |            |
+      | HTML                  | X             | X       | X          | X          |
+      | Javascript/typescript | X             | X       | X          | X          |
+      | Json                  | N/A           |         | X          | X          |
+      | Lisp/elisp            | X             | X       | X          | X          |
+      | Makefile-gmake        |               |         |            | N/A        |
+      | Python                |               |         |            |            |
+      | PHP                   |               | X       | X          | X          |
+      | Glsl                  |               |         |            |            |
+      | Org                   | X             | X       | X          | N/A        |
+      | Xml                   |               |         |            |            |
+      | Yaml                  |               |         |            |            |
+
+** Objectif
+*** VERSION 1.0 [3/8]
+
+  + [X] Chargement du mode adéquate.
+  + [X] Switch vers le mode elisp on-line pour les fichiers org lors de l'ecriture de ce langage.
+  + [X] Tous les fichiers elisp doivent être généré depuis org à partir de init-revolution-mode.el.    
+  + [ ] Fichier de Configuration [0/2]
+    - [ ] function qui verifie si le fichier de configuration nommee XXXXX existe.
+    - [ ] Si il n'existe pas affiche un buffer de presentation de Emacs-Revolution avec des parametres configurables. [0/6]
+      * [ ] Chemin d'installation par defaut, modifiable.
+      * [ ] Formulaire pour personnaliser les raccourcis.
+      * [ ] Confirmer l'installation du package en mode radion on/off: npm install -g @emacs-eask/cli
+      * [ ] Lier cette fonction au fichier de configuration emacs-revolution-check-org
+      * [ ] Autoriser/Valider l'installation
+      * [ ] Permettre le choix de la durée avant mise a jour.
+  + [ ] *Docsgen*, /Documentation de votre code/ : [0/1]
+    - [ ] La documentation est générée de manière interactive ou
+      à l’aide d’un raccourci clavier. Une fois créée,
+      elle est automatiquement enregistrée sous le nom du projet,
+      dans le répertoire racine, avec l’extension .org,
+      à l’intérieur d’un dossier dédié à la documentation:
+      /.emacs.d/revolution/docs/
+    - [ ] Utiliser one.el ou emacs-ssg pour emuler un server web
+      diffusant la documention org en page web,
+      accessible depuis un racourcis(+interactive) clavier.
+  + [ ] Flux RSS [0/3]
+    - [ ] elfeed
+    - [ ] barre d'affichage en haut de la fenêtre.
+    - [ ] shortkey pour switcher afficher/cacher
+    - [ ] shortkey pour afficher un formulaire pour ajouter un flux RSS.
+  + [-] Divers [2/5]
+    - [ ] .ac-php-conf.json si manquant création (touch) avec confirmation par l'utilisateur.
+      Puis génération des tags avec M-x ac-php-remake-tags .
+    - [X] Neotree verifier son installation.
+    - [ ] Simplifier la création de nouveaux headers, peut-être proposer d'injecter l'URL de la boite pour laquelle le projet est développé.
+    - [ ] elisp-demos
+    - [ ] bug-hunter
+    - [X] which-key
+      * [X] Affiche les complétions des shortcuts disponibles.
+      * [X] Affiche les shortcuts dans une frame en mode colonne a droite de la fenêtre.
+      * [X] Affiche les shortcuts du mode seulement en continue dans une frame en mode colonne a droite de la fenêtre.
+    - [ ] calfw-org
+    - [ ] multiple-cursors
+    - [ ] flycheck-package
+    - [ ] flycheck-posframe
+    - [ ] el-fly-indent-mode
+    - [ ] boxy-headings
+    - [ ] posframe
+    - [ ] le Header permet d'ajouter tous les utilisateur ayant modifié le fichier.
+    - [ ] org-project-capture
+    - [ ] org-sidebar
+
+** Contact
+   Email: contact@lugtech.fr

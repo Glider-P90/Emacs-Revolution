@@ -1,0 +1,5 @@
+#!/bin/bash
+
+mkdir -p $HOME/.emacs.d/
+
+cp -r $PWD/.emacs.d/revolution $HOME/.emacs.d/
