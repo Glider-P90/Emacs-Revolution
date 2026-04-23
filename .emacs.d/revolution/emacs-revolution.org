@@ -17,7 +17,7 @@
 ;; @description: Emacs Dev-tools.
 ;; 
 ;; Started on  Mon Jan 26 02:49:53 2026 @author Glider
-## Last update Sun Apr 19 17:52:06 2026 @author Glider
+## Last update Thu Apr 23 09:49:11 2026 @author Glider
 ;; ======================================================================
 ;;; Code:
 
@@ -39,6 +39,12 @@ Basic Configuration from emacs
 ;;;;;;;;;                            ;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+#+END_SRC
+
+** Main Setup
+#+NAME: Emacs Main Setup
+#+BEGIN_SRC emacs-lisp :lexical t
+    
 (defgroup emacs-revolution nil
   "Emacs Revolution."
   :group 'tools)
@@ -52,13 +58,24 @@ Basic Configuration from emacs
           (lambda ()
             (message "Emacs Revolution version %s loaded on %2.3fs mode." er-version
                      (float-time
-		      (time-subtract after-init-time before-init-time)))))
+    		      (time-subtract after-init-time before-init-time)))))
 
 (defcustom emacs-revolution-dir
   (expand-file-name "~/.emacs.d/revolution/")
   "Root of the project Emacs-Revolution."
   :type 'directory
   :group 'emacs-revolution)
+
+(defcustom dependencies-project-revolution
+  (lambda ()
+    (setq e-r-dependencies (concat (getenv "HOME") "/.emacs.d/dependencies"))
+    (if (file-exists-p e-r-dependencies)
+	(message "Emacs-revolution Dependencies already installed.")
+      (make-directory (concat (getenv "HOME") "/.emacs.d/dependencies"))))
+  "Set up folders and config files for Emacs Revolution."
+  :type 'function
+  :group 'emacs-revolution)
+(fset 'dependencies-project-revolution dependencies-project-revolution)
 
 (defcustom lang-settings-dir (expand-file-name "revolution/modes/" user-emacs-directory)
   "Folder containing the configuration files by major-mode."
@@ -276,19 +293,21 @@ Basic Configuration from emacs
 #+NAME: Dependencies
 #+BEGIN_SRC emacs-lisp :lexical t
 
-;; ------------------------------------------------------------
-;; Dependencies
-;; ------------------------------------------------------------
-  
-  (use-package s :ensure t)
-  (use-package popup :ensure t)
-  (use-package dash :ensure t)
-  (use-package xcscope :ensure t)
-  (use-package auto-complete
-    :ensure t
-    :config
-    (ac-config-default))
-  (use-package helm :ensure t)
+  ;; ------------------------------------------------------------
+  ;; Dependencies
+  ;; ------------------------------------------------------------
+    
+(use-package s :ensure t)
+(use-package popup :ensure t)
+(use-package dash :ensure t)
+(use-package xcscope :ensure t)
+
+;;  (use-package auto-complete
+;;    :ensure t
+;;      :config
+;;      (ac-config-default))
+(use-package helm :ensure t)
+(use-package helm-lsp :ensure t)
 
 #+END_SRC
 
@@ -339,26 +358,12 @@ Basic Configuration from emacs
 
 #+END_SRC
 
-** Documentation
-#+NAME: Documentation
-#+BEGIN_SRC emacs-lisp :lexical t
-
-(defun er-describe-symbol-at-point ()
-  "Describe the symbol at point intelligently."
-  (interactive)
-  (let ((sym (symbol-at-point)))
-    (cond
-     ((fboundp sym) (describe-function sym))
-     ((boundp sym)  (describe-variable sym))
-     ((facep sym)   (describe-face sym))
-     (t (describe-symbol sym)))))
-
-#+END_SRC
-
 ** Core
    Packages who make Emacs Revolution
 #+NAME: Core
 #+BEGIN_SRC emacs-lisp :lexical t
+
+(dependencies-project-revolution) ;; a integrer dans IHM d'install
 
 (defun revolution-load-org-config()
   "[E-R] Info: Load revolution configuration."

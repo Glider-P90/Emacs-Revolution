@@ -83,12 +83,14 @@ Pour chaque mode majeur, un fichier de configuration lui est associé dans revol
     - [ ] shortkey pour switcher afficher/cacher
     - [ ] shortkey pour afficher un formulaire pour ajouter un flux RSS.
   + [-] Divers [2/5]
+    - [ ] .ac-php-conf.json si manquant création (touch) avec confirmation par l'utilisateur.
+      Puis génération des tags avec M-x ac-php-remake-tags .
     - [X] Neotree verifier son installation.
     - [ ] Simplifier la création de nouveaux headers, peut-être proposer d'injecter l'URL de la boite pour laquelle le projet est développé.
     - [ ] elisp-demos
     - [ ] bug-hunter
     - [X] which-key
-      * [X] Affiche les completions des shortcuts disponibles.
+      * [X] Affiche les complétions des shortcuts disponibles.
       * [X] Affiche les shortcuts dans une frame en mode colonne a droite de la fenêtre.
       * [X] Affiche les shortcuts du mode seulement en continue dans une frame en mode colonne a droite de la fenêtre.
     - [ ] calfw-org

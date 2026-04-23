@@ -16,14 +16,14 @@
 ;; @description: Parametre conf-mode
 ;; 
 ;; Started on  Mon Jun  2 11:20:32 2025 @author Glider
-;; Last update Fri Apr 17 13:21:59 2026 @author Glider
+;; Last update Wed Apr 22 23:28:14 2026 @author Glider
 ;; ======================================================================
 ;;; Code:
 
 (setq-default indent-enabled nil)
 (setq-default tab-width 0)
 (setq-default standard-indent 0)
-
+(add-hook 'text-mode-hook 'visual-line-mode)
 (add-to-list 'completion-at-point-functions #'cape-emoji)
 (add-to-list 'completion-at-point-functions #'cape-abbrev)
 

@@ -15,7 +15,7 @@
 ## @description: major mode manager
 ## 
 ## Started on  Wed Jun  4 23:45:47 2025 @author Glider
-## Last update Sun Apr 19 17:36:54 2026 @author Glider
+## Last update Thu Apr 23 00:05:53 2026 @author Glider
 ## ======================================================================
 #+END_COMMENT
 
@@ -96,25 +96,6 @@
 	completion-ignore-case t)
   (vertico-mode))
 ;;  :config
-
-#+END_SRC
-
-** Orderless
-#+NAME: orderless
-#+BEGIN_SRC emacs-lisp :lexical t
-
-;; ===============================
-;; ORDERLESS: Order of Completion List
-;; ===============================
-
-(use-package orderless
-  :ensure t
-  :custom
-  (completion-styles '(basic orderless partial-completion))
-  (completion-category-overrides '((file (styles partial-completion)))
-   (symbol (orderless-matching-styles '(orderless-initialism)))
-   (variable (orderless-matching-styles '(orderless-literal))))
-  (completion-pcm-leading-wildcard t))
 
 #+END_SRC
 

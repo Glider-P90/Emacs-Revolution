@@ -15,7 +15,7 @@
 ## @description: Load attainment configuration for any major-mode.
 ## 
 ## Started on  Mon Jan 26 14:33:35 2026 @author Glider
-## Last update Fri Apr 17 02:16:41 2026 @author Glider
+## Last update Thu Apr 23 08:49:55 2026 @author Glider
 ## ======================================================================
 #+END_COMMENT
 
@@ -32,15 +32,19 @@
 
 #+END_SRC
 
-** Disk Usage
-#+NAME: Disk Uage
+** Disk Usage & Project
+#+NAME: Disk Uage & Project
 #+BEGIN_SRC emacs-lisp :lexical t
 
 (use-package disk-usage :ensure t)
 
+(use-package projectile :ensure t)
+(use-package helm-project :ensure t)
+(use-package helm-projectile :ensure t)
+
 #+END_SRC
 
-* Neotree
+** Neotree
 #+NAME: neotree
 #+BEGIN_SRC emacs-lisp :lexical t
 
@@ -57,7 +61,7 @@
 
 #+END_SRC
 
-* Dired
+** Dired
  Lets you select a file and then launch an external application with that file.
 #+NAME: Dired
 #+BEGIN_SRC emacs-lisp :lexical t
@@ -81,87 +85,76 @@
 
 #+END_SRC
 
-#+NAME: Project
+** Flycheck
+#+NAME: Flycheck
 #+BEGIN_SRC emacs-lisp :lexical t
 
-;;(use-package projection
-;;   :ensure t
-;;   ;; Enable the `projection-hook' feature.
-;;   :hook (after-init . global-projection-hook-mode)
-;;   ;; Enable the `projection-customize-compilation' feature.
-;;   :hook (compilation-mode . projection-customize-compilation-mode)
-;;   :custom
-;;   (compilation-buffer-name-function
-;;    #'projection-customize-compilation-buffer-name-function)
-;;   ;; Require projections immediately after project.el.
-;;   :config
-;;   (with-eval-after-load 'project
-;;     (require 'projection))
-;;   :config
-;;   ;; Uncomment if you want to disable prompts for compile commands customized in .dir-locals.el
-;;   ;; (put 'projection-commands-configure-project 'safe-local-variable #'stringp)
-;;   ;; (put 'projection-commands-build-project 'safe-local-variable #'stringp)
-;;   ;; (put 'projection-commands-test-project 'safe-local-variable #'stringp)
-;;   ;; (put 'projection-commands-run-project 'safe-local-variable #'stringp)
-;;   ;; (put 'projection-commands-package-project 'safe-local-variable #'stringp)
-;;   ;; (put 'projection-commands-install-project 'safe-local-variable #'stringp)
-
-;;   ;; Access pre-configured projection commands from a keybinding of your choice.
-;;   ;; Run `M-x describe-keymap projection-map` for a list of available commands.
-;;   :bind-keymap
-;;   ("C-x P" . projection-map))
-
-;; (use-package projection-multi
-;;   :ensure t
-;;   ;; Allow interactively selecting available compilation targets from the current
-;;   ;; project type.
-;;   :bind ( :map project-prefix-map
-;;           ("RET" . projection-multi-compile)))
-
-;; (use-package embark-consult :ensure t)
-
-;; (use-package projection-multi-embark
-;;   :ensure t
-;;   :after embark
-;;   :after projection-multi
-;;   :demand t
-;;   ;; Add the projection set-command bindings to `compile-multi-embark-command-map'.
-;;   :config (projection-multi-embark-setup-command-map))
-
-;; (use-package consult
-;;   :ensure t)
-
-;; (consult-customize
-;;  consult-ripgrep consult-git-grep consult-grep consult-man
-;;  consult-bookmark consult-recent-file consult-xref
-;;  consult-source-bookmark consult-source-file-register
-;;  consult-source-recent-file consult-source-project-recent-file
-;;  :preview-key '(:debounce 0.4 any))
-
-;; (defvar consult-source-bookmark
-;;   `(:name     "Bookmark"
-;;     :narrow   ?m
-;;     :category bookmark
-;;     :face     consult-bookmark
-;;     :history  bookmark-history
-;;     :items    ,#'bookmark-all-names
-;;     :action   ,#'consult--bookmark-action))
-
-
-
-;; (use-package consult-project-extra
-;;   :ensure t
-;;   :custom (consult-project-function #'consult-project-extra-project-fn) ;; Optional but recommended for a more consistent UI
-;;   :bind
-;;   (("C-c p f" . consult-project-extra-find)
-;;    ("C-c p o" . consult-project-extra-find-other-window)))
+;; ================================================================
+;; Flycheck 
+;; ================================================================
+(use-package flycheck
+  :ensure t
+  :after php-mode
+  :config
+  (global-flycheck-mode)
+  (flycheck-title-mode))
 
 #+END_SRC
 
+** Orderless
+#+NAME: Orderless
+#+BEGIN_SRC emacs-lisp :lexical t
 
-** Surround a string
+;; ===============================
+;; Orderless
+;; ===============================
+(use-package orderless
+  :ensure t
+  :custom
+  (orderless-matching-styles '(orderless-prefixes))
+  (orderless-component-separator 'orderless-escapable-split-on-space)
+  (read-file-name-completion-ignore-case t)
+  (read-buffer-completion-ignore-case t)
+  (completion-ignore-case nil)
+  (completion-category-defaults nil)
+  (completion-category-overrides '((file (styles basic partial-completion))))
+  :config (message "`orderless' loaded"))
+
+#+END_SRC
+
+** Research
+#+NAME: Research
+#+BEGIN_SRC emacs-lisp :lexical t
+
+;; ===============================
+;; Research
+;; ===============================
+(use-package ace-isearch
+  :ensure t
+  :config
+  (global-ace-isearch-mode +1)
+  (setq ace-jump-word-mode t
+	helm-multi-swoop-projectile t)
+  (setq ace-isearch-function-from-isearch 'helm-occur-from-isearch))
+
+#+END_SRC
+
+** Highlight Symbols, Selections, Enclosing Parens and More
 #+NAME: unicode-enbox
 #+BEGIN_SRC emacs-lisp :lexical t
+
+(use-package hl-anything
+  :ensure t
+  :config
+  (hl-line-mode)
+  (global-hl-line-mode)
+  (hl-highlight-thingatpt-global)
+  (hl-highlight-thingatpt-local))
+
+
+(use-package highlight-indent-guides
+  :ensure t
+  :config (highlight-indent-guides-mode))
 
 ;; (use-package unicode-enbox
 ;;   :ensure t

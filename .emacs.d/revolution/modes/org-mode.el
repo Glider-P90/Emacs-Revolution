@@ -17,7 +17,7 @@
 ;; @description: org-mode
 ;; 
 ;; Started on  Tue Jan 30 03:12:24 2024 @author Glider
-;; Last update Fri Apr 10 11:05:52 2026 @author Glider
+;; Last update Thu Apr 23 01:03:53 2026 @author Glider
 ;; ======================================================================
 ;;; Code:
 
@@ -51,7 +51,26 @@
       org-src-fontify-natively t
       org-src-tab-acts-natively t
       org-log-done 'time
+;;      org-startup-indented t
+  ;;    org-startup-truncated nil;; wrap around
       org-log-into-drawer t)
+
+;; Do not ask for confirmation when evaluation a block
+(setq org-confirm-babel-evaluate nil)
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((emacs-lisp . t)
+   (lisp . t)
+   (shell . t)
+   (sed . t)
+   (awk . t)
+   (python . t)
+   (R . t)
+   (sqlite . t)
+   (lilypond . t)
+   (scheme . t)
+   ))
 
 (setq org-todo-keywords
       '(
@@ -184,6 +203,7 @@
 
 (add-hook 'post-command-hook #'update-major-mode-in-org-file)
 (add-hook 'after-save-hook #'update-major-mode-in-org-file-reload)
+(add-hook 'org-mode 'visual-line-mode)
 
 (global-set-key (kbd "<f7>") #'org-side-tree-toggle-then-resize)
 (global-set-key (kbd "C-c o") 'org-manual)

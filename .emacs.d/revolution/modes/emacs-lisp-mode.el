@@ -17,10 +17,19 @@
 ;; @description: Configuration pour le mode elisp.
 ;; 
 ;; Started on  Mon Jun  2 14:50:20 2025 @author Glider
-;; Last update Fri Apr 17 13:23:53 2026 @author Glider
+;; Last update Wed Apr 22 20:17:39 2026 @author Glider
 ;; ======================================================================
 ;;; Code:
 
+(defun er-describe-symbol-at-point ()
+  "Describe the symbol at point intelligently."
+  (interactive)
+  (let ((sym (symbol-at-point)))
+    (cond
+     ((fboundp sym) (describe-function sym))
+     ((boundp sym)  (describe-variable sym))
+     ((facep sym)   (describe-face sym))
+     (t (describe-symbol sym)))))
 
 (add-to-list 'completion-at-point-functions #'cape-elisp-symbol)
 (add-to-list 'completion-at-point-functions #'cape-elisp-block)
