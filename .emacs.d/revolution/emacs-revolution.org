@@ -151,14 +151,6 @@ Basic Configuration from emacs
 (unless er-major-mode-origin
   (setq er-major-mode-origin major-mode))
 
-(defcustom er-finalize-configuration-mode (lambda ()
-					    (org-babel-load-file "~/.emacs.d/revolution/major-mode-finalize.org"))
-  "Finalizing globe mode for major mode."
-  :type 'function
-  :group 'emacs-revolution)
-
-(fset 'er-finalize-configuration-mode er-finalize-configuration-mode)
-
 #+END_SRC
 
 ** Packages source and update
@@ -195,9 +187,9 @@ Basic Configuration from emacs
 ;; ------------------------------------------------------------
 ;; Sécurité & debug
 ;; ------------------------------------------------------------
-(use-package warnings :ensure nil)
-(setq debug-on-error t)
-(setq warning-minimum-level :error)
+;;(use-package warnings :ensure t)
+;;(setq debug-on-error t)
+;;(setq warning-minimum-level :error)
 
 #+END_SRC
 
@@ -262,52 +254,6 @@ Basic Configuration from emacs
            (cons :tag "Middle" (const mid) string)
            (cons :tag "End" (const end) string)))
   :group 'emacs-revolution)
-
-#+END_SRC
-
-** Windows & Mini-Buffers Utilities
-#+NAME: Windows & Mini-Buffers Utilities
-#+BEGIN_SRC emacs-lisp :lexical t
-
-(defun er-list-side-windows (&optional frame)
-  "Retourne la liste des side windows actives."
-  (seq-filter
-   (lambda (win)
-     (window-parameter win 'window-side))
-   (window-list frame 'no-minibuffer)))
-
-(defun resize-side-window (window width)
-  "Resize width of any side window."
-  (unless (stringp window)
-    (error "WINDOW must be a string"))
-  (unless (integerp width)
-    (error "WIDTH must be an integer"))
-  (dolist (win (er-list-side-windows))
-    (when (string-match window (buffer-name (window-buffer win)))
-      (let ((delta (- width (window-width win))))
-        (window-resize win delta t)))))
-
-#+END_SRC
-
-** Dependencies
-#+NAME: Dependencies
-#+BEGIN_SRC emacs-lisp :lexical t
-
-  ;; ------------------------------------------------------------
-  ;; Dependencies
-  ;; ------------------------------------------------------------
-    
-(use-package s :ensure t)
-(use-package popup :ensure t)
-(use-package dash :ensure t)
-(use-package xcscope :ensure t)
-
-;;  (use-package auto-complete
-;;    :ensure t
-;;      :config
-;;      (ac-config-default))
-(use-package helm :ensure t)
-(use-package helm-lsp :ensure t)
 
 #+END_SRC
 
@@ -380,7 +326,7 @@ Basic Configuration from emacs
   (setq er-done (format-time-string "%s")))
 
 ;; Launch Emacs Revolution
-(add-hook 'emacs-startup-hook #'revolution-load-org-config)
+;;(add-hook 'emacs-startup-hook #'revolution-load-org-config)
 
 #+END_SRC
 
