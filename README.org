@@ -54,9 +54,13 @@ Pour chaque mode majeur, un fichier de configuration lui est associé dans revol
 
 ** Installation
 
+#+BEGIN_SRC bash
 $> git clone -b 1.0a https://github.com/Glider-P90/Emacs-Revolution.git
+#+END_SRC
 
+#+BEGIN_SRC bash
 $> cd Emacs-Revolution && ./install
+#+END_SRC
 
 ** Copyright
    Copyright © 2025 Pierre Schebath (alias Glider)
