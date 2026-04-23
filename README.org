@@ -7,7 +7,8 @@
 #+TAGS: N/A(n) INSTALLÉ(i) 
 
 ** Description
- Emacs-Revolution est une distribution modernisée d’Emacs 30.1,
+
+Emacs-Revolution est une distribution modernisée d’Emacs 30.1,
  composée de paquets Lisp et d’outils complémentaires.
  Comme tout outil de développement, il offre l'auto-complétion,
  la détection d’erreurs, documentation, compilation, enregistrement vocal, assistance IA, etc..
@@ -54,13 +55,17 @@ Pour chaque mode majeur, un fichier de configuration lui est associé dans revol
 
 ** Installation
 
+/Bash:/
 #+BEGIN_SRC bash
-$> git clone -b 1.0a https://github.com/Glider-P90/Emacs-Revolution.git
+git clone -b 1.0a https://github.com/Glider-P90/Emacs-Revolution.git
 #+END_SRC
 
 #+BEGIN_SRC bash
-$> cd Emacs-Revolution && ./install
+cd Emacs-Revolution && ./install
 #+END_SRC
+
+Ensuite, il suffit de lancer l'éditeur, suivre les instructions.                                                     
+Une fois l'installation terminée, vous pouvez utiliser Emacs normalement.
 
 ** Copyright
    Copyright © 2025 Pierre Schebath (alias Glider)
