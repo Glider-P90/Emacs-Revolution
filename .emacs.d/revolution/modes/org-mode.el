@@ -200,13 +200,21 @@
   (if (and (eq er-mode-found t) (not (string= "org-mode" major-mode)))
       (setq er-mode-found nil)))
 
-
 (add-hook 'post-command-hook #'update-major-mode-in-org-file)
 (add-hook 'after-save-hook #'update-major-mode-in-org-file-reload)
 (add-hook 'org-mode 'visual-line-mode)
 
+(use-package org-present :ensure t)
+
+(unless (package-installed-p 'visual-fill-column)
+  (package-install 'visual-fill-column))
+
+(setq visual-fill-column-width 110
+      visual-fill-column-center-text t)
+
 (global-set-key (kbd "<f7>") #'org-side-tree-toggle-then-resize)
-(global-set-key (kbd "C-c o") 'org-manual)
+(global-set-key (kbd "<f6>") 'org-manual)
+(global-set-key (kbd "<f5>") 'org-present)
 
 ;; ********        WARNING        ********
 ;; Script need to stay a end of file
