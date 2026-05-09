@@ -28,89 +28,89 @@ Basic Configuration from emacs
 #+NAME: init
 #+BEGIN_SRC emacs-lisp :lexical t
 
-;;; emacs-revolution.el --- -*- lexical-binding: t; -*-
-;;; Commentary:
-;;; 
-;;; Code:
+    ;;; emacs-revolution.el --- -*- lexical-binding: t; -*-
+    ;;; Commentary:
+    ;;; 
+    ;;; Code:
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;                            ;;;;;;;;;
-;;;;;;;;;      EMACS SETUP           ;;;;;;;;;
-;;;;;;;;;                            ;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ;;;;;;;;;                            ;;;;;;;;;
+    ;;;;;;;;;      EMACS SETUP           ;;;;;;;;;
+    ;;;;;;;;;                            ;;;;;;;;;
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(setq-default indent-enabled t)    
 #+END_SRC
 
 ** Main Setup
 #+NAME: Emacs Main Setup
-#+BEGIN_SRC emacs-lisp :lexical t
-    
-(defgroup emacs-revolution nil
-  "Emacs Revolution."
-  :group 'tools)
+#+BEGIN_SRC emacs-lisp :lexic
+  (global-set-key [(control z)] 'undo)
+  (defgroup emacs-revolution nil
+    "Emacs Revolution."
+    :group 'tools)
 
-(defcustom er-version "0.7b"
-  "This variable indicate the project version of Emacs Revolution."
-  :type 'string
-  :group 'emacs-revolution)
+  (defcustom emacs-revolution-version "0.7b"
+    "This variable indicate the project version of Emacs Revolution."
+    :type 'string
+    :group 'emacs-revolution)
 
-(add-hook 'emacs-startup-hook
-          (lambda ()
-            (message "Emacs Revolution version %s loaded on %2.3fs mode." er-version
-                     (float-time
-    		      (time-subtract after-init-time before-init-time)))))
+  (defcustom emacs-revolution-dir
+    (expand-file-name "~/.emacs.d/revolution/")
+    "Root of the project Emacs-Revolution."
+    :type 'directory
+    :group 'emacs-revolution)
 
-(defcustom emacs-revolution-dir
-  (expand-file-name "~/.emacs.d/revolution/")
-  "Root of the project Emacs-Revolution."
-  :type 'directory
-  :group 'emacs-revolution)
+  (defcustom emacs-revolution-path-dependancies
+    (expand-file-name "~/.emacs.d/dependencies/")
+    "Dependancy directory of the project Emacs-Revolution."
+    :type 'directory
+    :group 'emacs-revolution)
 
-(defcustom dependencies-project-revolution
-  (lambda ()
-    (setq e-r-dependencies (concat (getenv "HOME") "/.emacs.d/dependencies"))
-    (if (file-exists-p e-r-dependencies)
-	(message "Emacs-revolution Dependencies already installed.")
-      (make-directory (concat (getenv "HOME") "/.emacs.d/dependencies"))))
-  "Set up folders and config files for Emacs Revolution."
-  :type 'function
-  :group 'emacs-revolution)
-(fset 'dependencies-project-revolution dependencies-project-revolution)
+  (defcustom dependencies-project-revolution
+    (lambda ()
+      (if (file-exists-p emacs-revolution-path-dependancies)
+  	(message "Emacs-revolution Dependencies already installed.")
+        (make-directory emacs-revolution-path-dependancies)))
+    "Set up folders and config files for Emacs Revolution."
+    :type 'function
+    :group 'emacs-revolution)
+  (fset 'dependencies-project-revolution dependencies-project-revolution)
 
-(defcustom lang-settings-dir (expand-file-name "revolution/modes/" user-emacs-directory)
-  "Folder containing the configuration files by major-mode."
-  :type 'directory
-  :group 'emacs-revolution)
+  (defcustom lang-settings-dir (expand-file-name "revolution/modes/" user-emacs-directory)
+    "Folder containing the configuration files by major-mode."
+    :type 'directory
+    :group 'emacs-revolution)
 
-(defcustom er-update-is-enable nil
-  "The update can be set on with t ether nil disable updates."
-  :type 'boolean
-  :group 'emacs-revolution)
+  (defcustom er-update-is-enable nil
+    "The update can be set on with t ether nil disable updates."
+    :type 'boolean
+    :group 'emacs-revolution)
 
-(defcustom er-auto-package-update-interval 7
-  "Set interval time to auto package update."
-  :type 'integer
-  :group 'emacs-revolution)
+  (defcustom er-auto-package-update-interval 7
+    "Set interval time to auto package update."
+    :type 'integer
+    :group 'emacs-revolution)
 
-(defcustom er-auto-package-update-prompt-before-update t
-  "Ask to user by prompt to confirm auto update."
-  :type 'boolean
-  :group 'emacs-revolution)
+  (defcustom er-auto-package-update-prompt-before-update nil
+    "Ask to user by prompt to confirm auto update."
+    :type 'boolean
+    :group 'emacs-revolution)
 
-(defcustom er-auto-package-update-hide-results nil
-  "Hide/show auto package update result."
-  :type 'boolean
-  :group 'emacs-revolution)
+  (defcustom er-auto-package-update-hide-results nil
+    "Hide/show auto package update result."
+    :type 'boolean
+    :group 'emacs-revolution)
 
-(defcustom er-auto-package-update-at-time "09:00"
-  "Set Time to auto package update with following syntaxe 09:00."
-  :type 'string
-  :group 'emacs-revolution)
+  (defcustom er-auto-package-update-at-time "09:00"
+    "Set Time to auto package update with following syntaxe 09:00."
+    :type 'string
+    :group 'emacs-revolution)
 
-(defcustom er-lsp-php-composer-dir "~/.emacs.d/revolution/composer"
-  "Set directory for lsp  php composer."
-  :type 'string
-  :group 'emacs-revolution)
+  (defcustom er-lsp-php-composer-dir "~/.emacs.d/revolution/composer"
+    "Set directory for lsp  php composer."
+    :type 'string
+    :group 'emacs-revolution)
 
 #+END_SRC
 
@@ -118,85 +118,82 @@ Basic Configuration from emacs
 #+NAME: Managing Major Modes
 #+BEGIN_SRC emacs-lisp :lexical t
 
-(defcustom er-mode-found nil
-  "The variable er-mode-found permet de signaler un changement de mode."
-  :type 'boolean
-  :group 'emacs-revolution)
+  (defcustom er-mode-found nil
+    "The variable er-mode-found permet de signaler un changement de mode."
+    :type 'boolean
+    :group 'emacs-revolution)
 
-(defcustom er-mode-src (symbol-name major-mode)
-  "The variable er-mode-src permet de reprendre le mode d'origine."
-  :type 'string
-  :group 'emacs-revolution)
+  (defcustom er-mode-src (symbol-name major-mode)
+    "The variable er-mode-src permet de reprendre le mode d'origine."
+    :type 'string
+    :group 'emacs-revolution)
 
-(defcustom er-major-mode-origin major-mode
-  "Main Major mode from opened file used as origin when major-mode change."
-  :type 'symbol
-  :group 'emacs-revolution)
+  (defcustom er-major-mode-origin major-mode
+    "Main Major mode from opened file used as origin when major-mode change."
+    :type 'symbol
+    :group 'emacs-revolution)
 
-(defcustom set-er-major-mode-origin (lambda ()
-  			     (setq er-major-mode-origin major-mode)
-  			     (message "[E-R] Set Major Mode origin: %s." er-major-mode-origin))
-  "Get main major mode of the opened file."
-  :type 'function
-  :group 'emacs-revolution)
-(fset 'set-er-major-mode-origin set-er-major-mode-origin)
+  (defcustom set-er-major-mode-origin (lambda ()
+    			     (setq er-major-mode-origin major-mode)
+    			     (message "[E-R] Set Major Mode origin: %s." er-major-mode-origin))
+    "Get main major mode of the opened file."
+    :type 'function
+    :group 'emacs-revolution)
+  (fset 'set-er-major-mode-origin set-er-major-mode-origin)
 
-(defcustom emacs-revolution-major-mode-hook ()
-  "Hook: Emacs revolution setting up major mode."
-  :type 'hook
-  :group 'emacs-revolution)
+  (defcustom emacs-revolution-major-mode-hook ()
+    "Hook: Emacs revolution setting up major mode."
+    :type 'hook
+    :group 'emacs-revolution)
 
-(add-hook 'emacs-revolution-major-mode-hook #'set-er-major-mode-origin)
+  (add-hook 'emacs-revolution-major-mode-hook #'set-er-major-mode-origin)
 
-(unless er-major-mode-origin
-  (setq er-major-mode-origin major-mode))
+  (unless er-major-mode-origin
+    (setq er-major-mode-origin major-mode))
 
 #+END_SRC
 
 ** Packages source and update
+
 #+NAME: Packages source and update
-#+BEGIN_SRC emacs-lisp :lexical t
+#+BEGIN_SRC emacs-lisp :lexical
+  (package-initialize)
+  (unless (package-installed-p 'use-package)
+    (when (er-update-is-enable)
+      (package-refresh-contents))
+    (package-install 'use-package))
+  (eval-and-compile
+      (setq use-package-always-ensure t
+            use-package-expand-minimally t))
 
-(package-initialize)
-(unless (package-installed-p 'use-package)
-  (when (er-update-is-enable)
-    (package-refresh-contents))
-  (package-install 'use-package))
-(eval-and-compile
-    (setq use-package-always-ensure t
-          use-package-expand-minimally t))
+  (use-package auto-package-update
+    :custom
+    (auto-package-update-interval er-auto-package-update-interval)
+    (auto-package-update-prompt-before-update er-auto-package-update-prompt-before-update)
+    (auto-package-update-hide-results er-auto-package-update-hide-results)
+    :config
+    (auto-package-update-maybe)
+    (auto-package-update-at-time er-auto-package-update-at-time))
 
-(use-package auto-package-update
-  :custom
-  (auto-package-update-interval er-auto-package-update-interval)
-  (auto-package-update-prompt-before-update er-auto-package-update-prompt-before-update)
-  (auto-package-update-hide-results er-auto-package-update-hide-results)
-  :config
-  (auto-package-update-maybe)
-  (auto-package-update-at-time er-auto-package-update-at-time))
+  (use-package quelpa
+    :ensure t)
 
-(use-package quelpa
-  :ensure t)
-
-(use-package quelpa-use-package
-  :ensure t
-  :after quelpa
-  :config
-  (quelpa-use-package-activate-advice))
-
-;; ------------------------------------------------------------
-;; Sécurité & debug
-;; ------------------------------------------------------------
-;;(use-package warnings :ensure t)
-;;(setq debug-on-error t)
-;;(setq warning-minimum-level :error)
-
+  (use-package quelpa-use-package
+    :ensure t
+    :after quelpa
+    :config
+    (quelpa-use-package-activate-advice))
+  ;; ------------------------------------------------------------
+  ;; Sécurité & debug
+  ;; ------------------------------------------------------------
+  ;;(use-package warnings :ensure t)
+  ;;(setq debug-on-error t)
+  ;;(setq warning-minimum-level :error)
 #+END_SRC
 
 ** Headers
 #+NAME: List of syntax headers
 #+BEGIN_SRC emacs-lisp :lexical t
-
 (defcustom std-modes-alist
   '(("c-mode"                (begin . "/**") (mid . " * ") (end . "**/"))
     ("c++-mode"              (begin . "/**") (mid . " * ") (end . " */"))
@@ -260,8 +257,7 @@ Basic Configuration from emacs
 ** File extenssion
 #+NAME: Associate mode with extenssion file
 #+BEGIN_SRC emacs-lisp :lexical t
-  
-(defcustom mode-associations
+  (defcustom mode-associations
     '(("\\.jsx?\\'"       . js2-mode)
       ("\\.tsx?\\'"       . web-mode)
       ("\\.[agj]sp\\'"    . web-mode)
@@ -301,32 +297,220 @@ Basic Configuration from emacs
              (symbol :tag "Major mode")))
     :group 'emacs-revolution)
 
-
-#+END_SRC
-
 ** Core
    Packages who make Emacs Revolution
 #+NAME: Core
 #+BEGIN_SRC emacs-lisp :lexical t
+  (defun revolution-load-org-config()
+    "[E-R] Info: Load revolution configuration."
+    (org-babel-load-file "~/.emacs.d/revolution/ihm.org")
+    (if (and (not (string= (buffer-name) "*Messages*")) (not (string= (buffer-name) "*scratch*")))
+        (progn (message "Emacs Start Revolution.")
+  	     (org-babel-load-file "~/.emacs.d/revolution/major-mode.org")))
+    (org-babel-load-file "~/.emacs.d/revolution/headers/std_comment.org")
+    (org-babel-load-file "~/.emacs.d/revolution/header.org")
+    (org-babel-load-file "~/.emacs.d/revolution/system.org")
+    (org-babel-load-file "~/.emacs.d/revolution/elfeed-init.org")
+    (org-babel-load-file "~/.emacs.d/revolution/shortcuts.org")
+    (er-finalize-configuration-mode)
+    (add-hook 'emacs-startup-hook
+  	    (lambda ()
+  	      (message "Emacs Revolution version %s loaded on %2.3fs mode." emacs-revolution-version
+  		       (float-time
+  			(time-subtract after-init-time before-init-time)))))
+    (setq er-done (format-time-string "%s")))
 
-(dependencies-project-revolution) ;; a integrer dans IHM d'install
+  ;; Launch Emacs Revolution
+  ;;(add-hook 'emacs-startup-hook #'revolution-load-org-config)
 
-(defun revolution-load-org-config()
-  "[E-R] Info: Load revolution configuration."
-  (org-babel-load-file "~/.emacs.d/revolution/ihm.org")
-  (if (and (not (string= (buffer-name) "*Messages*")) (not (string= (buffer-name) "*scratch*")))
-      (progn (message "Emacs Start Revolution.")
-	     (org-babel-load-file "~/.emacs.d/revolution/major-mode.org")))
-  (org-babel-load-file "~/.emacs.d/revolution/headers/std_comment.org")
-  (org-babel-load-file "~/.emacs.d/revolution/header.org")
-  (org-babel-load-file "~/.emacs.d/revolution/system.org")
-  (org-babel-load-file "~/.emacs.d/revolution/elfeed-init.org")
-  (org-babel-load-file "~/.emacs.d/revolution/shortcuts.org")
-  (er-finalize-configuration-mode)
-  (setq er-done (format-time-string "%s")))
+#+END_SRC
 
-;; Launch Emacs Revolution
-;;(add-hook 'emacs-startup-hook #'revolution-load-org-config)
+** Installer Emacs Revolution
+ Use to instal or re-install Emacs Revolution
+#+NAME: Install Emacs Revolution
+#+BEGIN_SRC emacs-lisp :lexical t
+      (require 'widget)
+      (eval-when-compile
+        (require 'wid-edit))
+
+      (use-package org :ensure t) ;; a retirer une fois l'installer finis
+      (add-hook 'org-mode-hook 'org-indent-mode) ;; a retirer une fois l'installer finis
+      (defvar install-current-step 0 )
+      (defvar install-total-steps 5)
+  ;;  (let rss-emacs-revolution (name url))
+  ;; (let project-emacs-revolution ( name desc path))
+
+
+  ;;;  (let ((name (car  (widget-get (car rss-widget-children) :children)))
+  ;;;    (url (car (last (widget-get (car rss-widget-children) :children)))))
+  ;;(if (or (equal "" (widget-value name)) (equal "" (widget-value url)))
+  ;;      (progn
+  ;; 	(widget-editable-list-delete-at widget (car (last rss-widget-children)))
+  ;;;	(message "Please, complete fields before add an other RSS."))
+  ;;;   (message "Ajout du flux %s " name)
+  ;;)))))))
+
+  (defvar rss-editable-line
+    (widget-create 'group
+  		 :format "%v "
+  		 :value '("" "")
+  		 :tag "rss"
+  		 (widget-create 'editable-field
+  				:entry-format "%v"
+    				:format "Nom: %v"
+    				:value ""
+    				:size 10)
+    		 (widget-create 'editable-field
+    				:entry-format "%v"
+    				:format "URL: %v"
+    				:value ""
+    				:size 30)))
+
+    (defvar project-editable-line
+      (widget-create 'group
+    		 :format "%v"
+    		 :value '("" "" "")
+    		 (widget-create 'editable-field
+    				:entry-format "%v"
+    				:format "Nom: %v\n\t"
+    				:value " "
+    				:size 10)
+    		 (widget-create 'editable-field
+    				:entry-format "%v"
+    				:format "Description\n%v\n"
+    				:value " "
+    				:size 40)
+    		 (widget-create 'directory
+    				:entry-format "%v\n"
+    				:format "Emplacement: %v\n\n\t\t-----------"
+    				:value ""
+    				:size 25)))
+
+    (defun get-rss-entries (widget)
+    "Extraire les entrées du editable-list en une liste de plist."
+    (let ((entries (widget-value widget))
+          result)
+      (dolist (entry entries result)
+        (when (and entry (listp entry))
+          (push (list (car entry)  (cadr entry)) result)))))
+
+    (defun form-install-display ()
+      "Display form's install."
+      (interactive)
+      (let ((dir-dep-widget)
+    	(auto-maj-widget)
+    	(rss-list-widget)
+    	(widget-example-repeat))
+        (save-excursion
+          (goto-char (- (buffer-size) (length "\n\n[Installer]")))
+          (setq dir-dep-widget
+    	    (widget-create 'directory
+    			   :format (concat "\n\n ***   Completion avec M-TAB   ***\n\nDefault Path: "
+    					   emacs-revolution-path-dependancies
+    					   "\nDirectory: %v\n\n\t************************\n")
+    			   :error "Please, enter a directory path for dependancies."
+    			   :value emacs-revolution-path-dependancies
+    			   :size 25
+    			   :notify (lambda (widget &rest ignore)
+    				     (setq emacs-revolution-path-dependancies (widget-value widget)))))
+          (setq auto-maj-widget
+    	    (widget-create 'radio-button-choice
+    			   :format "\nPlannification des mise a jour automatique?\n%[%v%]\n\t************************\n"
+    			   :validate (lambda (widget &rest ignore)
+    				       (if (string= (widget-gevalue widget) "Oui")
+    					   (er-update-is-enable t)
+    					 (er-update-is-enable nil)))
+      			   :value "Oui"
+  			   '(item "Oui") '(item "Non")))
+  	(setq rss-list-widget
+  	      (widget-create 'editable-list
+  			     :format "\nSouhaitez vous ajouter des flux RSS a suivre?\n%i%v\n\n\t************************\n"
+  			     :entry-format "\n%d %v"
+  			     :value '("")
+  			     :tag "rss"
+  			     :notify
+  			     (lambda (widget &rest ignore)
+  			       (let ((count (length (widget-get widget :children)))
+  				     (rss-widget-children (reverse (widget-get widget :children))))
+  				 (when (> count 1)
+  				   (while rss-widget-children
+  				     (setq rss-widget-children (pop rss-widget-children))
+  					 (let ((name (car  (widget-get (car rss-widget-children) :children)))
+  					       (url (car (last (widget-get (car rss-widget-children) :children)))))
+  					   (if (or (equal "" (widget-value name)) (equal "" (widget-value url)))
+  					       (progn
+  						 (widget-editable-list-delete-at widget (car (last rss-widget-children)))
+  						 (message "Please, complete fields before add an other RSS."))
+  					     (message "Ajout du flux %s " name)
+  					     ))))))
+  	      rss-editable-line
+  	      ))
+          (setq project-list-widget
+    	    (widget-create 'editable-list
+    			   :format "\n\nSouhaitez vous ajouter des projets existant?\n%i%v\n\t************************"
+    			   :entry-format "\n%d %v"
+    			   :value '("")
+    			   :tag "project"
+    			   :notify (lambda (widget &rest ignore)
+    				     (let ((count (length (widget-get widget :children))))
+    				       (when (> count 1)
+    					 (let ((name (car  (widget-get (car (widget-get widget :children)) :children)))
+    					       (path (car (last (widget-get (car (widget-get widget :children)) :children)))))
+    					   (if (or (equal "" (widget-value name)) (equal "" (widget-value path)))
+    					       (progn
+    						 (widget-editable-list-delete-at widget (car (last (widget-get widget :children))))
+    						 (message "Please, complete name & path of the project before add an other Project."))
+    					     (message "Ajout du projet %s " name)
+    					     )))))
+    			   project-editable-line
+    			   ))
+          ))
+      (widget-setup)
+      (setq install-current-step 1))
+
+      (defun install-emacs-revolution ()
+        "Install Emacs Revolution."
+        (message "Installing, please wait until message \"Done, you can exit safely\".")
+        (when (= install-current-step install-total-steps)
+          (message "Done, you can exit safely.")))
+
+      (defun welcome-widget-display ()
+        "Welcome to install."
+        (interactive)
+        (setq inhibit-startup-screen t)
+        (let ((inhibit-read-only t)))
+        (switch-to-buffer "*Bienvenue sur Emacs Revolution*")
+        (set-buffer "*Bienvenue sur Emacs Revolution*")
+        (widget-insert (concat "Bienvenue sur Emacs Revolution "
+      			 emacs-revolution-version
+      			 "\n\nChoisir le mode d'installation :\n"))
+        (setq install-mode-widget
+      	(widget-create 'radio-button-choice
+      		       :value "default"
+      		       :notify (lambda (widget &rest ignore)
+      				 (when (string= (widget-value install-mode-widget) "custom")
+      				   (form-install-display)
+      				   (message "Choice install [%s] mode" (widget-value widget))))
+      		       '(item "default") '(item "custom")))
+        (widget-insert "\n\t\t")
+        (widget-create 'push-button
+      		 :value "Installer"
+      		 :button-face '(:foreground "brightwhite" :background "black")
+      		 :value-face '(:foreground "brightwhite" :background "black")
+      		 :notify (lambda (widget &rest ignore)
+      			   (if (string= (widget-value widget) "Installer")
+      			       (install-emacs-revolution))))
+        (use-local-map widget-keymap)
+        (widget-setup)
+        (when (get-buffer "*GNU Emacs*")
+          (kill-buffer "*GNU Emacs*"))
+        (when (get-buffer "*scratch*")
+          (kill-buffer "*scratch*"))    
+        )
+
+      (add-hook 'after-init-hook #'welcome-widget-display)
+
+
 
 #+END_SRC
 
@@ -334,17 +518,14 @@ Basic Configuration from emacs
  Some minors settings
 #+NAME: Minor Settings
 #+BEGIN_SRC emacs-lisp :lexical t
-
 (setq select-enable-primary t) ;; Cut and Paste with Other Window Applications
 (setq select-enable-clipboard t) ;; Clipboard witch C-w &  M-w
-
 #+END_SRC
 
 ** End Of File
 #+NAME: EOF_emacs-revolution
 #+BEGIN_SRC emacs-lisp :lexical t
-
-(provide 'emacs-revolution)
-;;; emacs-revolution.el ends here
+  (provide 'emacs-revolution)
+  ;;; emacs-revolution.el ends here
 
 #+END_SRC
