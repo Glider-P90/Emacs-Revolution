@@ -1,6 +1,9 @@
 * Debian System Packages Required
 
 ** list cmd to install packages
++ dpkg
+  - wget http://ftp.debian.org/debian/pool/main/t/tree-sitter/libtree-sitter0.22_0.22.6-6+b1_amd64.deb
+    sudo dpkg -i libtree-sitter0.22_0.22.6-6+b1_amd64.deb    
 + apt
   - elpa-yasnippet-snippets
   - clangd-12 /Officiellement mais la version clangd-21 est disponible, fonctionne t'elle?/
