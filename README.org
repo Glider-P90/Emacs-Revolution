@@ -1,6 +1,12 @@
+#+TITLE: EMACS REVOLUTION
+#+AUTHOR: Pierre Etienne Charles Schebath Cazoulat akka Glider 
+#+DATE: <2026-07-30 jeu.>
+#+EMAIL: pierre.schebath@lilo.org
+
 * Emacs Revolution 
 :PROPERTIES:
 :project-name: Emacs Revolution
+:github-project: [[https://github.com/Glider-P90/Emacs-Revolution][Retrouvez le projet sur GitHub]]
 :project-version: 0.7b
 :END:
 
