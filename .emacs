@@ -30,26 +30,7 @@
       '(("melpa"  . "https://melpa.org/packages/")
         ("gnu"    . "https://elpa.gnu.org/packages/")
 	("nongnu" . "https://elpa.nongnu.org/nongnu/")))
-(package-initialize)
 
 ;; Set Emacs Revolution
 (org-babel-load-file "~/.emacs.d/revolution/emacs-revolution.org")
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(cape corfu corfu-terminal dired-filetype-face dired-launch
-	  dired-quick-sort disk-usage font-utils htmlize lsp-mode
-	  marginalia neotree orderless org-drill org-side-tree quelpa
-	  treesit-auto unicode-emoticons unicode-enbox vertico))
- '(which-key-popup-type 'side-window)
- '(which-key-show-prefix 'left))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(neo-dir-link-face ((t (:foreground "brightblue"))))
- '(neo-file-link-face ((t (:foreground "magenta")))))
+(org-babel-load-file "~/.emacs.d/revolution/installer.org")

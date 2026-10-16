@@ -1,5 +1,15 @@
 #!/bin/bash
 
+echo "🚀 Démarrage de l'installation Emacs-Revolution..."
+
+echo "[1/3] Création du dossier ~/.emacs.d/..."
 mkdir -p $HOME/.emacs.d/
 
+echo "[2/3] Copie des extensions (revolution)..."
 cp -r $PWD/.emacs.d/revolution $HOME/.emacs.d/
+
+echo "[3/3] Copie du fichier de configuration..."
+cp $PWD/.emacs $HOME/
+
+echo "✅ Installation terminée avec succès !"
+echo "N'oubliez pas de lancer Emacs pour initialiser la configuration."

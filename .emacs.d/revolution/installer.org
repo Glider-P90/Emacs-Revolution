@@ -1,0 +1,182 @@
+ou;;; emacs-revolution.el --- -*- lexical-binding: t; -*-
+;;; package --- Summary
+;;; Commentary:
+;; ======================================================================
+;; @license Copyright 2016-2026 Pierre Schebath
+;; ---------------------
+;; 
+;; @brief This file has been written by Pierre Etienne Charles Schebath Cazoulat.
+;; 
+;; This source code, its related data and algorithms are Pierre Schebath
+;; Proprietary Information and shall be protected in strict confidence by
+;; the party who receives it.  It shall not be disclosed nor copied nor
+;; duplicated in whole or in part to any third party without Pierre Schebath
+;; written prior permission.
+;; ======================================================================
+;; emacs-revolution-installer.el for Emacs Revolution in /home/glider/.emacs.d/revolution/
+;; @description: Emacs Dev-tools.
+;; 
+;; Started on  Mon Jan 26 02:49:53 2026 @author Glider
+;; Last update Thu Apr 23 09:49:11 2026 @author Glider
+;; ======================================================================
+;;; Code:
+
+* Emacs Revolution
+
+** Header
+Basic Configuration from emacs
+#+NAME: init
+#+BEGIN_SRC emacs-lisp :lexical t
+
+    ;;; emacs-revolution-installer.el --- -*- lexical-binding: t; -*-
+    ;;; Commentary:-
+    ;;; 
+    ;;; Code:
+
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ;;;;;;;;;                            ;;;;;;;;;
+    ;;;;;;;;;      EMACS SETUP           ;;;;;;;;;
+    ;;;;;;;;;                            ;;;;;;;;;
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(setq-default indent-enabled t)    
+#+END_SRC
+
+** Installer Emacs Revolution
+ Use to install or re-install Emacs Revolution
+#+NAME: Install Emacs Revolution
+#+STARTUP: indent
+#+BEGIN_SRC emacs-lisp :lexical t
+  (require 'widget)
+  (eval-when-compile
+    (require 'wid-edit))
+
+  (use-package org :ensure t) ;; a retirer une fois l'installer finis
+  (add-hook 'org-mode-hook 'org-indent-mode) ;; a retirer une fois l'installer finis
+
+  (require 'url-util)
+
+  (defvar install-current-step 0 )
+  (defvar install-total-steps 5)
+
+  (defvar rss-editable-line
+    (widget-create 'group
+        		 :format "%v "
+        		 :value '("" "")
+        		 :tag "rss"
+        		 (widget-create 'editable-field
+        				:entry-format "%v"
+        				:format "Nom: %v"
+        				:value ""
+        				:size 10)
+        		 (widget-create 'editable-field
+        				:entry-format "%v"
+        				:format "URL: %v"
+        				:value ""
+        				:size 30)))
+
+  (defun get-domain (url-string &rest ignore)
+    "Extract host from URL-STRING."
+    (let ((parsed (url-generic-parse-url url-string)))
+      (and (string-or-null-p parsed) (string-or-null-p (url-domain url-string))
+        	 (url-domain url-string))))
+
+  (defun rss-filter-form (widget &rest ignore)
+    "Add Feed in Emacs-Revolution from WIDGET."
+    (let* ((feeds (widget-get widget :children))
+      	 (last-feed (car (reverse (widget-get widget :children))))
+      	 (index 1)
+      	 (total (length (widget-get widget :children))))
+      (when (length>  (widget-get widget :children) 1)
+        (dolist (feed feeds)
+      	(setq index (+ index 1))
+      	(when (and (= total index) (length= (car (reverse (widget-value feed))) 0))
+      	  (widget-editable-list-delete-at widget last-feed)
+        	  (setq index -1)	  
+      	  (warn "Attention, l'URL du Flux RSS doit etre valide!" :error))
+      	))
+      (when (= index -1)
+        (widget-editable-list-delete-at widget last-feed))
+      ))
+
+  (defun form-install-display ()
+    "Display form's install."
+    (interactive)
+    (let ((dir-dep-widget)
+        	(auto-maj-widget)
+        	(rss-list-widget)
+        	(widget-example-repeat))
+      (save-excursion
+        (goto-char (- (buffer-size) (length "\n\n[Installer]")))
+        (setq auto-maj-widget
+        	    (widget-create 'radio-button-choice
+        			   :format "\nPlannification des mise a jour automatique?\n%[%v%]\n\t************************\n"
+        			   :validate (lambda (widget &rest ignore)
+        				       (if (string= (widget-value widget) "Oui")
+        					   (er-update-is-enable t)
+        					 (er-update-is-enable nil)))
+        			   :value "Oui"
+        			   '(item "Oui") '(item "Non")))
+
+        (setq rss-list-widget
+        	    (widget-create 'editable-list
+        			   :format "\nSouhaitez vous ajouter des flux RSS a suivre?\n%i%v\n\n\t************************\n"
+        			   :entry-format "\n%d %v"
+        			   :value '("")
+        			   :tag "rss"
+        			   :notify #'rss-filter-form
+        			   rss-editable-line
+        			   ))
+        (widget-setup)
+        (setq install-current-step 1))))
+
+  (defun install-emacs-revolution ()
+    "Install Emacs Revolution."
+    (message "Installing, please wait until message \"Done, you can exit safely\".")
+    (when (= install-current-step install-total-steps)
+      (message "Done, you can exit safely.")))
+
+  (defun welcome-widget-display ()
+    "Welcome to install."
+    (interactive)
+    (setq inhibit-startup-screen t)
+    (let ((inhibit-read-only t))
+      (switch-to-buffer "*Bienvenue sur Emacs Revolution*")
+      (set-buffer "*Bienvenue sur Emacs Revolution*")
+      (widget-insert (concat "Bienvenue sur Emacs Revolution "
+        			   emacs-revolution-version
+        			   "\n\nChoisir le mode d'installation :\n"))
+      (setq install-mode-widget
+        	  (widget-create 'radio-button-choice
+        			 :value "default"
+        			 :notify (lambda (widget &rest ignore)
+        				   (when (string= (widget-value install-mode-widget) "custom")
+        				     (form-install-display)
+        				     (message "Choice install [%s] mode" (widget-value widget))))
+        			 '(item "default") '(item "custom")))
+      (widget-insert "\n\t\t")
+      (widget-create 'push-button
+        		   :value "Installer"
+        		   :button-face '(:foreground "brightwhite" :background "black")
+        		   :value-face '(:foreground "brightwhite" :background "black")
+        		   :notify (lambda (widget &rest ignore)
+        			     (if (string= (widget-value widget) "Installer")
+        				 (install-emacs-revolution))))
+      (use-local-map widget-keymap)
+      (widget-setup)
+      (when (get-buffer "*GNU Emacs*")
+        (kill-buffer "*GNU Emacs*"))
+      (when (get-buffer "*scratch*")
+        (kill-buffer "*scratch*"))
+      ))
+
+  (add-hook 'after-init-hook #'welcome-widget-display)
+#+END_SRC
+
+** End Of File
+#+NAME: EOF_emacs-revolution-installer
+#+BEGIN_SRC emacs-lisp :lexical t
+  (provide 'emacs-revolution-installer)
+  ;;; emacs-revolution-installer.el ends here
+
+#+END_SRC

@@ -81,6 +81,12 @@
     - [ ] le Header permet d'ajouter tous les utilisateur ayant modifié le fichier.
     - [ ] org-project-capture
     - [ ] org-sidebar
+    - [ ] all-the-icons
+
+*** VERIONS 1.x  [0/1]
+
++ [ ] Concevoir une interface pour utiliser le package "Emacs oauth2-auto"
+  
 
 ** Contact
    Email: contact@lugtech.fr
