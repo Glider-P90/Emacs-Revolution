@@ -26,7 +26,7 @@
 ** Header
 Basic Configuration from emacs
 #+NAME: init
-#+BEGIN_SRC emacs-lisp :lexical t :results pp
+#+BEGIN_SRC emacs-lisp :lexical t
 
       ;;; emacs-revolution.el --- -*- lexical-binding: t; -*-
       ;;; Commentary:
@@ -317,16 +317,17 @@ Basic Configuration from emacs
  Some minors settings
 #+NAME: Minor Settings
 #+BEGIN_SRC emacs-lisp :lexical t
-  (setq select-enable-primary nil) ;; Cut and Paste with Other Window Applications
+  (setq select-enable-primary t) ;; Cut and Paste with Other Window Applications
   (setq select-enable-clipboard t) ;; Clipboard witch C-w &  M-w
 
   (setq install-revolution-steps 2)
+
   (use-package org-modern
     :ensure t
     :custom
-    (org-modern-hide-stars nil)
+    (org-modern-hide-stars nil)		; adds extra indentation
     (org-modern-table nil)
-    (org-modern-list
+    (org-modern-list 
      '(;; (?- . "-")
        (?* . "•")
        (?+ . "‣")))
@@ -334,21 +335,17 @@ Basic Configuration from emacs
     (org-mode . org-modern-mode)
     (org-agenda-finalize . org-modern-agenda))
 
+  (use-package org-bullets-mode
+    :ensure org-bullets
+    :config
+    :hook org-mode)
+
   (use-package org-modern-indent
-    :load-path "~/.emacs.d/github/org-modern-indent"
-    :config ;
-    (set-face-attribute 'fixed-pitch nil :family "Hack" :height 1.0)
+    :load-path "~/.emacs.d/github/org-modern-indent/"
+    :config
+    (setq org-startup-indented t)
     (add-hook 'org-mode-hook #'org-modern-indent-mode 90))
 
-  (defun my-indent-org-block-automatically ()
-    (interactive)
-    (when (org-in-src-block-p)
-      (org-edit-special)
-      (indent-region (point-min) (point-max))
-      (org-edit-src-exit)))
-
-  (define-key org-mode-map
-    	    (kbd "C-i") #'my-indent-org-block-automatically)
 #+END_SRC
 
 ** End Of File

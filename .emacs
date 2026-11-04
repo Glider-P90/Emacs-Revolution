@@ -33,4 +33,4 @@
 
 ;; Set Emacs Revolution
 (org-babel-load-file "~/.emacs.d/revolution/emacs-revolution.org")
-(org-babel-load-file "~/.emacs.d/revolution/installer.org")
+;;(org-babel-load-file "~/.emacs.d/revolution/installer.org")

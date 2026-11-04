@@ -14,73 +14,93 @@
 
 ** Description
 
-Emacs-Revolution est une distribution modernisée d’Emacs 30.1,
- composée de paquets Lisp et d’outils complémentaires.
- Comme tout outil de développement, il offre l'auto-complétion,
- la détection d’erreurs, documentation, compilation, enregistrement vocal, assistance IA, etc..
+Emacs-Revolution est une distribution modernisée d'Emacs 31.1.
+L'objectif, empiler les paquets lisp officiel et tiers,
+les plus performants et adaptés pour s'approcher d'un environnement
+de développement intégré par terminal et/ou GUI le plus complet et optimisé.
 
- Les principales caractéristiques du projet sont sa légèreté, favorisant la rapidité,
- ainsi que sa simplicité, basée sur la composition d’outils complexes et modernes.
+Afin de permettre à ce projet d'évoluer, il y a faut une communauté entreprenante,
+c'est pourquoi Emacs R. est partitionné en blocs de code source via org mode,
+accompagnés de descriptions plus détaillés que le protoypage classique du code,
+ayant pour attrait une plus grande accessibilté au développement du projet.
 
- Cet outil a pour but d'etre libre et communautaire.
+Pour le fonctionnement du projet, l'arbre des repertoires est la suivante:
++ ~/.emacs.d
+  + /revolution contient tous les fichiers du projet
+    + /modes contient les fichiers de configurations de chaque mode majeur lui étant associé.
+  + /github contient tous les fichiers projet tiers.
 
-** Fonctionnement
+Il est inutile de modifier les fichiers .el du projet lui même se trouvant
+par défaut dans le répertoire ~/.emacs.d/revolution/ , ceux-ci sont générés
+par [[https://orgmode.org/worg/org-contrib/babel/intro.html][Babel]] à chaque modification du code et seront écrasé par la nouvelle verions
+à chaque ouverture d'emacs.
 
-Le fichier .emacs du projet Emacs Revolution doit remplacer celui d'origine,
-permettant l'exécution du projet lui-même se trouvant dans ~/.emacs.d/revolution/ par défaut,
-le chemin sera modifiable dans les versions futures.
-Pour une meilleur lisibilite et une documentation complete, le projet est ecrit
-en org dans son enssemble, puis celui-ci s'exporte en elisp.
-/Donc cela est inutile de modifier les fichiers .el se trouvant dans revolution,
-car ceux-ci sont generer par org a la moindre differences avec le code d'origine/
-Pour chaque mode majeur, un fichier de configuration lui est associé dans revolution/modes.
+Pour plus d'information à propos du fonctionnement de [[https://orgmode.org/worg/org-contrib/babel/intro.html][Babel]],
+https://orgmode.org/worg/org-contrib/babel/intro.html
+
 
 ** Langages supportés
 
-      | Langage               | Documentation | Syntaxe | Complétion | LSP Server |
-      |-----------------------+---------------+---------+------------+------------|
-      | Bash                  |               |         |            | X          |
-      | c                     |               | X       |            | N/A        |
-      | C++                   |               |         |            | X          |
-      | C#                    |               |         |            |            |
-      | CSS/LessCSS/SASS/SCSS |               |         |            | X          |
-      | Texte                 |               |         |            | N/A        |
-      | TypeScript            |               |         |            | N/A        |
-      | GitHub Copilot        |               |         |            |            |
-      | HTML                  | X             | X       | X          | X          |
-      | Javascript/typescript | X             | X       | X          | X          |
-      | Json                  | N/A           |         | X          | X          |
-      | Lisp/elisp            | X             | X       | X          | X          |
-      | Makefile-gmake        |               |         |            | N/A        |
-      | Python                |               |         |            |            |
-      | PHP                   |               | X       | X          | X          |
-      | Glsl                  |               |         |            |            |
-      | Org                   | X             | X       | X          | N/A        |
-      | Xml                   |               |         |            |            |
-      | Yaml                  |               |         |            |            |
+|------------------------------------------------------------------------------+---------------+---------+------------+------------|
+| %(org-entry-get nil "project-name")   %(org-entry-get nil "project-version") |               |         |            |            |
+|------------------------------------------------------------------------------+---------------+---------+------------+------------|
+| Langage                                                                      | Documentation | Syntaxe | Complétion | LSP Server |
+| Bash                                                                         |               |         |            | X          |
+| c                                                                            |               | X       |            | N/A        |
+| C++                                                                          |               |         |            | X          |
+| C#                                                                           |               |         |            |            |
+| CSS/LessCSS/SASS/SCSS                                                        |               |         |            | X          |
+| Texte                                                                        |               |         |            | N/A        |
+| TypeScript                                                                   |               |         |            | N/A        |
+| GitHub Copilot                                                               |               |         |            |            |
+| HTML                                                                         | X             | X       | X          | X          |
+| Javascript/typescript                                                        | X             | X       | X          | X          |
+| Json                                                                         | N/A           |         | X          | X          |
+| Lisp/elisp                                                                   | X             | X       | X          | X          |
+| Makefile-gmake                                                               |               |         |            | N/A        |
+| Python                                                                       |               |         |            |            |
+| PHP                                                                          |               | X       | X          | X          |
+| Glsl                                                                         |               |         |            |            |
+| Org                                                                          | X             | X       | X          | N/A        |
+| Xml                                                                          |               |         |            |            |
+| Yaml                                                                         |               |         |            |            |
+|------------------------------------------------------------------------------+---------------+---------+------------+------------|
 
 ** Installation
 
 /Bash:/
 #+BEGIN_SRC bash
-git clone -b 1.0a https://github.com/Glider-P90/Emacs-Revolution.git
-#+END_SRC
 
-#+BEGIN_SRC bash
-cd Emacs-Revolution && ./install
+  mkdir -p $HOME/.emacs.d/
+
+  cp -r $PWD/.emacs.d/revolution $HOME/.emacs.d/
+
+  cp $PWD/.emacs $HOME/
+
 #+END_SRC
 
 Ensuite, il suffit de lancer l'éditeur, suivre les instructions.                                                     
 Une fois l'installation terminée, vous pouvez utiliser Emacs normalement.
 
+** Org to Markdown
+Convert this file to README.md, only when emacs-revolution is installed.
+#+NAME: convert-org-to-md
+#+BEGIN_SRC emacs-lisp :lexical t
+
+  (require 'auto-org-md)
+  (auto-org-md-on)
+  
+#+END_SRC
+
+#+RESULTS: convert-org-to-md
+: auto-org-md-mode is on.
+
 ** Copyright
-   Copyright © 2025 Pierre Schebath (alias Glider)
+   Copyright © 2026 Pierre Schebath (alias Glider)
 
    Cette œuvre est sous licence Creative Commons Attribution -
-   Pas d’Utilisation Commerciale 4.0 International (CC BY-NC 4.0).
-
    Vous êtes libre de :
-    - Partager — copier et redistribuer le matériel sur tout support ou sous tout format
+    - Partager — copier et redistribuer ce projet sur tout support ou sous tout format
     - Adapter — remixer, transformer et créer à partir du matériel
 
    À condition que l'utilisation ne soit pas commerciale.
