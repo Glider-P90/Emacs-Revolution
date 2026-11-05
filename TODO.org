@@ -6,36 +6,131 @@
 
 #+TAGS: N/A(n) INSTALLÉ(i) 
 
-** Langages supportés
+* Langages supportés
 
+      |-----------------------+---------------+---------+------------+------------|
       | Langage               | Documentation | Syntaxe | Complétion | LSP Server |
       |-----------------------+---------------+---------+------------+------------|
-      | Bash                  |               |         |            | X          |
-      | c                     |               | X       |            | N/A        |
-      | C++                   |               |         |            | X          |
+      | Bash                  |               |         |            |            |
+      | c                     |               |         |            |            |
+      | C++                   |               |         |            |            |
       | C#                    |               |         |            |            |
-      | CSS/LessCSS/SASS/SCSS |               |         |            | X          |
-      | Texte                 |               |         |            | N/A        |
-      | TypeScript            |               |         |            | N/A        |
+      | CSS/LessCSS/SASS/SCSS |               |         |            |            |
+      | Texte                 |               |         |            |            |
+      | TypeScript            |               |         |            |            |
       | GitHub Copilot        |               |         |            |            |
-      | HTML                  | X             | X       | X          | X          |
-      | Javascript/typescript | X             | X       | X          | X          |
-      | Json                  | N/A           |         | X          | X          |
-      | Lisp/elisp            | X             | X       | X          | X          |
-      | Makefile-gmake        |               |         |            | N/A        |
+      | HTML                  |               |         |            |            |
+      | Javascript/typescript |               |         |            |            |
+      | Json                  |               |         |            |            |
+      | Lisp/elisp            |               |         |            |            |
+      | Makefile-gmake        |               |         |            |            |
       | Python                |               |         |            |            |
-      | PHP                   |               | X       | X          | X          |
+      | PHP                   |               |         |            |            |
       | Glsl                  |               |         |            |            |
-      | Org                   | X             | X       | X          | N/A        |
+      | Org                   |               |         |            |            |
       | Xml                   |               |         |            |            |
       | Yaml                  |               |         |            |            |
+      |-----------------------+---------------+---------+------------+------------|
 
-** Objectif
-*** VERSION 1.0 [3/8]
+* Objectif
+       
+** Versions Disponibles
+*** VERSION 1.0 [3/7]
++ [X] Chargement du mode majeur adéquate suivant l'exentenssion ou le header du fichier, mais aussi on-fly.
+  Switch vers entre les mode majeur suiant les langages qui permette la containerisation,
+  + Exemple HTML + CSS + JavaScript
+    
+    Ce bloc illustre un fichier HTML autonome intégrant du CSS personnalisé (défini dans <style>)
+    et du JavaScript (défini dans <script>). Le CSS gère l'apparence visuelle via des variables CSS (:root)
+    et des sélecteurs de classes, tandis que le JavaScript gère l'interactivité côté client.
+    
+    #+BEGIN_src html
 
-  + [X] Chargement du mode adéquate.
-  + [X] Switch vers le mode elisp on-line pour les fichiers org lors de l'ecriture de ce langage.
-  + [X] Tous les fichiers elisp doivent être généré depuis org à partir de init-revolution-mode.el.    
+      <html lang="fr">
+           <head>
+        <meta charset="UTF-8">
+          <style>
+          :root { --bg: #0a0a0f; --accent: #ff00ff; }
+          .header { background: var(--bg); padding: 2rem; text-align: center; }
+          .logo { font-size: 2.5rem; color: var(--accent); font-family: monospace; }
+        </style>
+        <script>
+          document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('.logo').addEventListener('click', () => {
+              alert('Emacs Revolution !');
+            });
+          });
+        </script>
+      </head>
+      <body>
+        <div class="header">
+          <h1 class="logo">Emacs Revolution</h1>
+        </div>
+      </body>
+      </html>
+
+    #+END_src    
+  + Exemple PHP + HTML + CSS + JavaScript
+
+    Ce bloc illustre un fichier .php où le PHP génère du HTML dynamique côté serveur,
+    le CSS (inline) définit le style, et le JavaScript gère l'interactivité côté client.
+    Le PHP insère des données dynamiques (variables, boucles) directement dans le HTML avant l'envoi au navigateur.
+    
+    #+BEGIN_src php
+
+      <?php
+        $title = "Dashboard";
+        $items = ['Alpha', 'Beta', 'Gamma'];
+      ?>
+      <!DOCTYPE html>
+      <html lang="fr">
+      <head>
+        <style>
+          :root { --bg: #0f0f1a; --text: #e0e0e0; }
+          body { background: var(--bg); color: var(--text); font-family: monospace; }
+          .item { border-left: 3px solid #ff00ff; padding-left: 1rem; margin: 0.5rem 0; }
+        </style>
+        <script>
+          function refresh() {
+            fetch('/api/items')
+              .then(r => r.json())
+              .then(data => console.log(data));
+          }
+        </script>
+      </head>
+      <body>
+        <h1><?= htmlspecialchars($title) ?></h1>
+        <?php foreach ($items as $item): ?>
+          <div class="item"><?= htmlspecialchars($item) ?></div>
+        <?php endforeach; ?>
+        <button onclick="refresh()">Rafraîchir</button>
+      </body>
+      </html>
+
+    #+END_src
+  + Exemple Org + HTML + CSS
+
+    Ce bloc illustre un fichier .org où le markup Org (titres, listes, blocs de code, liens)
+    est rendu côté client via un export HTML. Le CSS personnalisé (via un bloc #+BEGIN_HTML <style>)
+    s'applique au rendu final. Les liens Org [[url][text]] sont convertis en balises <a href> lors de l'export.
+
+    #+BEGIN_src org
+
+      #+TITLE: Tutoriel
+      #+OPTIONS: H:3 num:t toc:nil
+      #+BEGIN_SRC org:
+        <style>
+          :root { --bg: #0a0a0f; --code-bg: #1a1a2e; }
+          body { background: var(--bg); color: #d0d0d0; max-width: 800px; margin: 0 auto; padding: 2rem; }
+          .org-code { background: var(--code-bg); padding: 1rem; border-radius: 4px; overflow-x: auto; }
+          a { color: #ff00ff; text-decoration: none; }
+          a:hover { text-decoration: underline; }
+        </style>
+      #+BEGIN_SRC
+
+    #+END_src
++ [X] Installer, suites de widget simplifiant l'installation.
++ [X] Tous les fichiers elisp doivent être généré depuis org à partir de init-revolution-mode.el.    
   + [ ] Fichier de Configuration [0/2]
     - [ ] function qui verifie si le fichier de configuration nommee XXXXX existe.
     - [ ] Si il n'existe pas affiche un buffer de presentation de Emacs-Revolution avec des parametres configurables. [0/6]
@@ -45,7 +140,7 @@
       * [ ] Lier cette fonction au fichier de configuration emacs-revolution-check-org
       * [ ] Autoriser/Valider l'installation
       * [ ] Permettre le choix de la durée avant mise a jour.
-  + [ ] *Docsgen*, /Documentation de votre code/ : [0/1]
+  + [ ] *Docsgen*, /Documentation de votre code/ : [0/2]
     - [ ] La documentation est générée de manière interactive ou
       à l’aide d’un raccourci clavier. Une fois créée,
       elle est automatiquement enregistrée sous le nom du projet,
@@ -55,14 +150,12 @@
     - [ ] Utiliser one.el ou emacs-ssg pour emuler un server web
       diffusant la documention org en page web,
       accessible depuis un racourcis(+interactive) clavier.
-  + [ ] Flux RSS [0/3]
+  + [ ] Flux RSS [0/4]
     - [ ] elfeed
     - [ ] barre d'affichage en haut de la fenêtre.
     - [ ] shortkey pour switcher afficher/cacher
     - [ ] shortkey pour afficher un formulaire pour ajouter un flux RSS.
-  + [-] Divers [2/5]
-    - [ ] .ac-php-conf.json si manquant création (touch) avec confirmation par l'utilisateur.
-      Puis génération des tags avec M-x ac-php-remake-tags .
+  + [-] Divers [2/17]
     - [X] Neotree verifier son installation.
     - [ ] Simplifier la création de nouveaux headers, peut-être proposer d'injecter l'URL de la boite pour laquelle le projet est développé.
     - [ ] elisp-demos
@@ -83,10 +176,10 @@
     - [ ] org-sidebar
     - [ ] all-the-icons
 
-*** VERIONS 1.x  [0/1]
+*** VERIONS 1.x [0/1]
 
 + [ ] Concevoir une interface pour utiliser le package "Emacs oauth2-auto"
   
 
-** Contact
+* Contact
    Email: contact@lugtech.fr
