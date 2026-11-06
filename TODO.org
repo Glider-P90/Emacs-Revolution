@@ -131,7 +131,7 @@
     #+END_src
 + [X] Installer, suites de widget simplifiant l'installation.
 + [X] Tous les fichiers elisp doivent être généré depuis org à partir de init-revolution-mode.el.    
-  + [ ] Fichier de Configuration [0/2]
+  * [ ] Fichier de Configuration [0/2]
     - [ ] function qui verifie si le fichier de configuration nommee XXXXX existe.
     - [ ] Si il n'existe pas affiche un buffer de presentation de Emacs-Revolution avec des parametres configurables. [0/6]
       * [ ] Chemin d'installation par defaut, modifiable.
@@ -140,7 +140,7 @@
       * [ ] Lier cette fonction au fichier de configuration emacs-revolution-check-org
       * [ ] Autoriser/Valider l'installation
       * [ ] Permettre le choix de la durée avant mise a jour.
-  + [ ] *Docsgen*, /Documentation de votre code/ : [0/2]
+  * [ ] *Docsgen*, /Documentation de votre code/ : [0/2]
     - [ ] La documentation est générée de manière interactive ou
       à l’aide d’un raccourci clavier. Une fois créée,
       elle est automatiquement enregistrée sous le nom du projet,
@@ -150,36 +150,48 @@
     - [ ] Utiliser one.el ou emacs-ssg pour emuler un server web
       diffusant la documention org en page web,
       accessible depuis un racourcis(+interactive) clavier.
-  + [ ] Flux RSS [0/4]
+  * [ ] Flux RSS [0/4]
     - [ ] elfeed
     - [ ] barre d'affichage en haut de la fenêtre.
     - [ ] shortkey pour switcher afficher/cacher
     - [ ] shortkey pour afficher un formulaire pour ajouter un flux RSS.
-  + [-] Divers [2/17]
-    - [X] Neotree verifier son installation.
-    - [ ] Simplifier la création de nouveaux headers, peut-être proposer d'injecter l'URL de la boite pour laquelle le projet est développé.
-    - [ ] elisp-demos
-    - [ ] bug-hunter
-    - [X] which-key
-      * [X] Affiche les complétions des shortcuts disponibles.
-      * [X] Affiche les shortcuts dans une frame en mode colonne a droite de la fenêtre.
-      * [X] Affiche les shortcuts du mode seulement en continue dans une frame en mode colonne a droite de la fenêtre.
-    - [ ] calfw-org
-    - [ ] multiple-cursors
-    - [ ] flycheck-package
-    - [ ] flycheck-posframe
-    - [ ] el-fly-indent-mode
-    - [ ] boxy-headings
-    - [ ] posframe
-    - [ ] le Header permet d'ajouter tous les utilisateur ayant modifié le fichier.
-    - [ ] org-project-capture
-    - [ ] org-sidebar
-    - [ ] all-the-icons
+  * [ ] Message qui bouble sur une liste de tips, raccourcis claviers, fonctionnement de Emacs Revolution,
+    Faire un don, etc...
 
-*** VERIONS 1.x [0/1]
+*** VERIONS 1.1 [1/3]
 
++ [ ] IHM: Simplifier la création de nouveaux headers, injecter l'URL de l'organisme
+      pour lequelloe le fichier est créé.
++ [ ] elisp-demos
++ [X] bug-hunter
+  * [X] which-key
+    - [X] Affiche les complétions des shortcuts disponibles.
+    - [X] Affiche les shortcuts dans une frame en mode colonne a droite de la fenêtre.
+    - [X] Affiche les shortcuts du mode seulement en continue dans une frame en mode colonne a droite de la fenêtre.
++ [ ] calfw-org
+  * [ ] multiple-cursors
+  * [ ] flycheck-package
+  * [ ] flycheck-posframe
+  * [ ] el-fly-indent-mode
+  * [ ] boxy-headings
+  * [ ] posframe
+  * [ ] org-project-capture
+  * [ ] org-sidebar
+  * [ ] all-the-icons
+
+
+*** VERIONS 1.x [0/3]
+
++ [ ] le Header permet d'ajouter tous les utilisateur ayant modifié le fichier.
 + [ ] Concevoir une interface pour utiliser le package "Emacs oauth2-auto"
-  
++ [ ] ecran scindé en deux:
+  * [ ] horitalement pour les écran en mode paysage.
+  * [ ] Verticalement pour les écran en mode profile.
+  * [ ] A gauche (paysage) sinon bas (vertical) pour la partie code, pour la seconde fenêtre
+    Affichage du contenue org dans un minibuffer
+  * [ ] le minibuffer doit afficher un titre lien remplaçant chaque code de bloc dans '#+BEGIN_SRC' '#+END_SRC',
+    et lorsque le cursor est positionné sur le titre lien, un message s'affiche sous le cursor indiquant,
+    le raccourci clavier pour sauter dans la première fenêtre à l'emplacement du début du bloc de code selectionné.  
 
 * Contact
    Email: contact@lugtech.fr
