@@ -100,12 +100,11 @@
 #+BEGIN_SRC emacs-lisp :lexical t
 
   (defun validate-url (url-er &rest ignore)
-    "Validate url."
-    (when (and (stringp url-er) (> (length url-er) 0))
-      (unless (string-match-p "\\(http\\|https\\)://" url-er)
-        (setq url-er (concat "https://" url-er)))
+    "Validate url. Return URL only if http(s)://, else nil."
+    (if (and (stringp url-er) (> (length url-er) 0)
+  	   (string-match-p "https?://" url-er))
+        url-er
       nil))
-
 #+END_SRC
 
 ** Delete useless Entry
@@ -127,12 +126,14 @@
   				:tag "feed-name"
   				:entry-format "%v"
   				:format "Nom: %v"
-  				:size 10)
+  				:size 10
+  				"")
   		 (widget-create 'editable-field
   				:tag "feed-url"
   				:entry-format "%v"
   				:format "URL: %v"
-  				:size 30)
+  				:size 30
+  				"")
   		 ))
 #+END_SRC
 
@@ -144,24 +145,29 @@
     "Add Feed in Emacs-Revolution from WIDGET."
     (let* ((entries (widget-get rss-form :children))
   	 (new-entry (car (reverse entries)))
+  	 (last-entry (car (cdr (reverse entries))))
   	 (total (length entries)))
       (when (length> entries 1)
-        (cl-loop for gp-entry in entries
+        (cl-loop for feed in entries
   	       for index from 1
-  	       do (message "(%d/%d)line" index total)
-  	       (let* ((feed gp-entry)
-  		      (feed-name (car (widget-value feed)))
-  		      (feed-url (validate-url (string-trim (car (cdr (widget-value feed)))))))
-  		 (message "[%s] Name[%s] url[%s]" (widget-get gp-entry :tag) feed-name feed-url)
-  		 (if feed-url
-  		     (progn (message "add feed Name[%s] url[%s]" feed-name feed-url))
-  		   (progn (message "Warning: %s url is not valid, please correct it." feed-url))
-  		   (widget-editable-list-delete-at rss-form new-entry))
-  		 )
-  	       )
+  	       do
+  	       (if-let* ((feed-url (validate-url (string-trim (car (cdr (widget-value feed))))))
+  			   (feed-name (if (and (stringp feed-url) (stringp (car (widget-value feed)))
+  					       (= (length (car (widget-value feed))) 0))
+  					  (get-domain feed-url)
+  					(car (widget-value feed)))))
+  		   (progn (message "add feed Name[%s] url[%s]" feed-name feed-url)
+  			  (widget-editable-list-delete-at rss-form last-entry)
+  			  (cl-return))
+  		 (progn (message "Warning: %s url is not valid, please correct it." feed-url)
+  			(widget-editable-list-delete-at rss-form new-entry)
+  			(cl-return))
+  		 ))
         )
       )
     )
+
+
 #+END_SRC
 
 ** Form Installer
