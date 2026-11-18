@@ -141,31 +141,45 @@
 #+NAME: Installer
 #+BEGIN_SRC emacs-lisp :lexical t
 
-  (defun rss-form-filter (rss-form &rest ignore)
-    "Add Feed in Emacs-Revolution from WIDGET."
-    (let* ((entries (widget-get rss-form :children))
-  	 (new-entry (car (reverse entries)))
-  	 (last-entry (car (cdr (reverse entries))))
-  	 (total (length entries)))
-      (when (length> entries 1)
-        (cl-loop for feed in entries
-  	       for index from 1
-  	       do
-  	       (if-let* ((feed-url (validate-url (string-trim (car (cdr (widget-value feed))))))
-  			   (feed-name (if (and (stringp feed-url) (stringp (car (widget-value feed)))
-  					       (= (length (car (widget-value feed))) 0))
-  					  (get-domain feed-url)
-  					(car (widget-value feed)))))
-  		   (progn (message "add feed Name[%s] url[%s]" feed-name feed-url)
-  			  (widget-editable-list-delete-at rss-form last-entry)
-  			  (cl-return))
-  		 (progn (message "Warning: %s url is not valid, please correct it." feed-url)
-  			(widget-editable-list-delete-at rss-form new-entry)
-  			(cl-return))
-  		 ))
+    (defun rss-form-filter (rss-form &rest ignore)
+      "Add Feed in Emacs-Revolution from WIDGET."
+      (let* ((entries (widget-get rss-form :children))
+    	 (new-entry (car (reverse entries)))
+    	 (last-entry (car (cdr (reverse entries))))
+    	 (total (length entries)))
+        (when (length> entries 1)
+          (cl-loop for feed in entries
+    	       for index from 1
+    	       do
+    	       (if-let* ((feed-url (validate-url (string-trim (car (cdr (widget-value feed))))))
+    			   (feed-name (if (and (stringp feed-url) (stringp (car (widget-value feed)))
+    					       (= (length (car (widget-value feed))) 0))
+    					  (get-domain feed-url)
+    					(car (widget-value feed)))))
+    		   (progn (message "add feed Name[%s] url[%s]" feed-name feed-url)
+    			  (widget-editable-list-delete-at rss-form last-entry)
+    			  (previous-line 1)
+    			  (widget-create 'group
+    					 (widget-create 'push-button
+    							:tag "Retirer"
+    							:action (lambda (widget &rest ignore)
+  								  (widget-default-delete (widget-get widget :parent)))
+  							)
+    					 (widget-create 'url-link
+    							:button-prefix "[ "
+    							:button-suffix " ]"
+    							:tag feed-name
+  							feed-url
+  							)
+  					 )
+    			  (cl-return))
+    		 (progn (message "Warning: %s url is not valid, please correct it." feed-url)
+    			(widget-editable-list-delete-at rss-form new-entry)
+    			(cl-return))
+    		 ))
+          )
         )
       )
-    )
 
 
 #+END_SRC
