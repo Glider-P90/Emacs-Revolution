@@ -6,9 +6,11 @@ echo "[1/4] Création du dossier ~/.emacs.d/..."
 mkdir -p $HOME/.emacs.d/
 
 echo "[2/4] Copie des extensions..."
+mkdir -p $HOME/.emacs.d/revolution
 cp -r $PWD/.emacs.d/revolution $HOME/.emacs.d/
 
 echo "[3/4] Copie des dépendances..."
+mkdir -p $HOME/.emacs.d/github
 cp -r $PWD/.emacs.d/github $HOME/.emacs.d/
 
 echo "[4/4] Copie du fichier de configuration..."
