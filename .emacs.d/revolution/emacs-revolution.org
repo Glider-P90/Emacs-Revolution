@@ -43,10 +43,15 @@ Basic Configuration from emacs
   (setq install-revolution-steps 0)
 #+END_SRC
 
-** Main Setup
-#+NAME: Emacs Main Setup
+** Emacs Revolution Setup
+
+Liste des variables globales du coeur d'Emacs Revolution et de ses fonctionnalitées.
+
+#+NAME: Emacs Revolution Setup
 #+BEGIN_SRC emacs-lisp : lexical t
+
   (global-set-key [(control z)] 'undo)
+
   (defgroup emacs-revolution nil
     "Emacs Revolution."
     :group 'tools)
@@ -56,12 +61,17 @@ Basic Configuration from emacs
     :type 'string
     :group 'emacs-revolution)
 
+  (defcustom er-buffer-name "*Bienvenue sur Emacs Revolution*"
+    "Buffer name of emacs-revolution installer."
+    :type 'string
+    :group 'emacs-revolution)
+
   (defcustom er-init-dir
     (expand-file-name "~/.emacs.d/")
     "Root of the project Emacs-Revolution."
     :type 'directory
     :group 'emacs-revolution)
-  
+
   (defcustom er-main-dir
     (expand-file-name (concat er-init-dir "/revolution/"))
     "Root of the project Emacs-Revolution."
@@ -200,10 +210,15 @@ Basic Configuration from emacs
   ;; ------------------------------------------------------------
   ;; Sécurité & debug
   ;; ------------------------------------------------------------
-  
+
   (straight-use-package 'warnings)
+
   (setq debug-on-error t)
+
   (setq warning-minimum-level :error)
+
+  (straight-use-package '(term-keys :type git :host github :repo "CyberShadow/term-keys"))
+  (term-keys-mode t)
 #+END_SRC
 
 ** Headers

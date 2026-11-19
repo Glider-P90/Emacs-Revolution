@@ -145,45 +145,48 @@
 #+NAME: Installer
 #+BEGIN_SRC emacs-lisp :lexical t
 
-  (defun rss-form-filter (rss-form &rest ignore)
-    "Add Feed in Emacs-Revolution from WIDGET."
-    (let* ((entries (widget-get rss-form :children))
-  	 (new-entry (car (reverse entries)))
-  	 (last-entry (car (cdr (reverse entries))))
-  	 (feed last-entry)
-  	 (total (length entries)))
-      (when (length> entries 1)
-        (if-let* ((feed-url (validate-url (string-trim (car (cdr (widget-value feed))))))
-  		(feed-name (if (and (stringp feed-url) (stringp (car (widget-value feed)))
-  				    (= (length (string-trim (car (widget-value feed)))) 0))
-  			       (get-domain feed-url)
-  			     (string-trim (car (widget-value feed))))))
-  	  (progn (message "Adding feed %s: %s" feed-name feed-url)
-  		 (widget-editable-list-delete-at rss-form last-entry)
-  		 (beginning-of-line)
-  		 (next-line 1)
-  		 (let ((feed (widget-create 'group
-  				:tag feed-name
-  				:format "%v \n"
-  				'(push-button
-  				  :tag "Retirer"
-  				  :action (lambda (widget &rest ignore)
-  					    (widget-default-delete (widget-get widget :parent)))
-  				  )
-  				`(url-link
-  				  :button-prefix "[ "
-  				  :button-suffix " ]"
-  				  :tag ,feed-name
-  				  :value ,feed-url
-  				  )
-  				)))
-  		   (push 'rss-feeds feed)))
-  	(progn (message "Warning: %s url is not valid, please correct it." feed-url)
-  	       (widget-editable-list-delete-at rss-form new-entry))
-  	)
+    (defun rss-form-filter (rss-form &rest ignore)
+      "Add Feed in Emacs-Revolution from WIDGET."
+      (let* ((entries (widget-get rss-form :children))
+    	 (new-entry (car (reverse entries)))
+    	 (last-entry (car (cdr (reverse entries))))
+    	 (feed last-entry)
+    	 (total (length entries)))
+        (when (length> entries 1)
+          (if-let* ((feed-url (validate-url (string-trim (car (cdr (widget-value feed))))))
+    		(feed-name (if (and (stringp feed-url) (stringp (car (widget-value feed)))
+    				    (= (length (string-trim (car (widget-value feed)))) 0))
+    			       (get-domain feed-url)
+    			     (string-trim (car (widget-value feed))))))
+    	  (progn (message "Adding feed %s: %s" feed-name feed-url)
+    		 (widget-editable-list-delete-at rss-form last-entry)
+    		 (beginning-of-line)
+    		 (next-line 1)
+    		 (push (list :name feed-name :url feed-url :verified t :level 0)
+  		       er-feeds-list)
+  		 (dolist (feed er-feeds-list)
+  		   (let* ((f-name (plist-get feed :name))
+  			  (f-url  (plist-get feed :url)))
+  		     (widget-insert
+  		      (widget-create 'group
+  				     :tag f-name
+  				     :format "%v \n"
+  				     '(push-button
+  				       :tag "Retirer"
+  				       :action (lambda (widget &rest ignore)
+  						 (widget-default-delete
+  						  (widget-get widget :parent))))
+  				     `(url-link
+  				       :button-prefix "[ "
+  				       :button-suffix " ]"
+  				       :tag ,f-name
+  				       :value ,f-url))))))
+  	  (progn (message "Warning: %s url is not valid, please correct it." feed-url)
+    	       (widget-editable-list-delete-at rss-form new-entry))
+    	)
+          )
         )
       )
-    )
 #+END_SRC
 
 ** Form Installer
@@ -232,8 +235,8 @@
       (erase-buffer)
       (setq inhibit-startup-screen t)
       (setq inhibit-read-only nil)
-      (switch-to-buffer "*Bienvenue sur Emacs Revolution*")
-      (set-buffer "*Bienvenue sur Emacs Revolution*")
+      (switch-to-buffer er-buffer-name)
+      (set-buffer er-buffer-name)
       (widget-insert
        (with-temp-buffer
          (insert-file-contents (format "%s%s" er-main-dir "/assets/ascii-art-emacs-revolution-welcome.txt"))
