@@ -1,25 +1,25 @@
-;;; emacs-revolution.el --- -*- lexical-binding: t; -*-
-;;; package --- Summary
-;;; Commentary:
-;; ======================================================================
-;; @license Copyright 2016-2026 Pierre Schebath
-;; ---------------------
-;; 
-;; @brief This file has been written by Pierre Etienne Charles Schebath Cazoulat.
-;; 
-;; This source code, its related data and algorithms are Pierre Schebath
-;; Proprietary Information and shall be protected in strict confidence by
-;; the party who receives it.  It shall not be disclosed nor copied nor
-;; duplicated in whole or in part to any third party without Pierre Schebath
-;; written prior permission.
-;; ======================================================================
-;; emacs-revolution.el for Emacs Revolution in /home/glider/.emacs.d/revolution/
-;; @description: Emacs Dev-tools.
-;; 
-;; Started on  Mon Jan 26 02:49:53 2026 @author Glider
-;; Last update Thu Apr 23 09:49:11 2026 @author Glider
-;; ======================================================================
-;;; Code:
+### emacs-revolution.el --- -*- lexical-binding: t; -*-
+### package --- Summary
+### Commentary:
+## ======================================================================
+## @license Copyright 2016-2026 Pierre Schebath
+## ---------------------
+## 
+## @brief This file has been written by Pierre Etienne Charles Schebath Cazoulat.
+## 
+## This source code, its related data and algorithms are Pierre Schebath
+## Proprietary Information and shall be protected in strict confidence by
+## the party who receives it.  It shall not be disclosed nor copied nor
+## duplicated in whole or in part to any third party without Pierre Schebath
+## written prior permission.
+## ======================================================================
+## emacs-revolution.el for Emacs Revolution in /home/glider/.emacs.d/revolution/
+## @description: Emacs Dev-tools.
+## 
+## Started on  Mon Jan 26 02:49:53 2026 @author Glider
+## Last update Thu Apr 23 09:49:11 2026 @author Glider
+## ======================================================================
+### Code:
 
 * Emacs Revolution
 
@@ -51,18 +51,24 @@ Basic Configuration from emacs
     "Emacs Revolution."
     :group 'tools)
 
-  (defcustom emacs-revolution-version "0.7b"
+  (defcustom er-version "1.0.a"
     "This variable indicate the project version of Emacs Revolution."
     :type 'string
     :group 'emacs-revolution)
 
-  (defcustom emacs-revolution-dir
-    (expand-file-name "~/.emacs.d/revolution/")
+  (defcustom er-init-dir
+    (expand-file-name "~/.emacs.d/")
+    "Root of the project Emacs-Revolution."
+    :type 'directory
+    :group 'emacs-revolution)
+  
+  (defcustom er-main-dir
+    (expand-file-name (concat er-init-dir "/revolution/"))
     "Root of the project Emacs-Revolution."
     :type 'directory
     :group 'emacs-revolution)
 
-  (defcustom lang-settings-dir (expand-file-name "revolution/modes/" user-emacs-directory)
+  (defcustom er-lang-settings-dir (expand-file-name "revolution/modes/" user-emacs-directory)
     "Folder containing the configuration files by major-mode."
     :type 'directory
     :group 'emacs-revolution)
@@ -148,8 +154,8 @@ Basic Configuration from emacs
       (package-refresh-contents))
     (package-install 'use-package))
   (eval-and-compile
-      (setq use-package-always-ensure t
-            use-package-expand-minimally t))
+    (setq use-package-always-ensure t
+  	use-package-expand-minimally t))
 
   (use-package auto-package-update
     :custom
@@ -168,12 +174,36 @@ Basic Configuration from emacs
     :after quelpa
     :config
     (quelpa-use-package-activate-advice))
+
+  (defvar bootstrap-version)
+  (setq package-enable-at-startup nil)
+  (let ((bootstrap-file
+         (expand-file-name
+          "straight/repos/straight.el/bootstrap.el"
+          (or (bound-and-true-p straight-base-dir)
+              user-emacs-directory)))
+        (bootstrap-version 7))
+    (unless (file-exists-p bootstrap-file)
+      (with-current-buffer
+          (url-retrieve-synchronously
+           "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+           'silent 'inhibit-cookies)
+        (goto-char (point-max))
+        (eval-print-last-sexp)))
+    (load bootstrap-file nil 'nomessage))
+  (straight-use-package 'el-patch)
+#+END_SRC
+
+** Sécurité & debug
+#+NAME: SÉCURITÉ & DEBUG
+#+BEGIN_SRC emacs-lisp :lexical t
   ;; ------------------------------------------------------------
   ;; Sécurité & debug
   ;; ------------------------------------------------------------
-  ;;(use-package warnings :ensure t)
-  ;;(setq debug-on-error t)
-  ;;(setq warning-minimum-level :error)
+  
+  (straight-use-package 'warnings)
+  (setq debug-on-error t)
+  (setq warning-minimum-level :error)
 #+END_SRC
 
 ** Headers
@@ -303,7 +333,7 @@ Basic Configuration from emacs
     (er-finalize-configuration-mode)
     (add-hook 'emacs-startup-hook
     	    (lambda ()
-    	      (message "Emacs Revolution version %s loaded on %2.3fs mode." emacs-revolution-version
+    	      (message "Emacs Revolution version %s loaded on %2.3fs mode." er-version
     		       (float-time
     			(time-subtract after-init-time before-init-time)))))
     (setq er-done (format-time-string "%s")))

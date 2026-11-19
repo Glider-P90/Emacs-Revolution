@@ -38,16 +38,15 @@
   ;;;;;;;;;                            ;;;;;;;;;
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-  (defvar install-current-step 0)
-  (defvar install-total-steps 5)
-  (defvar user-feeds '((name . "")
-  		     (url . "")
-  		     (status . nil))) ;;; nil non-initiated, "on" connected, "off" disabled, "ko" not working
+  (defvar e-r-install-step-marker "# Step %d)")
+  (defvar e-r-welcome "*Bienvenue sur Emacs Revolution*")
 
   (require 'widget)
 
   (eval-when-compile
     (require 'wid-edit))
+
+  (straight-use-package 'textui)
 
   (require 'url)
   (require 'url-util)
@@ -80,8 +79,11 @@
 #+BEGIN_SRC emacs-lisp :lexical t
 
   (defun get-domain (feed-url-string &rest ignore)
-    "Extract host from FEED-URL-STRING."
-    (url-domain (url-generic-parse-url (url-unhex-string feed-url-string))))
+    "Extract name from FEED-URL-STRING."
+    (when-let* ((feed-name (url-host (url-generic-parse-url (url-unhex-string feed-url-string)))))
+      (progn (replace-regexp-in-string "\\." "-" feed-name)
+  	   feed-name)))
+
 #+END_SRC
 
 ** Append Feed to Feeds List
@@ -118,22 +120,24 @@
 #+NAME: Installer
 #+BEGIN_SRC emacs-lisp :lexical t
 
+  (defvar rss-feeds
+    (widget-create 'list))
   (defvar rss-editable-line
     (widget-create 'group
-  		 :format "%v "
   		 :tag "rss"
-  		 (widget-create 'editable-field
-  				:tag "feed-name"
-  				:entry-format "%v"
-  				:format "Nom: %v"
-  				:size 10
-  				"")
-  		 (widget-create 'editable-field
-  				:tag "feed-url"
-  				:entry-format "%v"
-  				:format "URL: %v"
-  				:size 30
-  				"")
+  		 :format "%v "
+  		 '(editable-field
+  		  :tag "feed-name"
+  		  :entry-format "%v"
+  		  :format "Nom: %v"
+  		  :size 10
+  		  "")
+  		 '(editable-field
+  		  :tag "feed-url"
+  		  :entry-format "%v"
+  		  :format "URL: %v"
+  		  :size 30
+  		  "")
   		 ))
 #+END_SRC
 
@@ -151,31 +155,33 @@
       (when (length> entries 1)
         (if-let* ((feed-url (validate-url (string-trim (car (cdr (widget-value feed))))))
   		(feed-name (if (and (stringp feed-url) (stringp (car (widget-value feed)))
-  				    (= (length (car (widget-value feed))) 0))
+  				    (= (length (string-trim (car (widget-value feed)))) 0))
   			       (get-domain feed-url)
-  			     (car (widget-value feed)))))
+  			     (string-trim (car (widget-value feed))))))
   	  (progn (message "Adding feed %s: %s" feed-name feed-url)
   		 (widget-editable-list-delete-at rss-form last-entry)
-  		 (previous-line 1)
   		 (beginning-of-line)
-  		 (widget-create 'group
-  				(widget-create 'push-button
-  					       :tag "Retirer"
-  					       :action (lambda (widget &rest ignore)
-  							 (widget-default-delete (widget-get widget :parent)))
-  					       )
-  				(widget-create 'url-link
-  					       :button-prefix "[ "
-  					       :button-suffix " ]"
-  					       :tag feed-name
-  					       feed-url
-  					       )
-  				)
-  		 )
+  		 (next-line 1)
+  		 (let ((feed (widget-create 'group
+  				:tag feed-name
+  				:format "%v \n"
+  				'(push-button
+  				  :tag "Retirer"
+  				  :action (lambda (widget &rest ignore)
+  					    (widget-default-delete (widget-get widget :parent)))
+  				  )
+  				`(url-link
+  				  :button-prefix "[ "
+  				  :button-suffix " ]"
+  				  :tag ,feed-name
+  				  :value ,feed-url
+  				  )
+  				)))
+  		   (push 'rss-feeds feed)))
   	(progn (message "Warning: %s url is not valid, please correct it." feed-url)
-  	       (widget-editable-list-delete-at rss-form new-entry)
-  	       )
-  	))
+  	       (widget-editable-list-delete-at rss-form new-entry))
+  	)
+        )
       )
     )
 #+END_SRC
@@ -186,34 +192,26 @@
 
   (defun form-installer ()
     "Display form's install."
-    (interactive)
-    (let ((dir-dep-widget)
-  	(auto-maj-widget)
-  	(rss-list-widget)
-  	(widget-example-repeat))
-      (save-excursion
-        (goto-char (- (buffer-size) (length "\n\n[Installer]")))
-        (setq auto-maj-widget
-  	    (widget-create 'radio-button-choice
-  			   :format "\nPlannification des mise a jour automatique?\n%[%v%]\n\t************************\n"
-  			   :validate (lambda (widget &rest ignore)
-  				       (if (string= (widget-value widget) "Oui")
-  					   (er-update-is-enable t)
-  					 (er-update-is-enable nil)))
-  			   :value "Oui"
-  			   '(item "Oui") '(item "Non")))
-        
-        (setq rss-list-widget
-  	    (widget-create 'editable-list
-  			   :tag "rss"
-  			   :value '("titi")
-  			   :entry-format "\n%d %v"
-  			   :format "\nSouhaitez vous ajouter des flux RSS a suivre?\n%i%v\n\n\t************************\n"
-  			   :notify #'rss-form-filter
-  			   rss-editable-line
-  			   ))
-        (widget-setup)
-        (setq install-current-step 1))))
+    (save-excursion
+    (goto-char (search-backward "# Step 1" 1 nil))
+    (next-line 4)
+    (beginning-of-line)
+    (widget-create 'radio-button-choice
+  		 :format "\nPlannification des mise a jour automatique?\n%[%v%]\n\t************************\n"
+  		 :validate (lambda (widget &rest ignore)
+  			     (if (string= (widget-value widget) "Oui")
+  				 (er-update-is-enable t)
+  			       (er-update-is-enable nil)))
+  		 :value "Oui"
+  		 '(item "Oui") '(item "Non"))
+    (widget-create 'editable-list
+  		 :tag "rss"
+  		 :value '("titi")
+  		 :entry-format "\n%d %v"
+  		 :format "\nSouhaitez vous ajouter des flux RSS a suivre?\n%i%v\n\n\t************************\n"
+  		 :notify #'rss-form-filter
+  		 rss-editable-line
+  		 )))
 #+END_SRC
 
 ** Install Emacs revolution
@@ -222,51 +220,55 @@
 
   (defun install-emacs-revolution ()
     "Install Emacs Revolution."
-    (message "Installing, please wait until message \"Done, you can exit safely\".")
-    (when (= install-current-step install-total-steps)
-      (message "Done, you can exit safely.")))
-
+    (message "Installing, please wait until message \"Done, you can exit safely\"."))
 #+END_SRC
 
 ** Welcome Widget
 #+NAME: Installer
 #+BEGIN_SRC emacs-lisp :lexical t
-  
+
   (defun welcome-widget ()
     "Welcome to install."
-    (interactive)
-    (setq inhibit-startup-screen t)
-    (let ((inhibit-read-only t))
+      (erase-buffer)
+      (setq inhibit-startup-screen t)
+      (setq inhibit-read-only nil)
       (switch-to-buffer "*Bienvenue sur Emacs Revolution*")
       (set-buffer "*Bienvenue sur Emacs Revolution*")
-      (widget-insert (concat "Bienvenue sur Emacs Revolution "
-        			   emacs-revolution-version
-        			   "\n\nChoisir le mode d'installation :\n"))
-      (setq install-mode-widget
-        	  (widget-create 'radio-button-choice
-        			 :value "default"
-        			 :notify (lambda (widget &rest ignore)
-        				   (when (string= (widget-value install-mode-widget) "custom")
-        				     (form-installer)
-        				     (message "Choice install [%s] mode" (widget-value widget))))
-        			 '(item "default") '(item "custom")))
+      (widget-insert
+       (with-temp-buffer
+         (insert-file-contents (format "%s%s" er-main-dir "/assets/ascii-art-emacs-revolution-welcome.txt"))
+         (buffer-string)))
+      (widget-insert "# Step 1)\n\n Please choose the installation method:\n")
+    (widget-create 'radio-button-choice
+  		   :entry-format "\t\t\t\t\t%b %v"
+  		   :value "Automatic"
+  		   :notify (lambda (widget &rest ignore)
+  			     (if (string= (widget-value widget) "Customize")
+  				 (form-installer)
+  			       (message "Choice install [%s] mode" (widget-value widget))))
+  		   '(item "Automatic") '(item "Customize"))
       (widget-insert "\n\t\t")
       (widget-create 'push-button
-        		   :value "Installer"
-        		   :button-face '(:foreground "brightwhite" :background "black")
-        		   :value-face '(:foreground "brightwhite" :background "black")
-        		   :notify (lambda (widget &rest ignore)
-        			     (if (string= (widget-value widget) "Installer")
-        				 (install-emacs-revolution))))
+  		   :value "Installer"
+  		   :button-face '(:foreground "brightwhite" :background "black")
+  		   :value-face '(:foreground "brightwhite" :background "black")
+  		   :notify (lambda (widget &rest ignore)
+  			     (if (string= (widget-value widget) "Installer")
+  				 (install-emacs-revolution))))
       (use-local-map widget-keymap)
-      (widget-setup)
-      (when (get-buffer "*GNU Emacs*")
-        (kill-buffer "*GNU Emacs*"))
-      (when (get-buffer "*scratch*")
-        (kill-buffer "*scratch*"))
-      ))
+     (when (get-buffer "*GNU Emacs*")
+       (kill-buffer "*GNU Emacs*"))
+     (when (get-buffer "*scratch*")
+       (kill-buffer "*scratch*"))
+      (widget-insert
+       (with-temp-buffer
+         (insert-file-contents (format "%s%s" er-main-dir "/assets/ascii-art-emacs-revolution.txt"))
+         (buffer-string)))
+     (widget-setup)
+     (goto-char (search-backward "# Step 1" 1 nil))
+     )
 
-  (add-hook 'after-init-hook #'welcome-widget)
+   (add-hook 'after-init-hook #'welcome-widget)
 #+END_SRC
 
 ** End Of File
